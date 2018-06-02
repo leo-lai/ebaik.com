@@ -1,6 +1,9 @@
 import home from '../pages/home'
 import shopcar from '../pages/shopcar'
-// const OrderPayRecord = () => import('../pages/order-pay-record').then(m => m.default)
+import me from '../pages/me'
+const register1 = () => import('../pages/register1').then(m => m.default)
+const register2 = () => import('../pages/register2').then(m => m.default)
+const login = () => import('../pages/login').then(m => m.default)
 
 const routes = [
   {
@@ -19,6 +22,39 @@ const routes = [
     meta: {
       title: '购物车',
       tabbar: true
+    }
+  },
+  {
+    path: '/me',
+    name: 'me',
+    component: me,
+    meta: {
+      title: ''
+    }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: login,
+    meta: {
+      title: '登录',
+      regbtn: true
+    }
+  },
+  {
+    path: '/register1',
+    name: 'register1',
+    component: register1,
+    meta: {
+      title: ''
+    }
+  },
+  {
+    path: '/register2',
+    name: 'register2',
+    component: register2,
+    meta: {
+      title: '快速注册'
     }
   }
 ]

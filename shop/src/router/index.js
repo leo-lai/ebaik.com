@@ -133,7 +133,7 @@ router.afterEach((to, from) => {
 
   store.commit('updateLoading', { loading: false })
   storage.session.set('page_history', router.pageHistory)
-  utils.setTitle(to.meta.title)
+  // utils.setTitle(to.meta.title)
   router.from = from
 })
 

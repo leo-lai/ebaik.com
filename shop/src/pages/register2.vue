@@ -1,10 +1,5 @@
 <template>
   <view-box>
-    <div class="l-login-logo">
-      <img width="30%" src="../assets/images/20180602004.png" alt="">
-      <p class="l-txt-gray l-fs-l l-margin-t-m">欢迎您回来，么么哒</p>
-    </div>
-
     <group title="">
       <x-input placeholder="手机号码" class="weui-vcode">
         <x-button slot="right" type="primary" mini>获取验证码</x-button>
@@ -14,12 +9,7 @@
     
     <br>
     <div class="l-margin">
-      <x-button type="primary">登录</x-button>
-    </div>
-    <br>
-    <div class="l-txt-center" style="width: 60%; margin: auto;">
-      <divider>合作账号登录</divider>
-      <i class="l-icon l-fs-40 l-txt-green">&#xe606;</i>
+      <x-button type="primary">立即注册</x-button>
     </div>
     
   </view-box>
@@ -28,7 +18,7 @@
 <script>
 import { Divider } from 'vux'
 export default {
-  name: 'login',
+  name: 'register2',
   components: {
     Divider
   },

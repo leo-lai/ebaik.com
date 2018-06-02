@@ -6,7 +6,10 @@
           <swipeout-button @click.native="delGoods(item)" background-color="rgb(247, 76, 49)">删除</swipeout-button>
         </div>
         <div slot="content" class="l-flex-hc l-shopcar-item vux-1px-t">
-          <icon type="circle" class="_check"></icon>
+          <div class="_check" @click="item.checked = !item.checked">
+            <icon v-if="item.checked" type="success"></icon>
+            <icon v-else type="circle"></icon>
+          </div>
           <div class="_thumb" :style="{backgroundImage: 'url(' + item.thumb +')' }"></div>
           <div class="l-rest">
             <h4 class="l-txt-wrap1">{{item.name}}</h4>
@@ -22,6 +25,29 @@
         </div>
       </swipeout-item>
     </swipeout>
+    <div class="l-shopcar-bottom l-margin-t">
+      <div class="_inner">
+        <div class="_tip">
+          温馨提示：<br>
+          1、选择商品后10分钟内未付款，系统将自动清空购物车。<br>
+          2、本店送货地址为：天泰一路1号范围。
+        </div>
+        <div class="l-flex-hc">
+          <div class="_check">
+            <icon v-if="checkAll" type="success"></icon>
+            <icon v-else type="circle"></icon>
+            <span>全选(0)</span>
+          </div>
+          <div class="l-rest"></div>
+          <div class="_price">
+            合计：
+            <span class="l-rmb l-fs-l l-txt-theme">0.00</span>  
+          </div>
+          <x-button class="_primary" type="primary">去结算</x-button>
+        </div>
+      </div>
+      <div class="_placeholder"></div>
+    </div>
   </view-box>
 </template>
 
@@ -34,41 +60,50 @@ export default {
   },
   data() {
     return {
-      goodsList: [
-        {
-          id: 1,
-          checked: false,
-          thumb: require('../assets/images/temp-001.jpg'),
-          name: '歌飞龙波尔多红葡萄酒歌飞龙波尔多红葡萄酒',
-          num: 1,
-          price: '150.00'
-        },
-        {
-          id: 2,
-          checked: false,
-          thumb: require('../assets/images/temp-001.jpg'),
-          name: '歌飞龙波尔多红葡萄酒歌飞龙波尔多红葡萄酒',
-          num: 1,
-          price: '150.00'
-        }
-      ],
+      checkAll: false,
+      goodsList: [],
       number: 1,
     }
   },
   methods: {
     delGoods() {
 
+    },
+    getList() {
+      let tempArr = new Array(1,1,1,1,1,1,1,1,1,1)
+      console.log(tempArr)
+      this.goodsList = tempArr.map((item, index) => {
+        console.log(item)
+        return {
+          id: index + 1,
+          checked: false,
+          thumb: require('../assets/images/temp-001.jpg'),
+          name: '歌飞龙波尔多红葡萄酒歌飞龙波尔多红葡萄酒',
+          num: index + 1,
+          price: (150 + index).toFixed(2)
+        }
+      })
     }
   },
-  mounted() {},
+  mounted() {
+    this.getList()
+  },
   beforeDestroy() {
-    // this.$api.abort()
+    this.$api.abort()
   }
 };
 </script>
 
 <style lang="less">
 @theme-color: #af1459;
+.l-shopcar-bottom{
+  ._tip{background-color: #fff; padding: 5px 15px; font-size: 12px;}
+  ._inner{position: absolute; bottom: 0; left: 0; right: 0;  background-color: #eee;}
+  ._check{margin-left: 10px;}
+  ._price{margin: 0 10px;}
+  ._primary{width: 100px; font-size: 14px; padding: 7px 20px; border-radius: 0;}
+  ._placeholder{height: 47px;}
+}
 .l-shopcar-item{
   padding: 5px 15px;
   ._check{margin-left: -5px;}

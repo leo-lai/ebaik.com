@@ -1,43 +1,73 @@
 <template>
-  <view-box>
+  <view-box style="z-index: 10;">
     <div class="l-user-card">
-      <div v-if="userInfo" class="l-flex-hc l-padding l-margin-t">
-        <div class="_avatar l-bg-co" :style="{'background-image':'url('+ userInfo.headPortrait +')'}"></div>
-        <div class="l-rest">
-          <h4 class="l-txt-wrap1">{{userInfo.userName || userInfo.phoneNumber}}</h4>
-          <router-link class="_btn1" to="/me/info">账户资料</router-link>
+      <div class="_avatar" :style="{'background-image': 'url(' + $config.avatar +')'}"></div>
+      <div class="_placeholder"></div>
+      <div class="_nametel l-flex-hc">
+        <div class="_name">
+          <i class="l-icon">&#xe67a;</i>
+          <span>赖小帅</span>
         </div>
-        <div class="_btn2">
-          <img src="../assets/images/icon-004.png" alt="">
-          <router-link to="/password">修改密码</router-link>
+        <div class="_tel">
+          <i class="l-icon">&#xe613;</i>
+          <span>18602029524</span>
         </div>
-      </div>
-
-      <div v-else class="l-padding l-txt-center l-flex-hc" style="width: 70%; margin: 10% auto;">
-        <x-button link="/login?to=/me">账号登录</x-button>
-        <span class="l-margin-l"></span>
-        <x-button link="/register?to=/me">注册账号</x-button>
       </div>
     </div>
-    <div class="l-bg-white l-padding-t">
-      <div class="l-zoom">
-        <group style="margin-top:-1px;" gutter="0">
-          <cell title="预约单" link="/order/list1">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-001.png">
-          </cell>
-          <cell title="订购单" :link="orderLink">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-001.png">
-          </cell>
-          <cell title="寻车记录" link="/car/seek/list">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-002.png">
-          </cell>
-          <cell :title="loanTitle" link="/loan/list">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-003.png">
-          </cell>
-        </group>
+    <div class="l-user-other l-flex-hc">
+      <div class="_grade">
+        <p class="l-fs-xs">还需850个积分升级</p>
+        <h3 class="l-margin-t-s">普通会员</h3>
+      </div>
+      <div class="l-rest">
+        <div class="_line vux-1px-l"></div>  
+      </div>
+      <div class="_qrcode">
+        <img src="../assets/images/temp-002.jpg" alt="">
+      </div>
+      <div class="l-rest">
+        <div class="_line vux-1px-l"></div>  
+      </div>
+      <div class="_score">
+        <b>0分</b>
+        <p>积分</p>
+      </div>
+      <div class="l-rest">
+        <div class="_line vux-1px-l"></div>  
+      </div>
+      <div class="_redpack">
+        <b>0个</b>
+        <p>红包</p>
       </div>
     </div>
-
+    <div class="l-bg-white l-margin-t">
+      <group gutter="0">
+        <cell title="我的钱包" link="/">
+          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
+        </cell>
+        <cell title="我的订单" link="/">
+          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-021.png">
+        </cell>
+        <cell title="地址管理" link="/">
+          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-022.png">
+        </cell>
+        <cell title="我的收藏" link="/">
+          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-023.png">
+        </cell>
+        <cell title="积分商城" link="/">
+          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-024.png">
+        </cell>
+        <cell title="我要加盟" link="/">
+          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-025.png">
+        </cell>
+        <cell title="意见反馈" link="/">
+          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
+        </cell>
+        <cell title="系统设置" link="/">
+          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-027.png">
+        </cell>
+      </group>
+    </div>
   </view-box>
 </template>
 
@@ -49,47 +79,44 @@ export default {
   },
   data () {
     return {
-      userInfo: null,
-      orderLink: '/order/list3',
-      loanTitle: ''
+      userInfo: null
     }
   },
   methods: {
   },
   mounted() {
-    this.$api.user.getInfo().then(data => {
-      console.log(data)
-      this.userInfo = data
-      if(data.userType == 2) {
-        this.orderLink = '/order/list2'
-        this.loanTitle = '垫资申请记录'
-      }else{
-        this.orderLink = '/order/list3'
-        this.loanTitle = '贷款申请记录'
-      }
-    })
+    
   }
 }
 </script>
 
 <style lang="less">
+@theme-color: #af1459;
 .l-user-card{
-  position: relative; height: 150px; overflow: hidden; color: #fff;
-  background: #fff url(../assets/images/20180402011.jpg) no-repeat 50% 50%; background-size: 100%;
-  ._avatar{width: 60px; height: 60px; border: 2px solid #ff867b; border-radius: 50%; margin-right: 15px; background-color: #fff;}
-  ._btn1{
-    position: relative; background-color: #ff8a69; border-radius: 5px; padding: 3px 20px 3px 10px; font-size: 12px; color: #fff;
-    &::after{
-      content: ' '; height: 5px; width: 5px; border-width: 1px 1px 0 0; border-color: inherit; border-style: solid;
-      transform: rotate(45deg) translateY(-50%); position: absolute; top: 50%; right: 10px;
-    }
+  background-color: @theme-color; color: #fff; text-align: center; padding-bottom: 50px;
+  ._avatar{
+    position: absolute; top: -35px; left: 50%; z-index: 11; margin-left: -25px;
+    width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fec96b; 
+    background: no-repeat 50% 50%; background-size: cover;
   }
-  ._btn2{
-    background: #fdc264 no-repeat 50% 50%;
-    background-image: linear-gradient(to bottom, #fbc366 0, #fcac57 50%, #fa9d4d 100%);
-    border-radius: 50px 0 0 50px; padding: 7px 10px; margin-right: -15px;
-    img{width: 20px; height: 20px; vertical-align: -4px; }
-    a{text-decoration: underline; font-size: 14px; color: #fff;}
+  ._placeholder{height: 50px;}
+  ._nametel{margin: -20px 15px 0; text-align: center;}
+  ._name, ._tel{width: 50%;}
+}
+
+.l-user-other{
+  background-color: #fff; border-radius: 5px; margin: -35px 15px 0; padding: 15px;text-align: center; 
+  ._line{ width: 1px; height: 20px; margin: auto;}
+  ._grade{ }
+  ._qrcode{
+    width: 60px; height: 60px; 
+    img{width: 100%; height: 100%}
+  }
+  ._score{
+    b{font-weight: 400; color: #1AAD19;}
+  }
+  ._redpack{
+    b{font-weight: 400; color: #f74c31;}
   }
 }
 </style>

@@ -1,26 +1,30 @@
 <template>
   <div id="app-content">
-    <div id="app-body" :class="{'no-tabbar': !$route.meta.tabbar}">
-      <header id="app-header">
-        <!-- <x-header :left-options="leftOptions">
-          <span>{{$route.meta.title || '宜百客'}}</span>
-        </x-header> -->
-
-        <div class="l-flex-hc _home">
-          <div class="l-rest">
-            <div class="_loc">
-              <i class="l-icon _i1">&#xe634;</i>
-              <span class="l-txt-wrap1">请选择店铺</span>
-              <i class="l-icon">&#xe6ac;</i>
+    <div id="app-body" class="l-flex-v" :class="{'no-tabbar': !$route.meta.tabbar}">
+      <transition :name="viewTransition" :css="!!direction || direction === 'fade'">
+        <header v-if="$route.meta.tabbar" id="app-header">
+          <div class="l-flex-hc _home">
+            <div class="l-rest">
+              <div class="_loc">
+                <i class="l-icon _i1">&#xe634;</i>
+                <span class="l-txt-wrap1">请选择店铺</span>
+                <i class="l-icon">&#xe6ac;</i>
+              </div>
+              <div class="_addr l-txt-wrap1">送货时间/范围：08:00-24:00/科学城天泰一路一号微米物联大厦</div>
             </div>
-            <div class="_addr l-txt-wrap1">送货时间/范围：08:00-24:00/科学城天泰一路一号微米物联大厦</div>
+            <div @click="gotoUserInfo" class="_avatar" :style="{'background-image': 'url(' + $config.avatar +')'}"></div>          
           </div>
-          <div class="_avatar" :style="{'background-image': 'url(' + $config.avatar +')'}"></div>          
-        </div>
-      </header>
+        </header>
+        <header  v-else id="app-header">
+          <x-header :left-options="leftOptions">
+            <span>{{$route.meta.title}}</span>
+            <router-link slot="right" to="/register2" v-if="$route.meta.regbtn">注册</router-link>
+          </x-header>
+        </header>
+      </transition>
 
       <transition @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')" :name="viewTransition" :css="!!direction">
-        <router-view class="page-view"></router-view>
+        <router-view class="page-view l-rest"></router-view>
       </transition>
 
       <transition :name="viewTransition" :css="!!direction || direction === 'fade'">
@@ -67,15 +71,16 @@ export default {
   data() {
     return {
       leftOptions: {
-        showBack: false,
-        backText: '返回',
+        showBack: true,
+        backText: '',
         preventGoBack: false
       },
       scrollElem: {
         scrollTop: 0,
         scrollHeight: 0,
         clientHeight: window.innerHeight
-      }
+      },
+      userInfo: {}
     }
   },
   watch: {
@@ -146,6 +151,13 @@ export default {
       appBody.addEventListener('touchend', event => {
         scrollData.maxScroll = 0
       }, false)
+    },
+    gotoUserInfo() {
+      if(this.userInfo) {
+        this.$router.push('/me')
+      }else{
+        this.$router.push('/register1')
+      }
     }
   },
   mounted() {
@@ -158,8 +170,16 @@ export default {
 @import "~vux/src/styles/reset.less";
 @import "~vux/src/styles/1px.less";
 @import "./assets/base.less";
+@theme-color: #af1459;
 .l-rmb::before{ content: '￥'; font-size: 0.6em;}
 .weui-tabbar__icon > i{display: block; margin-top: -4px;}
+.weui-tabbar__icon > sup{top: -5px !important;}
+.weui-btn{border-radius: 0 !important;}
+.weui-btn_plain-primary{
+  color:  @theme-color !important;
+  border: 1px solid @theme-color !important;
+}
+.weui-cell__icon{display: block; width: 25px; height: 25px; margin-right: 10px;}
 .l-baseline{
   span{display: inline-block; vertical-align: middle;}
   .vux-x-icon{vertical-align: middle; margin: 0 -6px; fill: currentColor;}
