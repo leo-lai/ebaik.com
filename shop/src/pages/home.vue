@@ -182,7 +182,7 @@ export default {
 .l-row-title{padding: 0 15px;}
 .l-search-placeholder{
   overflow: hidden;
-  ._fixed{position: fixed; width: 100%; z-index: 10; background-color: @theme-color;}
+  ._fixed{position: fixed; top: 46px; width: 100%; z-index: 10; background-color: @theme-color;}
   .weui-icon-search{vertical-align: -2px;}
   ._tip{text-align: center; line-height: 34px; background-color: #fff; color: #999; margin: 5px 10px; font-size: 14px;}
 }

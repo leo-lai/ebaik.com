@@ -1,5 +1,10 @@
 <template>
   <view-box>
+    <header id="page-view-header">
+      <x-header :left-options="{backText: ''}">
+        <span>{{$route.meta.title}}</span>
+      </x-header>
+    </header>
     <group title="">
       <x-input placeholder="手机号码" class="weui-vcode">
         <x-button slot="right" type="primary" mini>获取验证码</x-button>

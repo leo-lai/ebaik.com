@@ -1,5 +1,10 @@
 <template>
   <view-box>
+    <header id="page-view-header">
+      <x-header :left-options="{backText: ''}">
+        <span>{{$route.meta.title}}</span>
+      </x-header>
+    </header>
     <div class="l-login-logo">
       <img width="30%" src="../assets/images/20180602004.png" alt="">
       <p class="l-txt-gray l-fs-l l-margin-t-m">欢迎您回来，么么哒</p>

@@ -21,14 +21,12 @@ body {
   font-size: 14px; line-height: 1.5;
 }
 img { max-width: 100%; }
-#app, #app-content, #app-body, #app-body .page-view{ height: 100%; box-sizing: border-box;}
-#app-body{box-sizing: border-box; padding-top: 46px; padding-bottom: 50px;}
-#app-header{position: absolute; top:0; left: 0; right: 0; z-index: 10; height: 46px; background-color: @theme-color; color: #fff;}
-#app-body.no-header{padding-top: 0 !important;}
-#app-body.no-tabbar{padding-bottom: 0 !important;}
-#app-body.no-tabbar{padding-bottom: 0 !important;}
-#vux_view_box_body{padding: 0 !important;}
-// .page-view{position: absolute; left: 0; width: 100%; height: 100%;}
+#app, #app-content, #app-body{ height: 100%; box-sizing: border-box;}
+#app-header{position: fixed; top: 0; left: 0; width: 100%; height: 46px; background-color: @theme-color; color: #fff; z-index: 600;}
+#page-view{position: absolute !important; top: 0; bottom: 0; left: 0; width: 100%; height: auto !important;}
+#vux_view_box_body{padding-top: 46px !important; padding-bottom: 49px !important;}
+#page-view-header{position: fixed; top: 0; left: 0; width: 100%; height: 46px; background-color: @theme-color; color: #fff; z-index: 10;}
+.no-tabbar #vux_view_box_body{padding-bottom: 0 !important;}
 
 .l-checker-item{border:1px solid transparent; padding: 5px 10px; font-size: 14px; border-radius: 5px;}
 .l-checker-item-slted{border-color:@theme-color; color: @theme-color;}
@@ -245,7 +243,7 @@ h1,h2,h3,h4,h5{font-weight: 500;}
 .vux-pop-out-leave-active,
 .vux-pop-fade-enter-active {
   position: absolute !important;
-  top: 46px;
+  top: 0;
   left: 0;
   height: 100%;
   width: 100%;

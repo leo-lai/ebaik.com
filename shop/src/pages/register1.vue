@@ -1,5 +1,10 @@
 <template>
-  <view-box style="z-index: 10;">
+  <view-box>
+    <header id="page-view-header">
+      <x-header :left-options="{backText: ''}">
+        <span>{{$route.meta.title}}</span>
+      </x-header>
+    </header>
     <div class="l-register-logo">
       <img src="../assets/images/20180602001.png" alt="">
     </div>
@@ -25,8 +30,6 @@
     <div class="l-margin">
       <x-button link="/login" plain  type="primary">已是宜百客会员点此</x-button>
     </div>
-
-
   </view-box>
 </template>
 
@@ -49,8 +52,7 @@ export default {
 <style lang="less">
 .l-register-logo{
   text-align: center;
-  padding-top: 119px;
-  img{position: absolute; top: -35px; left: 50%; margin-left: -60px; width: 120px; height: 120px;vertical-align: top;}
+  img{position: relative; width: 120px; height: 120px; top: -35px; z-index: 11; margin: auto;}
 }
 .l-register-yizai{
   text-align: center;

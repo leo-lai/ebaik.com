@@ -1,8 +1,8 @@
 <template>
   <div id="app-content">
-    <div id="app-body" class="l-flex-v" :class="{'no-tabbar': !$route.meta.tabbar}">
+    <div id="app-body" :class="{'no-tabbar': !$route.meta.tabbar}">
       <transition :name="viewTransition" :css="!!direction || direction === 'fade'">
-        <header v-if="$route.meta.tabbar" id="app-header">
+        <header id="app-header" v-show="$route.meta.tabbar">
           <div class="l-flex-hc _home">
             <div class="l-rest">
               <div class="_loc">
@@ -15,20 +15,14 @@
             <div @click="gotoUserInfo" class="_avatar" :style="{'background-image': 'url(' + $config.avatar +')'}"></div>          
           </div>
         </header>
-        <header  v-else id="app-header">
-          <x-header :left-options="leftOptions">
-            <span>{{$route.meta.title}}</span>
-            <router-link slot="right" to="/register2" v-if="$route.meta.regbtn">注册</router-link>
-          </x-header>
-        </header>
       </transition>
 
       <transition @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')" :name="viewTransition" :css="!!direction">
-        <router-view class="page-view l-rest"></router-view>
+        <router-view id="page-view"></router-view>
       </transition>
 
       <transition :name="viewTransition" :css="!!direction || direction === 'fade'">
-        <tabbar v-show="$route.meta.tabbar">
+        <tabbar id="app-footer" v-show="$route.meta.tabbar">
           <tabbar-item :link="{path: '/', replace: true}" :selected="$route.path === '/'">
             <i slot="icon" class="l-icon">&#xe667;</i>
             <span slot="label">立即送</span>
@@ -54,12 +48,12 @@
 </template>
 
 <script>
-import { XHeader, Tabbar, TabbarItem, Loading, throttle } from 'vux'
+import { Tabbar, TabbarItem, Loading, throttle } from 'vux'
 import { mapGetters } from 'vuex'
 export default {
   name: 'app',
   components: {
-    XHeader, Tabbar, TabbarItem, Loading
+   Tabbar, TabbarItem, Loading
   },
   computed: {
     ...mapGetters(['loading', 'scrollTop', 'direction']),

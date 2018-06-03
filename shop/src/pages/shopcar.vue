@@ -98,7 +98,7 @@ export default {
 @theme-color: #af1459;
 .l-shopcar-bottom{
   ._tip{background-color: #fff; padding: 5px 15px; font-size: 12px;}
-  ._inner{position: absolute; bottom: 0; left: 0; right: 0;  background-color: #eee;}
+  ._inner{position: fixed; bottom: 48px; left: 0; right: 0;  background-color: #eee;}
   ._check{margin-left: 10px;}
   ._price{margin: 0 10px;}
   ._primary{width: 100px; font-size: 14px; padding: 7px 20px; border-radius: 0;}

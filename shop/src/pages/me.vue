@@ -1,8 +1,12 @@
 <template>
-  <view-box style="z-index: 10;">
-    <div class="l-user-card">
+  <view-box>
+    <header id="page-view-header">
+      <x-header :left-options="{backText: ''}">
+        <span>{{$route.meta.title}}</span>
+      </x-header>
+    </header>
+    <div class="l-user-card" @click="$router.push('/me/info')">
       <div class="_avatar" :style="{'background-image': 'url(' + $config.avatar +')'}"></div>
-      <div class="_placeholder"></div>
       <div class="_nametel l-flex-hc">
         <div class="_name">
           <i class="l-icon">&#xe67a;</i>
@@ -57,7 +61,7 @@
         <cell title="积分商城" link="/">
           <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-024.png">
         </cell>
-        <cell title="我要加盟" link="/">
+        <cell title="我要加盟" link="/join">
           <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-025.png">
         </cell>
         <cell title="意见反馈" link="/">
@@ -95,11 +99,10 @@ export default {
 .l-user-card{
   background-color: @theme-color; color: #fff; text-align: center; padding-bottom: 50px;
   ._avatar{
-    position: absolute; top: -35px; left: 50%; z-index: 11; margin-left: -25px;
+    position: relative; top: -35px; left: 50%; z-index: 11; margin-left: -25px;
     width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fec96b; 
     background: no-repeat 50% 50%; background-size: cover;
   }
-  ._placeholder{height: 50px;}
   ._nametel{margin: -20px 15px 0; text-align: center;}
   ._name, ._tel{width: 50%;}
 }
