@@ -3,6 +3,7 @@
     <header id="page-view-header">
       <x-header :left-options="{backText: ''}">
         <span>{{$route.meta.title}}</span>
+        <a slot="right">注册</a>
       </x-header>
     </header>
     <div class="l-login-logo">

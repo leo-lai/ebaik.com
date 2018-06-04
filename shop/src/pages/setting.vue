@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'demo',
+  name: 'setting',
   data () {
     return {
       

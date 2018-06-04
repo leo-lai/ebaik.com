@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="l-user-other l-flex-hc">
-        <div class="_grade">
+        <div class="_grade" @click="$router.push('/grade')">
           <p class="l-fs-xs">还需850个积分升级</p>
           <h3 class="l-margin-t-s">普通会员</h3>
         </div>
@@ -47,28 +47,28 @@
       </div>
       <div class="l-bg-white l-margin-t">
         <group gutter="0">
-          <cell title="我的钱包" link="/">
+          <cell title="我的钱包" link="/wallet">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
           </cell>
-          <cell title="我的订单" link="/">
+          <cell title="我的订单" link="/order/list">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-021.png">
           </cell>
-          <cell title="地址管理" link="/">
+          <cell title="地址管理" link="/address">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-022.png">
           </cell>
-          <cell title="我的收藏" link="/">
+          <cell title="我的收藏" link="/favorite">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-023.png">
           </cell>
-          <cell title="积分商城" link="/">
+          <cell title="积分商城" is-link>
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-024.png">
           </cell>
           <cell title="我要加盟" link="/join">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-025.png">
           </cell>
-          <cell title="意见反馈" link="/">
+          <cell title="意见反馈" link="/feedback">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
           </cell>
-          <cell title="系统设置" link="/">
+          <cell title="系统设置" link="/setting">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-027.png">
           </cell>
         </group>

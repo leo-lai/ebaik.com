@@ -1,6 +1,6 @@
 <template>
   <view-box>
-    <header id="page-view-header">
+    <header id="page-view-header" transparent>
       <x-header :left-options="{backText: ''}">
         <span>{{$route.meta.title}}</span>
       </x-header>

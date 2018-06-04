@@ -3,6 +3,9 @@
     <swipeout>
       <swipeout-item transition-mode="follow" v-for="item in goodsList" :key="item.id">
         <div slot="right-menu">
+          <swipeout-button @click.native="delGoods(item)" background-color="#ed722f">
+            移入<br>收藏夹
+          </swipeout-button>
           <swipeout-button @click.native="delGoods(item)" background-color="rgb(247, 76, 49)">删除</swipeout-button>
         </div>
         <div slot="content" class="l-flex-hc l-shopcar-item vux-1px-t">
@@ -52,7 +55,7 @@
 </template>
 
 <script>
-import { Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber, Icon } from "vux";
+import { Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber, Icon } from "vux"
 export default {
   name: "shopcar",
   components: {
@@ -94,7 +97,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @theme-color: #af1459;
 .l-shopcar-bottom{
   ._tip{background-color: #fff; padding: 5px 15px; font-size: 12px;}

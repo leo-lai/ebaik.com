@@ -25,7 +25,9 @@ img { max-width: 100%; }
 #page-view-header{position: fixed; top: 0; left: 0; width: 100%; height: 46px; background-color: @theme-color; color: #fff; z-index: 10;}
 #page-view-header[transparent]{
   background-color: transparent; pointer-events: none;
-  .vux-header{ background-color: transparent !important; pointer-events: none;}
+  .vux-header{ background-color: transparent !important;}
+  .vux-header-left{ pointer-events: auto; }
+  .vux-header-right{ pointer-events: auto; }
 }
 #vux_view_box_body{padding-top: 46px !important; padding-bottom: 49px !important; }
 .no-tabbar #vux_view_box_body{padding-bottom: 0 !important;}
@@ -181,6 +183,7 @@ h1,h2,h3,h4,h5{font-weight: 500;}
 .l-padding-tb{padding-top: 15px; padding-bottom: 15px;}
 .l-padding-tb-m{padding-top: 10px; padding-bottom: 10px;}
 .l-padding-lr{padding-left: 15px; padding-right: 15px;}
+.l-padding-lr-s{padding-left: 5px; padding-right: 5px;}
 .l-padding-btn{padding: 10px 15px;}
 .l-margin{margin: 15px;}
 .l-margin-btn{margin: 10px 15px;}

@@ -168,12 +168,16 @@ export default {
 .l-rmb::before{ content: '￥'; font-size: 0.6em;}
 .weui-tabbar__icon > i{display: block; margin-top: -4px;}
 .weui-tabbar__icon > sup{top: -5px !important;}
-.weui-btn{border-radius: 0 !important;}
+.weui-btn{
+  border-radius: 0 !important;
+  &::after{ border-radius: 0!important; }
+}
 .weui-btn_plain-primary{
   color:  @theme-color !important;
   border: 1px solid @theme-color !important;
 }
 .weui-cell__icon{display: block; width: 25px; height: 25px; margin-right: 10px;}
+.vux-swipeout-button{vertical-align: top;}
 .l-baseline{
   span{display: inline-block; vertical-align: middle;}
   .vux-x-icon{vertical-align: middle; margin: 0 -6px; fill: currentColor;}
