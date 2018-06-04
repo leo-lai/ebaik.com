@@ -6,7 +6,7 @@
       </x-header>
     </header>
     <div class="l-txt-center">
-      <img style="display:block;" src="../assets/images/20180602005.jpg" alt="招商加盟">
+      <img class="l-img-block" src="../assets/images/20180602005.jpg" alt="招商加盟">
     </div>
 
     <group label-width="80">

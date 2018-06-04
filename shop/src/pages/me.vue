@@ -1,76 +1,78 @@
 <template>
-  <view-box>
-    <header id="page-view-header">
+  <view-box class="l-scroll-bg">
+    <header id="page-view-header" transparent>
       <x-header :left-options="{backText: ''}">
         <span>{{$route.meta.title}}</span>
       </x-header>
     </header>
-    <div class="l-user-card" @click="$router.push('/me/info')">
-      <div class="_avatar" :style="{'background-image': 'url(' + $config.avatar +')'}"></div>
-      <div class="_nametel l-flex-hc">
-        <div class="_name">
-          <i class="l-icon">&#xe67a;</i>
-          <span>赖小帅</span>
+    <div class="l-app-bg">
+      <div class="l-user-card" @click="$router.push('/me/info')">
+        <div class="_avatar" :style="{'background-image': 'url(' + $config.avatar +')'}"></div>
+        <div class="_nametel l-flex-hc">
+          <div class="_name">
+            <i class="l-icon">&#xe67a;</i>
+            <span>赖小帅</span>
+          </div>
+          <div class="_tel">
+            <i class="l-icon">&#xe613;</i>
+            <span>18602029524</span>
+          </div>
         </div>
-        <div class="_tel">
-          <i class="l-icon">&#xe613;</i>
-          <span>18602029524</span>
+      </div>
+      <div class="l-user-other l-flex-hc">
+        <div class="_grade">
+          <p class="l-fs-xs">还需850个积分升级</p>
+          <h3 class="l-margin-t-s">普通会员</h3>
+        </div>
+        <div class="l-rest">
+          <div class="_line vux-1px-l"></div>  
+        </div>
+        <div class="_qrcode">
+          <img src="../assets/images/temp-002.jpg" alt="">
+        </div>
+        <div class="l-rest">
+          <div class="_line vux-1px-l"></div>  
+        </div>
+        <div class="_score">
+          <b>0分</b>
+          <p>积分</p>
+        </div>
+        <div class="l-rest">
+          <div class="_line vux-1px-l"></div>  
+        </div>
+        <div class="_redpack">
+          <b>0个</b>
+          <p>红包</p>
         </div>
       </div>
-    </div>
-    <div class="l-user-other l-flex-hc">
-      <div class="_grade">
-        <p class="l-fs-xs">还需850个积分升级</p>
-        <h3 class="l-margin-t-s">普通会员</h3>
+      <div class="l-bg-white l-margin-t">
+        <group gutter="0">
+          <cell title="我的钱包" link="/">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
+          </cell>
+          <cell title="我的订单" link="/">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-021.png">
+          </cell>
+          <cell title="地址管理" link="/">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-022.png">
+          </cell>
+          <cell title="我的收藏" link="/">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-023.png">
+          </cell>
+          <cell title="积分商城" link="/">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-024.png">
+          </cell>
+          <cell title="我要加盟" link="/join">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-025.png">
+          </cell>
+          <cell title="意见反馈" link="/">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
+          </cell>
+          <cell title="系统设置" link="/">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-027.png">
+          </cell>
+        </group>
       </div>
-      <div class="l-rest">
-        <div class="_line vux-1px-l"></div>  
-      </div>
-      <div class="_qrcode">
-        <img src="../assets/images/temp-002.jpg" alt="">
-      </div>
-      <div class="l-rest">
-        <div class="_line vux-1px-l"></div>  
-      </div>
-      <div class="_score">
-        <b>0分</b>
-        <p>积分</p>
-      </div>
-      <div class="l-rest">
-        <div class="_line vux-1px-l"></div>  
-      </div>
-      <div class="_redpack">
-        <b>0个</b>
-        <p>红包</p>
-      </div>
-    </div>
-    <div class="l-bg-white l-margin-t">
-      <group gutter="0">
-        <cell title="我的钱包" link="/">
-          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
-        </cell>
-        <cell title="我的订单" link="/">
-          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-021.png">
-        </cell>
-        <cell title="地址管理" link="/">
-          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-022.png">
-        </cell>
-        <cell title="我的收藏" link="/">
-          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-023.png">
-        </cell>
-        <cell title="积分商城" link="/">
-          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-024.png">
-        </cell>
-        <cell title="我要加盟" link="/join">
-          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-025.png">
-        </cell>
-        <cell title="意见反馈" link="/">
-          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
-        </cell>
-        <cell title="系统设置" link="/">
-          <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-027.png">
-        </cell>
-      </group>
     </div>
   </view-box>
 </template>
@@ -96,10 +98,11 @@ export default {
 
 <style lang="less">
 @theme-color: #af1459;
+.l-scroll-bg{ background-image: linear-gradient(180deg, #af1459 0, #af1459 50%, transparent 50%, transparent 100%)}
 .l-user-card{
   background-color: @theme-color; color: #fff; text-align: center; padding-bottom: 50px;
   ._avatar{
-    position: relative; top: -35px; left: 50%; z-index: 11; margin-left: -25px;
+    position: relative; top: -35px; left: 50%; margin-left: -25px;
     width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fec96b; 
     background: no-repeat 50% 50%; background-size: cover;
   }
