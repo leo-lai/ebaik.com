@@ -168,10 +168,11 @@ export default {
 .l-rmb::before{ content: '￥'; font-size: 0.6em;}
 .weui-tabbar__icon > i{display: block; margin-top: -4px;}
 .weui-tabbar__icon > sup{top: -5px !important;}
-.weui-btn{
-  border-radius: 0 !important;
-  &::after{ border-radius: 0!important; }
-}
+.weui-btn_plain-default{border-color: rgba(0, 0, 0, 0.1) !important;}
+._l-btn_mini{line-height: 2 ; padding: 0 15px; font-size: 12px;}
+.weui-btn_mini{ ._l-btn_mini() !important;}
+
+.weui-btn[round]{border-radius: 99px !important;}
 .weui-btn_plain-primary{
   color:  @theme-color !important;
   border: 1px solid @theme-color !important;
