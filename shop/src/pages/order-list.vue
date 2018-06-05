@@ -129,7 +129,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.l-tab{position: fixed; left: 0; right: 0; top: 46px;}
+.l-tab{position: fixed; left: 0; right: 0; top: 46px; z-index: 1;}
 .l-order-item{
   margin-bottom: 10px; background-color: #fff; font-size: 12px;
   ._hd{ padding: 10px;}
