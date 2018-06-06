@@ -1,7 +1,7 @@
 <template>
   <view-box>
     <swipeout>
-      <swipeout-item transition-mode="follow" v-for="item in goodsList" :key="item.id">
+      <swipeout-item transition-mode="follow" v-for="item in list.data" :key="item.id">
         <div slot="right-menu">
           <swipeout-button @click.native="delGoods(item)" background-color="#ed722f">
             移入<br>收藏夹
@@ -9,9 +9,8 @@
           <swipeout-button @click.native="delGoods(item)" background-color="rgb(247, 76, 49)">删除</swipeout-button>
         </div>
         <div slot="content" class="l-flex-hc l-shopcar-item vux-1px-t">
-          <div class="_check" @click="item.checked = !item.checked">
-            <icon v-if="item.checked" type="success"></icon>
-            <icon v-else type="circle"></icon>
+          <div class="_check">
+            <check-icon :value.sync="item.checked"></check-icon>
           </div>
           <div class="_thumb" :style="{backgroundImage: 'url(' + item.thumb +')' }"></div>
           <div class="l-rest">
@@ -37,8 +36,7 @@
         </div>
         <div class="l-flex-hc">
           <div class="_check">
-            <icon v-if="checkAll" type="success"></icon>
-            <icon v-else type="circle"></icon>
+            <check-icon :value.sync="checkAll"></check-icon>
             <span>全选(0)</span>
           </div>
           <div class="l-rest"></div>
@@ -55,17 +53,21 @@
 </template>
 
 <script>
-import { Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber, Icon } from "vux"
+import { Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber, CheckIcon } from "vux"
 export default {
   name: "shopcar",
   components: {
-    Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber, Icon
+    Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber, CheckIcon
   },
   data() {
     return {
       checkAll: false,
-      goodsList: [],
-      number: 1,
+      list: {
+        filter: {},
+        rows: 50,
+        page: 1,
+        data: []
+      },
     }
   },
   methods: {
@@ -74,9 +76,7 @@ export default {
     },
     getList() {
       let tempArr = new Array(1,1,1,1,1,1,1,1,1,1)
-      console.log(tempArr)
-      this.goodsList = tempArr.map((item, index) => {
-        console.log(item)
+      this.list.data = tempArr.map((item, index) => {
         return {
           id: index + 1,
           checked: false,

@@ -3,6 +3,7 @@
     <header id="page-view-header" transparent>
       <x-header :left-options="{backText: ''}">
         <span>{{$route.meta.title}}</span>
+        <router-link to="/me/info" slot="right"><i class="l-icon l-fs-x2">&#xe668;</i></router-link>
       </x-header>
     </header>
     <div class="l-app-bg">
@@ -68,9 +69,9 @@
           <cell title="意见反馈" link="/feedback">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
           </cell>
-          <cell title="系统设置" link="/setting">
+          <!-- <cell title="系统设置" link="/setting">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-027.png">
-          </cell>
+          </cell> -->
         </group>
       </div>
     </div>

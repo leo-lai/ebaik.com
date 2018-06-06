@@ -27,14 +27,14 @@
             <i slot="icon" class="l-icon">&#xe667;</i>
             <span slot="label">立即送</span>
           </tabbar-item>
-          <!-- <tabbar-item :link="{path: '/loan', replace: true}" :selected="$route.path === '/loan'">
+          <tabbar-item :link="{path: '/machine', replace: true}" :selected="$route.path === '/machine'">
             <i slot="icon" class="l-icon">&#xe63b;</i>
             <span slot="label">售货机</span>
           </tabbar-item>
-          <tabbar-item :link="{path: '/loan', replace: true}" :selected="$route.path === '/loan'">
+          <tabbar-item :link="{path: '/shop', replace: true}" :selected="$route.path === '/shop'">
             <i slot="icon" class="l-icon">&#xe60b;</i>
             <span slot="label">电商</span>
-          </tabbar-item> -->
+          </tabbar-item>
           <tabbar-item badge="99" :link="{path: '/shopcar', replace: true}" :selected="$route.path === '/shopcar'">
             <i slot="icon" class="l-icon">&#xe63f;</i>
             <span slot="label">购物车</span>
@@ -166,6 +166,7 @@ export default {
 @import "./assets/base.less";
 @theme-color: #af1459;
 .l-rmb::before{ content: '￥'; font-size: 0.6em;}
+
 .weui-tabbar__icon > i{display: block; margin-top: -4px;}
 .weui-tabbar__icon > sup{top: -5px !important;}
 .weui-btn_plain-default{border-color: rgba(0, 0, 0, 0.1) !important;}

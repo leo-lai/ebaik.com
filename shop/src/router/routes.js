@@ -1,6 +1,7 @@
 import home from '../pages/home'
 import shopcar from '../pages/shopcar'
 import me from '../pages/me'
+const demo = () => import('../pages/demo').then(m => m.default)
 const meInfo = () => import('../pages/me-info').then(m => m.default)
 const orderList = () => import('../pages/order-list').then(m => m.default)
 const register1 = () => import('../pages/register1').then(m => m.default)
@@ -15,7 +16,9 @@ const walletRecharge = () => import('../pages/wallet-recharge').then(m => m.defa
 const favorite = () => import('../pages/favorite').then(m => m.default)
 const feedback = () => import('../pages/feedback').then(m => m.default)
 const address = () => import('../pages/address').then(m => m.default)
+const addressAdd = () => import('../pages/address-add').then(m => m.default)
 const setting = () => import('../pages/setting').then(m => m.default)
+
 
 const routes = [
   {
@@ -24,6 +27,24 @@ const routes = [
     component: home,
     meta: {
       title: '首页',
+      tabbar: true
+    }
+  },
+  {
+    path: '/machine',
+    name: 'machine',
+    component: demo,
+    meta: {
+      title: '售货机',
+      tabbar: true
+    }
+  },
+  {
+    path: '/shop',
+    name: 'shop',
+    component: demo,
+    meta: {
+      title: '电商',
       tabbar: true
     }
   },
@@ -66,6 +87,14 @@ const routes = [
     component: address,
     meta: {
       title: '地址管理'
+    }
+  },
+  {
+    path: '/address/add',
+    name: 'address-add',
+    component: addressAdd,
+    meta: {
+      title: '添加新地址'
     }
   },
   {

@@ -6,7 +6,7 @@
       </x-header>
     </header>
     <div class="l-tab">
-      <tab line-width="1">
+      <tab :line-width="1">
         <tab-item v-for="item in tab.data" :key="item.value" :selected="tab.active == item.value" @click="tabClick(item.value)">{{item.label}}</tab-item>
       </tab>
     </div>
