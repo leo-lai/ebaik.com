@@ -8,7 +8,7 @@
     </header>
     
     <div class="l-app-bg">
-      <div class="l-address-item" v-for="item in list.data">
+      <div class="l-address-item" v-for="item in list.data" :key="item.id">
         <div class="_hd l-flex-hc">
           <span>{{item.name}}</span>
           <div class="l-rest"></div>
@@ -65,7 +65,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .l-address-item{
   background-color: #fff; margin-bottom: 10px;
   ._hd{padding: 10px 15px 0;}

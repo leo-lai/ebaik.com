@@ -17,9 +17,9 @@ import config from './config'
 sync(store, router)
 
 import { 
-  TransferDom, ConfigPlugin, BusPlugin, 
+  TransferDom, ConfigPlugin, BusPlugin,
   DatetimePlugin, LoadingPlugin, ToastPlugin, AlertPlugin, ConfirmPlugin,
-  ViewBox, Group, GroupTitle, Cell, Sticky, XHeader, XInput, XButton
+  Icon, ViewBox, Group, GroupTitle, Cell, Sticky, XHeader, XInput, XButton
 } from 'vux'
 
 // plugins
@@ -33,6 +33,7 @@ Vue.use(AlertPlugin)
 Vue.use(ConfirmPlugin)
 
 // component
+Vue.component('icon', Icon)
 Vue.component('view-box', ViewBox)
 Vue.component('group', Group)
 Vue.component('group-title', GroupTitle)

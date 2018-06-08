@@ -98,7 +98,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@theme-color: #af1459;
 .l-shopcar-bottom{
   ._tip{background-color: #fff; padding: 5px 15px; font-size: 12px;}
   ._inner{position: fixed; bottom: 48px; left: 0; right: 0;  background-color: #eee;}

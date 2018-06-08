@@ -2,9 +2,9 @@
   <div id="app-content">
     <div id="app-body" :class="{'no-tabbar': !$route.meta.tabbar}">
       <transition :name="viewTransition" :css="!!direction || direction === 'fade'">
-        <header id="app-header" v-show="$route.meta.tabbar">
+        <header id="app-header" v-show="$route.meta.topinfo">
           <div class="l-flex-hc _home">
-            <div class="l-rest">
+            <div class="l-rest" @click="$router.push('/store/list')">
               <div class="_loc">
                 <i class="l-icon _i1">&#xe634;</i>
                 <span class="l-txt-wrap1">请选择店铺</span>
@@ -156,6 +156,11 @@ export default {
   },
   mounted() {
     this.preventBounce()
+
+    // this.$vux.alert.show({
+    //   title: '打样提醒',
+    //   content: '不好意思，本店送货时间为：08:00 -24:00。现在不能为您提供送货服务，请选择自动售货或电商服务。或者看看宜百客其它店铺。'
+    // })
   }
 }
 </script>
@@ -192,10 +197,21 @@ export default {
     span{max-width: 70%; font-size: 13px; margin-top: 2px;}
     ._i1{font-size: 16px; margin-right: 5px; }
   }
-  ._addr{margin-top: -3px; font-size: 11px;}
+  ._addr{margin-top: -1px; font-size: 11px;}
   ._avatar{
     width: 30px; height: 30px; border-radius: 50%; border: 1px solid #fff; margin-left: 15px;
     background: no-repeat 50% 50%; background-size: cover;
+  }
+}
+
+.l-search-box{
+  position: fixed; top: 46px; width: 100%; z-index: 10; background-color: @theme-color; color: #fff;
+  box-sizing: border-box; height: 44px; padding: 0 15px;
+  ._filter{margin-right: 10px;}
+  ._ipt{ 
+    background-color: #fff; border-radius: 100px; padding: 5px 10px 5px 35px;
+    input{width: 100%; border: none; outline: 0;}
+    ._icon{float: left; margin: 4px 0 0 -25px;}
   }
 }
 </style>

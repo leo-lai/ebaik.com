@@ -34,14 +34,14 @@
         <div class="l-rest">
           <div class="_line vux-1px-l"></div>  
         </div>
-        <div class="_score">
+        <div class="_score" @click="$router.push('/grade')">
           <b>0分</b>
           <p>积分</p>
         </div>
         <div class="l-rest">
           <div class="_line vux-1px-l"></div>  
         </div>
-        <div class="_redpack">
+        <div class="_redpack" @click="$router.push('/redpack')">
           <b>0个</b>
           <p>红包</p>
         </div>
@@ -98,7 +98,6 @@ export default {
 </script>
 
 <style lang="less">
-@theme-color: #af1459;
 .l-scroll-bg{ background-image: linear-gradient(180deg, #af1459 0, #af1459 50%, transparent 50%, transparent 100%)}
 .l-user-card{
   background-color: @theme-color; color: #fff; text-align: center; padding-bottom: 50px;

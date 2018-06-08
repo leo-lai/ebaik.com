@@ -145,11 +145,11 @@
 </template>
 
 <script>
-import { Swiper, Flexbox, FlexboxItem, Icon } from 'vux'
+import { Swiper } from 'vux'
 export default {
   name: 'home',
   components: {
-    Swiper, Flexbox, FlexboxItem, Icon
+    Swiper
   },
   data () {
     return {
@@ -177,8 +177,7 @@ export default {
 }
 </script>
 
-<style lang="less">
-@theme-color: #af1459;
+<style lang="less" scoped>
 .l-row-title{padding: 0 15px;}
 .l-search-placeholder{
   overflow: hidden;

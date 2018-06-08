@@ -1,7 +1,9 @@
 import home from '../pages/home'
+import machine from '../pages/machine'
 import shopcar from '../pages/shopcar'
 import me from '../pages/me'
 const demo = () => import('../pages/demo').then(m => m.default)
+const storeList = () => import('../pages/store-list').then(m => m.default)
 const meInfo = () => import('../pages/me-info').then(m => m.default)
 const orderList = () => import('../pages/order-list').then(m => m.default)
 const register1 = () => import('../pages/register1').then(m => m.default)
@@ -9,6 +11,7 @@ const register2 = () => import('../pages/register2').then(m => m.default)
 const login = () => import('../pages/login').then(m => m.default)
 const join = () => import('../pages/join').then(m => m.default)
 const grade = () => import('../pages/grade').then(m => m.default)
+const redpack = () => import('../pages/redpack').then(m => m.default)
 const wallet = () => import('../pages/wallet').then(m => m.default)
 const walletBill = () => import('../pages/wallet-bill').then(m => m.default)
 const walletCash = () => import('../pages/wallet-cash').then(m => m.default)
@@ -27,25 +30,27 @@ const routes = [
     component: home,
     meta: {
       title: '首页',
-      tabbar: true
+      tabbar: true,
+      topinfo: true
     }
   },
   {
     path: '/machine',
     name: 'machine',
-    component: demo,
+    component: machine,
     meta: {
-      title: '售货机',
+      title: '附近的售货机',
       tabbar: true
     }
   },
   {
     path: '/shop',
     name: 'shop',
-    component: demo,
+    component: home,
     meta: {
       title: '电商',
-      tabbar: true
+      tabbar: true,
+      topinfo: true
     }
   },
   {
@@ -54,7 +59,16 @@ const routes = [
     component: shopcar,
     meta: {
       title: '购物车',
-      tabbar: true
+      tabbar: true,
+      topinfo: true
+    }
+  },
+  {
+    path: '/store/list',
+    name: 'store-list',
+    component: storeList,
+    meta: {
+      title: '选择店铺'
     }
   },
   {
@@ -111,6 +125,14 @@ const routes = [
     component: grade,
     meta: {
       title: '会员等级'
+    }
+  },
+  {
+    path: '/redpack',
+    name: 'redpack',
+    component: redpack,
+    meta: {
+      title: '我的红包'
     }
   },
   {

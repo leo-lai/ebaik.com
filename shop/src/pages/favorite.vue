@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import { Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber, Icon } from "vux"
+import { Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber } from "vux"
 export default {
   name: 'favorite',
   components: {
-    Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber, Icon
+    Swipeout, SwipeoutItem, SwipeoutButton, InlineXNumber
   },
   data () {
     return {
