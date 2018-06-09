@@ -1,11 +1,11 @@
 @theme-color: #af1459;
 @font-face {
   font-family: 'l-iconfont';  /* project id 689023 */
-  src: url('//at.alicdn.com/t/font_689023_lxkicwxpb6bw3ik9.eot');
-  src: url('//at.alicdn.com/t/font_689023_lxkicwxpb6bw3ik9.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_689023_lxkicwxpb6bw3ik9.woff') format('woff'),
-  url('//at.alicdn.com/t/font_689023_lxkicwxpb6bw3ik9.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_689023_lxkicwxpb6bw3ik9.svg#l-iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_689023_zp3i2w64o2k2o6r.eot');
+  src: url('//at.alicdn.com/t/font_689023_zp3i2w64o2k2o6r.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_689023_zp3i2w64o2k2o6r.woff') format('woff'),
+  url('//at.alicdn.com/t/font_689023_zp3i2w64o2k2o6r.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_689023_zp3i2w64o2k2o6r.svg#l-iconfont') format('svg');
 }
 [class^='l-icon']{
   font-family: 'l-iconfont' !important;
@@ -15,15 +15,19 @@
 }
 html, body { height: 100%; width: 100%; overflow: hidden; word-break: break-all; }
 body { 
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC','Helvetica Neue',STHeiti,'Microsoft Yahei',Tahoma,Simsun,sans-serif; background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC','Helvetica Neue',STHeiti,'Microsoft Yahei',Tahoma,Simsun,sans-serif; background-color: #f5f5f5; color: #555555;
   font-size: 14px; line-height: 1.5; user-select: none;
 }
 img { max-width: 100%; }
+input{ font-size: 13px; }
 #app, #app-content, #app-body{ height: 100%; box-sizing: border-box;}
 #app-header{position: fixed; top: 0; left: 0; width: 100%; height: 46px; background-color: @theme-color; color: #fff; z-index: 600;}
 #page-view{position: absolute !important; top: 0; bottom: 0; left: 0; width: 100%; height: auto !important;}
-#page-view-header{position: fixed; top: 0; left: 0; width: 100%; height: 46px; background-color: @theme-color; color: #fff; z-index: 10;}
-#page-view-header[transparent]{
+#page-view-header{
+  position: fixed; top: 0; left: 0; width: 100%; height: 46px; background-color: @theme-color; color: #fff; z-index: 10; 
+  .vux-header{ transition: all 0.5s; }
+}
+#page-view-header.l-bg-none{
   background-color: transparent; pointer-events: none;
   .vux-header{ background-color: transparent !important;}
   .vux-header-left{ pointer-events: auto; }
@@ -31,7 +35,9 @@ img { max-width: 100%; }
 }
 #vux_view_box_body{padding-top: 46px !important; padding-bottom: 49px !important; }
 .l-page-tab #vux_view_box_body{ padding-top: 90px !important; }
+.l-no-padding #vux_view_box_body{padding: 0 !important;}
 .no-tabbar #vux_view_box_body{padding-bottom: 0 !important;}
+.l-scroll-bg{ background-image: linear-gradient(180deg, #af1459 0, #af1459 50%, transparent 50%, transparent 100%)}
 .l-app-bg{background-color: #f5f5f5; min-height: 100%; box-sizing: border-box;}
 .l-bg-white{background-color: #fff;}
 .l-sticky{position: relative; position: -webkit-sticky; position: sticky; top: 0; z-index: 20;}
@@ -146,6 +152,7 @@ i{font-style: normal;}
 h1,h2,h3,h4,h5{font-weight: 500;}
 .l-fs-40{font-size: 40px;}
 .l-fs-x2{font-size: 24px;}
+.l-fs-xxl{font-size: 20px;}
 .l-fs-xl, h2{font-size: 18px;}
 .l-fs-l, h3{font-size: 16px;}
 .l-fs-m, h4{font-size: 14px;}

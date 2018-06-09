@@ -50,6 +50,22 @@
 <script>
 import { Tabbar, TabbarItem, Loading, throttle } from 'vux'
 import { mapGetters } from 'vuex'
+
+function isSupportSticky() {//判断是否支持sticky
+  var prefixTestList = ['', '-webkit-'];
+  var stickyText = '';
+  for (var i = 0; i < prefixTestList.length; i++ ) {
+    stickyText += 'position:' + prefixTestList[i] + 'sticky;';
+  }
+  // 创建一个dom来检查
+  var div = document.createElement('div');
+  div.style.cssText = stickyText;
+  document.body.appendChild(div);
+  var isSupport = /sticky/i.test(window.getComputedStyle(div).position);
+  document.body.removeChild(div);
+  div = null;
+  return isSupport;
+}
 export default {
   name: 'app',
   components: {
@@ -156,7 +172,6 @@ export default {
   },
   mounted() {
     this.preventBounce()
-
     // this.$vux.alert.show({
     //   title: '打样提醒',
     //   content: '不好意思，本店送货时间为：08:00 -24:00。现在不能为您提供送货服务，请选择自动售货或电商服务。或者看看宜百客其它店铺。'
@@ -171,7 +186,8 @@ export default {
 @import "./assets/base.less";
 @theme-color: #af1459;
 .l-rmb::before{ content: '￥'; font-size: 0.6em;}
-
+.vux-x-icon{ fill: currentColor; }
+.vux-header-right .vux-x-icon{ margin-top: -6px; }
 .weui-tabbar__icon > i{display: block; margin-top: -4px;}
 .weui-tabbar__icon > sup{top: -5px !important;}
 .weui-btn_plain-default{border-color: rgba(0, 0, 0, 0.1) !important;}
@@ -183,11 +199,12 @@ export default {
   color:  @theme-color !important;
   border: 1px solid @theme-color !important;
 }
+.weui-cells{ font-size: 16px !important; }
 .weui-cell__icon{display: block; width: 25px; height: 25px; margin-right: 10px;}
 .vux-swipeout-button{vertical-align: top;}
 .l-baseline{
   span{display: inline-block; vertical-align: middle;}
-  .vux-x-icon{vertical-align: middle; margin: 0 -6px; fill: currentColor;}
+  .vux-x-icon{vertical-align: middle; margin: 0 -6px;}
 }
 #app-header {
   ._home{padding: 0 10px; height: 100%;}
@@ -211,7 +228,15 @@ export default {
   ._ipt{ 
     background-color: #fff; border-radius: 100px; padding: 5px 10px 5px 35px;
     input{width: 100%; border: none; outline: 0;}
-    ._icon{float: left; margin: 4px 0 0 -25px;}
+    ._icon{float: left; margin: 3px 0 0 -25px;}
   }
+}
+
+.l-checker-item { 
+  min-width: 56px; height: 26px; line-height: 26px; text-align: center; border-radius: 3px;color: #999;
+  border: 1px solid transparent; background-color: #f5f5f5; padding: 0 10px; margin: 10px 10px 0 0;
+}
+.l-checker-item-slted {
+  background-color: #fff; border-color: @theme-color; color: @theme-color;
 }
 </style>

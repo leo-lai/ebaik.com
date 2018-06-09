@@ -1,0 +1,89 @@
+<template>
+  <view-box>
+    <header id="page-view-header">
+      <x-header :left-options="{backText: ''}">
+        <span>{{$route.meta.title}}</span>
+      </x-header>
+    </header>
+    
+
+    <div class="l-order-bottom l-margin-t">
+      <div class="_inner">
+        <div class="l-flex-hc">
+          <div class="_price">
+            合计金额：
+            <span class="l-rmb l-fs-l l-txt-theme">0.00</span>  
+          </div>
+          <div class="l-rest"></div>
+          <x-button class="_primary" type="primary" @click.native="submitOrder()">提交订单</x-button>
+        </div>
+      </div>
+      <div class="_placeholder"></div>
+    </div>
+  </view-box>
+</template>
+
+<script>
+import { CheckIcon } from "vux"
+export default {
+  name: "order-pre",
+  components: {
+    CheckIcon
+  },
+  data() {
+    return {
+      checkAll: false,
+      list: {
+        filter: {},
+        rows: 50,
+        page: 1,
+        data: []
+      },
+    }
+  },
+  methods: {
+    getList() {
+      let tempArr = new Array(1,1,1,1,1,1,1,1,1,1)
+      this.list.data = tempArr.map((item, index) => {
+        return {
+          id: index + 1,
+          checked: false,
+          thumb: require('../assets/images/temp-001.jpg'),
+          name: '歌飞龙波尔多红葡萄酒歌飞龙波尔多红葡萄酒',
+          num: index + 1,
+          price: (150 + index).toFixed(2)
+        }
+      })
+    },
+    submitOrder() {
+
+    }
+  },
+  mounted() {
+    this.getList()
+  },
+  beforeDestroy() {
+    this.$api.abort()
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.l-order-bottom{
+  ._tip{background-color: #fff; padding: 5px 15px; font-size: 12px;}
+  ._inner{position: fixed; bottom: 0; left: 0; right: 0;  background-color: #eee;}
+  ._check{margin-left: 10px;}
+  ._price{margin: 0 10px;}
+  ._primary{width: 100px; font-size: 14px; padding: 7px 20px; border-radius: 0;}
+  ._placeholder{height: 47px;}
+}
+
+.l-goods-item{
+  padding: 5px 15px;
+  ._check{margin-left: -5px;}
+  ._thumb{width: 100px; height: 100px; background: 50% 50% no-repeat; background-size: 80%;}
+  ._price{margin-top: 10px;}
+  ._num{float: right; margin-top: -1px; transform: scale(0.8); transform-origin: 100% 50%;}
+}
+</style>
+

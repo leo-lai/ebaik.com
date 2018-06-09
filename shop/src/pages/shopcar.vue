@@ -44,7 +44,7 @@
             合计：
             <span class="l-rmb l-fs-l l-txt-theme">0.00</span>  
           </div>
-          <x-button class="_primary" type="primary">去结算</x-button>
+          <x-button class="_primary" type="primary" @click.native="gotoOrder()">去结算</x-button>
         </div>
       </div>
       <div class="_placeholder"></div>
@@ -71,9 +71,7 @@ export default {
     }
   },
   methods: {
-    delGoods() {
-
-    },
+    
     getList() {
       let tempArr = new Array(1,1,1,1,1,1,1,1,1,1)
       this.list.data = tempArr.map((item, index) => {
@@ -86,6 +84,12 @@ export default {
           price: (150 + index).toFixed(2)
         }
       })
+    },
+    delGoods() {
+
+    },
+    gotoOrder() {
+      this.$router.push('/order/pre')
     }
   },
   mounted() {
@@ -103,8 +107,8 @@ export default {
   ._inner{position: fixed; bottom: 48px; left: 0; right: 0;  background-color: #eee;}
   ._check{margin-left: 10px;}
   ._price{margin: 0 10px;}
-  ._primary{width: 100px; font-size: 14px; padding: 7px 20px; border-radius: 0;}
-  ._placeholder{height: 47px;}
+  ._primary{width: 100px; font-size: 14px; padding: 7px 20px;}
+  ._placeholder{height: 48px;}
 }
 .l-shopcar-item{
   padding: 5px 15px;

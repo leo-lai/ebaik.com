@@ -4,7 +4,10 @@ import shopcar from '../pages/shopcar'
 import me from '../pages/me'
 const demo = () => import('../pages/demo').then(m => m.default)
 const storeList = () => import('../pages/store-list').then(m => m.default)
+const searchGoods = () => import('../pages/search-goods').then(m => m.default)
+const classGoods = () => import('../pages/class-goods').then(m => m.default)
 const meInfo = () => import('../pages/me-info').then(m => m.default)
+const orderPre = () => import('../pages/order-pre').then(m => m.default)
 const orderList = () => import('../pages/order-list').then(m => m.default)
 const register1 = () => import('../pages/register1').then(m => m.default)
 const register2 = () => import('../pages/register2').then(m => m.default)
@@ -72,6 +75,22 @@ const routes = [
     }
   },
   {
+    path: '/search/goods',
+    name: 'search-goods',
+    component: searchGoods,
+    meta: {
+      title: '搜索商品'
+    }
+  },
+  {
+    path: '/class/goods',
+    name: 'class-goods',
+    component: classGoods,
+    meta: {
+      title: '类别商品'
+    }
+  },
+  {
     path: '/me',
     name: 'me',
     component: me,
@@ -88,8 +107,16 @@ const routes = [
     }
   },
   {
+    path: '/order/pre',
+    name: 'order-pre',
+    component: orderPre,
+    meta: {
+      title: '确认订单'
+    }
+  },
+  {
     path: '/order/list',
-    name: 'orderList',
+    name: 'order-list',
     component: orderList,
     meta: {
       title: '我的订单'

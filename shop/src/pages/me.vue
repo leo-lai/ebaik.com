@@ -1,6 +1,6 @@
 <template>
   <view-box class="l-scroll-bg">
-    <header id="page-view-header" transparent>
+    <header id="page-view-header" class="l-bg-none">
       <x-header :left-options="{backText: ''}">
         <span>{{$route.meta.title}}</span>
         <router-link to="/me/info" slot="right"><i class="l-icon l-fs-x2">&#xe668;</i></router-link>
@@ -98,7 +98,6 @@ export default {
 </script>
 
 <style lang="less">
-.l-scroll-bg{ background-image: linear-gradient(180deg, #af1459 0, #af1459 50%, transparent 50%, transparent 100%)}
 .l-user-card{
   background-color: @theme-color; color: #fff; text-align: center; padding-bottom: 50px;
   ._avatar{

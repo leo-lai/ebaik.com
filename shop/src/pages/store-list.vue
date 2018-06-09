@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="l-store-item" v-for="item in 15" :key="item">
+    <div class="l-store-item" v-for="item in 15" :key="item" @click="$router.back()">
       <div class="_hd l-flex-hc">
         <i class="l-icon l-margin-r-s">&#xe641;</i>
         <h4 class="l-txt-wrap1">丰兴广场店</h4>
@@ -68,7 +68,9 @@ export default {
         ],
       },
       list: {
-        filter: {},
+        filter: {
+          city: ''
+        },
         rows: 50,
         page: 1,
         data: []
@@ -117,22 +119,6 @@ export default {
   ._hot-city{
     padding: 15px 5px 15px 15px;
   }
-}
-
-.l-checker-item { 
-  min-width: 56px; 
-  height: 26px; 
-  line-height: 26px; 
-  text-align: center;
-  border-radius: 3px;
-  border: 1px solid transparent;
-  background-color: #f5f5f5;
-  padding: 0 10px;
-  margin: 10px 10px 0 0;
-  color: #999;
-}
-.l-checker-item-slted {
-  background-color: #fff; border-color: @theme-color; color: @theme-color;
 }
 
 .l-store-item{

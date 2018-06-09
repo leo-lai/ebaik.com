@@ -14,7 +14,7 @@
       </group>
       <br>
       <div class="l-margin-tb">
-        <x-button link="/register2" type="primary">提交</x-button>
+        <x-button class="l-btn-radius" type="primary">提交</x-button>
       </div>
     </div>
   </view-box>

@@ -23,7 +23,7 @@
       </group>
       <br>
       <div class="l-margin">
-        <x-button type="primary">立即充值</x-button>
+        <x-button class="l-btn-radius" type="primary">立即充值</x-button>
       </div>
     </div>
   </view-box>
