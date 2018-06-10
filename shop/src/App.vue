@@ -172,10 +172,13 @@ export default {
   },
   mounted() {
     this.preventBounce()
-    // this.$vux.alert.show({
-    //   title: '打样提醒',
-    //   content: '不好意思，本店送货时间为：08:00 -24:00。现在不能为您提供送货服务，请选择自动售货或电商服务。或者看看宜百客其它店铺。'
-    // })
+    let hours = new Date().getHours()
+    if(hours < 8 || hours > 23){
+      this.$vux.alert.show({
+        title: '打样提醒',
+        content: '不好意思，本店送货时间为：08:00 -24:00。现在不能为您提供送货服务，请选择自动售货或电商服务。或者看看宜百客其它店铺。'
+      })  
+    }
   }
 }
 </script>
@@ -186,6 +189,7 @@ export default {
 @import "./assets/base.less";
 @theme-color: #af1459;
 .l-rmb::before{ content: '￥'; font-size: 0.6em;}
+.weui-dialog__bd{text-align: left; text-align: justify;}
 .vux-x-icon{ fill: currentColor; }
 .vux-header-right .vux-x-icon{ margin-top: -6px; }
 .weui-tabbar__icon > i{display: block; margin-top: -4px;}

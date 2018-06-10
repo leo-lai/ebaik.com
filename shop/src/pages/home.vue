@@ -201,9 +201,13 @@ export default {
     }
   },
   mounted() {
-    // setTimeout(_ => {
-    //   this.redpack.visible = true
-    // }, 3000)
+    if(!this.$storage.session.get('redpack-tip')){
+      this.$storage.session.set('redpack-tip', 1)
+      setTimeout(_ => {
+        this.redpack.visible = true
+      }, 2000)
+    }
+    
   },
   beforeDestroy() {
     // this.$api.abort()
