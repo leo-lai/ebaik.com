@@ -5,14 +5,76 @@
         <span>{{$route.meta.title}}</span>
       </x-header>
     </header>
-    
+
+    <div class="l-margin l-radius l-bg-white">
+      <div class="l-padding l-is-link" @click="$router.push('/address/slter?id=')">
+        <div v-if="address">
+          <p>
+            <span class="l-margin-r">收货人：赖小帅</span>
+            <span>18602029524</span>
+          </p>
+          <p>收货地址：广东省广州市海珠区仑头村委会3号</p>
+        </div>
+        <div v-else class="l-flex-hc">
+          <span>配送地址</span>
+          <div class="l-rest"></div>
+          <span class="l-txt-gray">请选择</span>
+        </div>
+      </div>
+      <div class="l-h-1px l-margin-lr vux-1px-t"></div>
+      <div class="l-padding l-flex-hc l-is-link">
+        <span>配送时间</span>
+        <div class="l-rest"></div>
+        <span class="l-txt-gray">请选择</span>
+      </div>
+    </div>
+
+    <div class="l-margin l-radius l-bg-white">
+      <div class="l-order-item" v-for="item in 1">
+        <div class="_hd l-flex-hc">
+          <span>商品信息</span>
+        </div>
+        <div class="_bd">
+          <div class="_goods l-flex-hc" v-for="item in 2">
+            <div class="_thumb" :style="{backgroundImage: 'url(' + require('../assets/images/temp-001.jpg') +')' }"></div>
+            <div class="l-rest">
+              <p class="l-txt-wrap2">商品名称迪斯科浪费的时刻是犯法的事商品名称迪斯科浪费的时刻是犯法的事商品名称迪斯科浪费的时刻是犯法的事商品名称迪斯科浪费的时刻是犯法的事</p>
+              <p class="l-txt-gray l-margin-t-s">
+                <span class="l-margin-r">规格：5</span>
+                <span>单位：包</span>
+              </p>
+              <p class="l-margin-t-s">
+                <span class="l-fr l-txt-gray">x1</span>
+                <span class="l-txt-theme l-rmb">19.00</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="l-h-1px l-margin-lr vux-1px-t"></div>
+        <div class="l-padding l-flex-hc l-is-link" @click="gotoRedpack()">
+          <span>红包</span>
+          <div class="l-rest"></div>
+          <!-- <span class="l-txt-gray">无可用红包</span> -->
+          <span class="l-txt-theme">有可用红包</span>
+        </div>
+        <div class="l-h-1px l-margin-lr vux-1px-t"></div>
+        <div class="l-padding">
+          <h3><span class="l-fr l-rmb">200.00</span>商品金额</h3>
+          <div class="l-txt-gray l-fs-s">
+            <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>买一送一</p>
+            <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>新注册用户</p>
+            <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>使用红包</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="l-order-bottom l-margin-t">
       <div class="_inner">
         <div class="l-flex-hc">
           <div class="_price">
             合计金额：
-            <span class="l-rmb l-fs-l l-txt-theme">0.00</span>  
+            <span class="l-rmb l-fs-l l-txt-theme">170.00</span>  
           </div>
           <div class="l-rest"></div>
           <x-button class="_primary" type="primary" @click.native="submitOrder()">提交订单</x-button>
@@ -33,6 +95,7 @@ export default {
   data() {
     return {
       checkAll: false,
+      address: 1,
       list: {
         filter: {},
         rows: 50,
@@ -55,8 +118,11 @@ export default {
         }
       })
     },
+    gotoRedpack() {
+      this.$router.push('/redpack?mode=slter')
+    },
     submitOrder() {
-
+      this.$router.push('/order/pay?id=')
     }
   },
   mounted() {
@@ -78,12 +144,15 @@ export default {
   ._placeholder{height: 47px;}
 }
 
-.l-goods-item{
-  padding: 5px 15px;
-  ._check{margin-left: -5px;}
-  ._thumb{width: 100px; height: 100px; background: 50% 50% no-repeat; background-size: 80%;}
-  ._price{margin-top: 10px;}
-  ._num{float: right; margin-top: -1px; transform: scale(0.8); transform-origin: 100% 50%;}
+.l-order-item{
+  margin-bottom: 10px; background-color: #fff;
+  ._hd{ padding: 10px 15px;}
+  ._goods{
+    margin: 10px 15px; font-size: 12px;
+    ._thumb{width: 80px; height: 80px; background:#fff 50% 50% no-repeat; background-size: 80%; margin-right: 10px;}
+  }
+  ._goods::last-child{margin-bottom: 0;}
+  ._total{padding: 10px 15px;}
 }
 </style>
 

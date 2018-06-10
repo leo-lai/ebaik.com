@@ -8,6 +8,8 @@ const searchGoods = () => import('../pages/search-goods').then(m => m.default)
 const classGoods = () => import('../pages/class-goods').then(m => m.default)
 const meInfo = () => import('../pages/me-info').then(m => m.default)
 const orderPre = () => import('../pages/order-pre').then(m => m.default)
+const orderPay = () => import('../pages/order-pay').then(m => m.default)
+const orderResult = () => import('../pages/order-result').then(m => m.default)
 const orderList = () => import('../pages/order-list').then(m => m.default)
 const register1 = () => import('../pages/register1').then(m => m.default)
 const register2 = () => import('../pages/register2').then(m => m.default)
@@ -23,6 +25,7 @@ const favorite = () => import('../pages/favorite').then(m => m.default)
 const feedback = () => import('../pages/feedback').then(m => m.default)
 const address = () => import('../pages/address').then(m => m.default)
 const addressAdd = () => import('../pages/address-add').then(m => m.default)
+const addressSlter = () => import('../pages/address-slter').then(m => m.default)
 const setting = () => import('../pages/setting').then(m => m.default)
 
 
@@ -115,6 +118,22 @@ const routes = [
     }
   },
   {
+    path: '/order/pay',
+    name: 'order-pay',
+    component: orderPay,
+    meta: {
+      title: '支付订单'
+    }
+  },
+  {
+    path: '/order/result',
+    name: 'order-rsult',
+    component: orderResult,
+    meta: {
+      title: '下单成功'
+    }
+  },
+  {
     path: '/order/list',
     name: 'order-list',
     component: orderList,
@@ -136,6 +155,14 @@ const routes = [
     component: addressAdd,
     meta: {
       title: '添加新地址'
+    }
+  },
+  {
+    path: '/address/slter',
+    name: 'address-slter',
+    component: addressSlter,
+    meta: {
+      title: '选择收货地址'
     }
   },
   {

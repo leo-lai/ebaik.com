@@ -46,19 +46,21 @@ input{ font-size: 13px; }
 .l-rmb::before{content: '￥'; font-size: 0.75em;}
 .l-img-block{display: block; margin: auto;}
 .l-zoom{overflow: hidden;}
-.l-is-link{position: relative; padding-right: 15px;}
+.l-is-link{position: relative; padding-right: 35px !important;}
 .l-is-link::after{
     content: '';
-    height: 6px;
-    width: 6px;
+    height: 8px;
+    width: 8px;
     border-width: 2px 2px 0 0;
     border-color: #c8c8cd;
     border-style: solid;
     transform: matrix(.71,.71,-.71,.71,0,0) translateY(-50%);
     position: absolute;
     top: 50%;
-    right: 4px;
+    right: 20px;
 }
+.l-radius{border-radius: 3px; overflow: hidden;}
+.l-h-1px{height: 1px;}
 
 /*
   http://www.css88.com/book/css/ 

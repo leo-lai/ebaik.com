@@ -1,6 +1,6 @@
 <template>
   <view-box>
-    <swipeout>
+    <swipeout class="l-margin-b">
       <swipeout-item transition-mode="follow" v-for="item in list.data" :key="item.id">
         <div slot="right-menu">
           <swipeout-button @click.native="delGoods(item)" background-color="#ed722f">
@@ -27,13 +27,13 @@
         </div>
       </swipeout-item>
     </swipeout>
-    <div class="l-shopcar-bottom l-margin-t">
+    <div class="l-shopcar-bottom">
       <div class="_inner">
-        <div class="_tip">
+        <!-- <div class="_tip">
           温馨提示：<br>
           1、选择商品后10分钟内未付款，系统将自动清空购物车。<br>
           2、本店送货地址为：天泰一路1号范围。
-        </div>
+        </div> -->
         <div class="l-flex-hc">
           <div class="_check">
             <check-icon :value.sync="checkAll"></check-icon>

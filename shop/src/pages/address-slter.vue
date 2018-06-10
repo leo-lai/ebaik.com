@@ -3,24 +3,20 @@
     <header id="page-view-header">
       <x-header :left-options="{backText: ''}">
         <span>{{$route.meta.title}}</span>
-        <!-- <router-link to="/address/add" slot="right">添加新地址</router-link> -->
+        <router-link to="/address" slot="right">管理地址</router-link>
       </x-header>
     </header>
     
     <div class="l-address-item" v-for="item in list.data" :key="item.id">
       <div class="_hd l-flex-hc">
-        <span>{{item.name}}</span>
-        <div class="l-rest"></div>
+        <span class="l-txt-wrap1">{{item.name}}</span>
+        <div class="l-rest l-margin-l-m">
+          <badge v-if="item.id == 1" text="默认"></badge>
+        </div>
         <span>{{item.phone}}</span>
       </div>
       <div class="_bd">
         {{item.address}}
-      </div>
-      <div class="_ft l-flex-hc vux-1px-t">
-        <check-icon class="_check" :value.sync="item.checked">设为默认</check-icon>
-        <div class="l-rest"></div>
-        <span><i class="l-icon">&#xe61f;</i> 编辑</span>
-        <span class="l-margin-l"><i class="l-icon">&#xe600;</i> 删除</span>
       </div>
     </div>
 
@@ -36,11 +32,11 @@
 </template>
 
 <script>
-import { CheckIcon } from 'vux'
+import { CheckIcon, Badge } from 'vux'
 export default {
   name: 'my-address',
   components: {
-    CheckIcon
+    CheckIcon, Badge
   },
   data () {
     return {
