@@ -4,8 +4,9 @@ import shopcar from '../pages/shopcar'
 import me from '../pages/me'
 const demo = () => import('../pages/demo').then(m => m.default)
 const storeList = () => import('../pages/store-list').then(m => m.default)
-const searchGoods = () => import('../pages/search-goods').then(m => m.default)
 const classGoods = () => import('../pages/class-goods').then(m => m.default)
+const goodsSearch = () => import('../pages/goods-search').then(m => m.default)
+const goodsInfo = () => import('../pages/goods-info').then(m => m.default)
 const meInfo = () => import('../pages/me-info').then(m => m.default)
 const orderPre = () => import('../pages/order-pre').then(m => m.default)
 const orderPay = () => import('../pages/order-pay').then(m => m.default)
@@ -70,6 +71,14 @@ const routes = [
     }
   },
   {
+    path: '/shop/car',
+    name: 'shop-car',
+    component: shopcar,
+    meta: {
+      title: '购物车'
+    }
+  },
+  {
     path: '/store/list',
     name: 'store-list',
     component: storeList,
@@ -78,19 +87,27 @@ const routes = [
     }
   },
   {
-    path: '/search/goods',
-    name: 'search-goods',
-    component: searchGoods,
-    meta: {
-      title: '搜索商品'
-    }
-  },
-  {
     path: '/class/goods',
     name: 'class-goods',
     component: classGoods,
     meta: {
       title: '类别商品'
+    }
+  },
+  {
+    path: '/goods/search',
+    name: 'goods-search',
+    component: goodsSearch,
+    meta: {
+      title: '搜索商品'
+    }
+  },
+  {
+    path: '/goods/info',
+    name: 'goods-info',
+    component: goodsInfo,
+    meta: {
+      title: '商品详情'
     }
   },
   {

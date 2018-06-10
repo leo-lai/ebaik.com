@@ -14,7 +14,7 @@
     
     <br>
     <div class="l-margin">
-      <x-button type="primary">立即注册</x-button>
+      <x-button type="primary" @click.native="submit">立即注册</x-button>
     </div>
     
   </view-box>
@@ -33,7 +33,9 @@ export default {
     }
   },
   methods: {
-    
+    submit() {
+      this.$router.push('/')
+    }
   },
   mounted() {
   }

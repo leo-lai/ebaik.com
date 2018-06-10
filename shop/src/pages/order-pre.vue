@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="l-h-1px l-margin-lr vux-1px-t"></div>
-        <div class="l-padding l-flex-hc l-is-link" @click="gotoRedpack()">
+        <div class="l-padding l-flex-hc l-is-link" @click="gotoRedpack">
           <span>红包</span>
           <div class="l-rest"></div>
           <!-- <span class="l-txt-gray">无可用红包</span> -->
@@ -77,7 +77,7 @@
             <span class="l-rmb l-fs-l l-txt-theme">170.00</span>  
           </div>
           <div class="l-rest"></div>
-          <x-button class="_primary" type="primary" @click.native="submitOrder()">提交订单</x-button>
+          <x-button class="_btn" type="primary" @click.native="submitOrder">提交订单</x-button>
         </div>
       </div>
       <div class="_placeholder"></div>
@@ -140,7 +140,7 @@ export default {
   ._inner{position: fixed; bottom: 0; left: 0; right: 0;  background-color: #eee;}
   ._check{margin-left: 10px;}
   ._price{margin: 0 10px;}
-  ._primary{width: 100px; font-size: 14px; padding: 7px 20px; border-radius: 0;}
+  ._btn{width: 100px; font-size: 14px; padding: 7px 20px;}
   ._placeholder{height: 47px;}
 }
 

@@ -2,7 +2,7 @@
   <view-box class="l-bg-white">
     <div class="l-search-placeholder">
       <div class="_fixed">
-        <div class="_tip" @click="$router.push('/search/goods')">
+        <div class="_tip" @click="$router.push('/goods/search')">
           <icon type="search"></icon>
           <span>请输入商品名称</span>
         </div>
@@ -27,11 +27,11 @@
       </div>
     </div>
     <div class="l-goods-hot">
-      <div class="_item" v-for="item in 4" :key="item">
+      <div class="_item" v-for="item in 4" :key="item" @click="$router.push('/goods/info?id=')">
         <div class="_thumb" :style="{backgroundImage: 'url(' + require('../assets/images/temp-001.jpg') +')' }"></div>
         <div class="_txt l-fs-s l-txt-wrap1">韩国打的口袋空空</div>
         <div class="_price">
-          <i class="_add" @click="showGoodsInfo(item)"></i>
+          <i class="_add" @click.stop="showGoodsInfo(item)"></i>
           <span class="l-rmb">8.00</span>
         </div>
       </div>
@@ -46,11 +46,11 @@
       </div>
     </div>
     <div class="l-goods-hot">
-      <div class="_item" v-for="item in 4" :key="item">
+      <div class="_item" v-for="item in 4" :key="item" @click="$router.push('/goods/info?id=')">
         <div class="_thumb" :style="{backgroundImage: 'url(' + require('../assets/images/temp-001.jpg') +')' }"></div>
         <div class="_txt l-fs-s l-txt-wrap1">韩国打的口袋空空</div>
         <div class="_price">
-          <i class="_add" @click="showGoodsInfo(item)"></i>
+          <i class="_add" @click.stop="showGoodsInfo(item)"></i>
           <span class="l-rmb">8.00</span>
         </div>
       </div>
@@ -108,9 +108,9 @@
               <span class="l-rmb l-txt-theme l-fs-x2">5.00</span>
             </div>
             <div class="_btn l-txt-center l-margin-tb">
-              <x-button type="warn" round mini>加入购物车</x-button>
+              <x-button type="warn" round mini @click.native="submitShopcar">加入购物车</x-button>
               <span class="l-margin-l"></span>
-              <x-button type="primary" round mini>立即购买</x-button>
+              <x-button type="primary" round mini @click.native="submitOrder">立即购买</x-button>
             </div>
           </div>
         </div>
@@ -189,12 +189,21 @@ export default {
   methods: {
     showGoodsInfo() {
       this.goodsInfo.visible = true
+    },
+    submitShopcar() {
+      this.$vux.toast.show({
+        text: '已加入购物车'
+      })
+      this.goodsInfo.visible = false
+    },
+    submitOrder() {
+      this.$router.push('/order/pre?id=')
     }
   },
   mounted() {
-    setTimeout(_ => {
-      this.redpack.visible = true
-    }, 3000)
+    // setTimeout(_ => {
+    //   this.redpack.visible = true
+    // }, 3000)
   },
   beforeDestroy() {
     // this.$api.abort()

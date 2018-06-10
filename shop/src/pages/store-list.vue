@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="l-store-item" v-for="item in 15" :key="item" @click="$router.back()">
+    <div class="l-store-item" v-for="item in 15" :key="item" @click="$router.back">
       <div class="_hd l-flex-hc">
         <i class="l-icon l-margin-r-s">&#xe641;</i>
         <h4 class="l-txt-wrap1">丰兴广场店</h4>

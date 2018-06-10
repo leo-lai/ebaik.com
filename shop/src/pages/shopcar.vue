@@ -1,5 +1,10 @@
 <template>
   <view-box>
+    <header id="page-view-header">
+      <x-header v-if="!$route.meta.topinfo" :left-options="{backText: ''}">
+        <span>{{$route.meta.title}}</span>
+      </x-header>
+    </header>
     <swipeout class="l-margin-b">
       <swipeout-item transition-mode="follow" v-for="item in list.data" :key="item.id">
         <div slot="right-menu">
@@ -8,8 +13,8 @@
           </swipeout-button>
           <swipeout-button @click.native="delGoods(item)" background-color="rgb(247, 76, 49)">删除</swipeout-button>
         </div>
-        <div slot="content" class="l-flex-hc l-shopcar-item vux-1px-t">
-          <div class="_check">
+        <div slot="content" class="l-flex-hc l-shopcar-item vux-1px-t" @click="$router.push('/goods/info?id=')">
+          <div class="_check" @click.stop>
             <check-icon :value.sync="item.checked"></check-icon>
           </div>
           <div class="_thumb" :style="{backgroundImage: 'url(' + item.thumb +')' }"></div>
@@ -19,7 +24,7 @@
               <span>单位：包</span>
               <span>规格：5g</span>
             </p>
-            <div class="_price">
+            <div class="_price" @click.stop>
               <inline-x-number class="_num" :min="1" v-model="item.num" width="40px" button-style="round"></inline-x-number>
               <span class="l-rmb l-txt-theme l-fs-l">{{item.price}}</span>
             </div>
@@ -27,7 +32,7 @@
         </div>
       </swipeout-item>
     </swipeout>
-    <div class="l-shopcar-bottom">
+    <div class="l-shopcar-bottom" :class="{'l-shopcar-bottom-0': !$route.meta.tabbar}">
       <div class="_inner">
         <!-- <div class="_tip">
           温馨提示：<br>
@@ -44,7 +49,7 @@
             合计：
             <span class="l-rmb l-fs-l l-txt-theme">0.00</span>  
           </div>
-          <x-button class="_primary" type="primary" @click.native="gotoOrder()">去结算</x-button>
+          <x-button class="_btn" type="primary" @click.native="gotoOrder">去结算</x-button>
         </div>
       </div>
       <div class="_placeholder"></div>
@@ -107,8 +112,11 @@ export default {
   ._inner{position: fixed; bottom: 48px; left: 0; right: 0;  background-color: #eee;}
   ._check{margin-left: 10px;}
   ._price{margin: 0 10px;}
-  ._primary{width: 100px; font-size: 14px; padding: 7px 20px;}
+  ._btn{width: 100px; font-size: 14px; padding: 7px 20px;}
   ._placeholder{height: 48px;}
+}
+.l-shopcar-bottom-0{
+  ._inner{bottom: 0;}
 }
 .l-shopcar-item{
   padding: 5px 15px;

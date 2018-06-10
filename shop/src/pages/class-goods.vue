@@ -3,7 +3,7 @@
     <header id="page-view-header" class="l-bg-none">
       <x-header :left-options="{backText: ''}">
         <span>{{$route.meta.title}}</span>
-        <router-link to="/search/goods" slot="right">
+        <router-link to="/goods/search" slot="right">
           <x-icon type="ios-search" size="30"></x-icon>
         </router-link>
       </x-header>

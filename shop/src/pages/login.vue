@@ -20,7 +20,7 @@
     
     <br>
     <div class="l-margin">
-      <x-button type="primary">登录</x-button>
+      <x-button type="primary" @click.native="submit">登录</x-button>
     </div>
     <br>
     <div class="l-txt-center" style="width: 60%; margin: auto;">
@@ -44,7 +44,9 @@ export default {
     }
   },
   methods: {
-    
+    submit() {
+      this.$router.push('/')
+    }
   },
   mounted() {
   }
