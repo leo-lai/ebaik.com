@@ -1,0 +1,71 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chart.js": "^2.7.2",
+    "element-ui": "^2.3.6",
+    "js-md5": "^0.7.3",
+    "nprogress": "^0.2.0",
+    "qiniu-js": "^2.4.0",
+    "screenfull": "^3.3.2",
+    "viewerjs": "^1.2.0",
+    "vue": "^2.5.16",
+    "vue-chartjs": "^3.4.0",
+    "vue-image-crop-upload": "^2.3.3",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-beta.15",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
+    "@vue/cli-service": "^3.0.0-beta.15",
+    "@vue/eslint-config-standard": "^3.0.0-rc.3",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "vue-cli-plugin-element-ui": "^1.1.2",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/html-quotes": [
+        "error",
+        "double"
+      ],
+      "vue/html-indent": [
+        "error",
+        2
+      ],
+      "no-extend-native": "off",
+      "no-useless-escape": "off",
+      "no-unused-vars": "warn"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
