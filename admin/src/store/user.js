@@ -5,16 +5,11 @@ const user = {
   state: {
     fetching: false,
     info: null,
-    shopAuth: null,
   },
   mutations: {
     USER_INFO: (state, info = {}) => {
       storage.local.set('userInfo', info)
       state.info = info
-    },
-    SHOP_AUTH: (state, data = '') => {
-      storage.local.set('shopState', data)
-      state.shopAuth = data
     }
   },
   actions: {
@@ -42,17 +37,6 @@ const user = {
     logout ({ commit }) {
       return api.auth.logout().then(() => {
         commit('USER_INFO', '')
-      })
-    },
-    getUserInfo({ commit }) {
-      return api.auth.getInfo().then(({data}) => {
-        commit('USER_INFO', data)
-      })
-    },
-    getShopInfo({ commit }) {
-      return api.shop.getInfo().then(({data}) => {
-        commit('SHOP_AUTH', data.state === 2 && data.status === 10)
-        return data
       })
     }
   }

@@ -156,10 +156,7 @@ const fetch = {
 const commonAPI = {
   md5,
   baseURL,
-  qiniuURL: 'http://qiniu.hsbro.cn/',
   uploadURL: baseURL + '/publics_v2/upload',
-  payURL: location.host.indexOf('hsbro.cn') !== -1 ? 
-  'https://service.allinpay.com/gateway/index.do' : 'http://ceshi.allinpay.com/gateway/index.do',
   pageSizes: [10, 20, 50, 100, 200, 500],
   abort(url = '') { // 取消接口请求
     if(url) {
@@ -251,34 +248,7 @@ const commonAPI = {
 
 const platformAPI = {
   admin: { // 后台接口
-    notice: {
-      getList(formData = {}, page = 1, rows = 50) { // 待办事项/通知提醒
-        formData.page = page
-        formData.rows = rows
-        return fetch.get('/work_v2/matter/index', formData)
-      },
-      setRead(ids = '') { // 设置已读
-        return fetch.get('/work_v2/matter/isRead', { ids })
-      },
-      getCount() { // 未读消息数
-        return fetch.get('/work_v2/matter/unread')
-      }
-    },
-    index: {
-      getData() {
-        return fetch.get('/work_v2/index')
-      }
-    },
     auth: {
-      setInfo(formData = {}) { // 修改个人信息
-        return fetch.post('/work_v2/user/portrait', formData)
-      },
-      getInfo() { // 获取个人信息
-        return fetch.get('/work_v2/user/info')
-      },
-      checkUser(phone = '') { // 检查是否注册用户
-        return fetch.get('/publics_v2/isRegister', { phone, type: 'admin' })
-      },
       findPwd(formData = {}) {
         formData.password = md5(formData.password)
         formData.repassword = md5(formData.repassword)
@@ -304,143 +274,13 @@ const platformAPI = {
         })
       }
     },
-    user: {
-      getList(formData = {}, page = 1, rows = 20) { // 账号列表
-        formData.page = page
-        formData.rows = rows
-        return fetch.get('/work_v2/user', formData)
-      },
-      getInfo(id = '') { // 账号详情
-        return fetch.get('/work_v2/user/detail', { id })
-      },
-      add(formData = {}) { // 新增账号
-        return fetch.post('/work_v2/user/create', formData)
-      },
-      edit(formData = {}) { // 编辑账号
-        return fetch.post('/work_v2/user/edit', formData)
-      },
-      enable(id = '', enable = 1) {
-        let type = enable === 1 ? 'enable' : 'disable'
-        return fetch.get('/work_v2/user/remove', { id, type })
-      }
-    },
-    menu: {
-      getList(formData = {}, page = 1, rows = 20) { // 角色列表
-        formData.page = page
-        formData.rows = rows
-        return fetch.get('/work_v2/menu/index', formData)
-      },
-      add(formData = {}) { // 添加菜单
-        return fetch.post('/work_v2/menu/create', formData)
-      },
-      edit(formData = {}) { // 编辑菜单
-        return fetch.post('/work_v2/menu/edit', formData)
-      },
-      del(id = '') { // 删除菜单
-        return fetch.post('/work_v2/menu/remove', { id })
-      },
-    },
-    role: {
-      getList(formData = {}, page = 1, rows = 20) { // 角色列表
-        formData.page = page
-        formData.rows = rows
-        return fetch.get('/work_v2/role', formData)
-      },
-      getDownList() { // 角色下拉列表
-        return fetch.get('/work_v2/role/lists')
-      },
-      getMenuList(id = '') { // 获取角色菜单权限
-        return fetch.get('/work_v2/roleaccess/index', { id })
-      },
-      setMenuList(formData = {}) { // 获取角色菜单权限
-        return fetch.post('/work_v2/roleaccess/addAuth', formData)
-      },
-      add(formData = {}) { // 添加角色
-        return fetch.post('/work_v2/role/create', formData)
-      },
-      edit(formData = {}) { // 编辑角色
-        return fetch.post('/work_v2/role/edit', formData)
-      },
-      del(roleId = '') { // 删除角色
-        return fetch.get('/work_v2/role/remove', { roleId })
-      },
-    },
-    department: {
-      getList(formData = {}, page = 1, rows = 50) { // 部门列表
-        formData.page = page
-        formData.rows = rows
-        return fetch.get('/work_v2/department/index', formData)
-      },
-      getDownList() { // 部门下拉列表
-        return fetch.get('/work_v2/department/lists')
-      },
-      getPositionList(departId = '') { // 岗位列表
-        return fetch.get('/work_v2/department/positionList', { departId })
-      },
-      add(formData = {}) { // 新增部门岗位
-        return fetch.post('/work_v2/department/create', formData)
-      },
-      edit(formData = {}) { // 编辑部门岗位
-        return fetch.post('/work_v2/department/edit', formData)
-      },
-      del(formData = {}) { // 删除部门岗位
-        return fetch.post('/work_v2/department/remove', formData)
-      },
-    },
-    shop: {
-      getList(formData = {}, page = 1, rows = 20) {
-        formData.page = page
-        formData.rows = rows
-        return fetch.get('/work_v2/organization/index', formData)
-      },
-      getInfo(orgId = '') { // 详情
-        return fetch.get('/work_v2/organization/detail', { orgId })
-      },
-      auth(formData = {}) { // 风控审核门店 
-        return fetch.post('/work_v2/organization/verify', formData)
-      },
-    },
     order: {
       getList(formData = {}, page = 1, rows = 20) {
         formData.page = page
         formData.rows = rows
         return fetch.get('/work_v2/order/index', formData)
-      },
-      getInfo(orderId = '') { // 详情
-        return fetch.get('/work_v2/order/detail', { orderId })
-      },
-      verify(formData = {}) { // 审核垫资申请
-        return fetch.post('/work_v2/order/verify', formData)
-      },
-      changeAmount(formData = {}) { // 调整利率
-        return fetch.post('/work_v2/order/adjustAmount', formData)
-      },
-      uploadWuliu(formData = {}) { // 录入物流信息
-        return fetch.post('/work_v2/order/logisticsInfo', formData)
-      },
-      checkcar(formData = {}) { // 录入验车信息
-        return fetch.post('/work_v2/order/checkCar', formData)
-      },
-      payAmount(formData = {}) { // 代付车款
-        return fetch.get('/work_v2/pay/singleCash', formData)
-      },
-      loadcar(formData = {}) { // 录入装车信息
-        return fetch.post('/work_v2/order/loadCar', formData)
-      },
-      instock(formData = {}) { // 录入入库信息
-        return fetch.post('/work_v2/order/unStock', formData)
-      },
-      verifyAmount(formData = {}) { // 录入入库信息
-        return fetch.post('/work_v2/order/verifyAmount', formData)
-      },
-    },
-    finance: {
-      getPayList(formData = {}, page = 1, rows = 20) {
-        formData.page = page
-        formData.rows = rows
-        return fetch.get('/work_v2/account/records', formData)
       }
-    },
+    }
   }
 }
 

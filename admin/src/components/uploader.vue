@@ -1,7 +1,6 @@
 <template>
-  <div class="l-uploader">
-    <el-upload class="l-upload-card" name="image" accept="image/*" list-type="picture-card" multiple 
-               :data="formData"
+  <div>
+    <el-upload class="l-upload-card"  :class="{'_limit': files.length >= limit }" name="image" accept="image/*"  list-type="picture-card" multiple
                :limit="limit"
                :file-list="files"
                :action="$api.uploadURL" 
@@ -12,20 +11,7 @@
                :on-error="uploadError" 
                :on-exceed="uploadExceed"
                :before-upload="uploadBefore">
-      <div v-if="fileNum < limit" slot="trigger">
-        <div class="_tip-imgs" v-if="fileNum === 0" @click.stop>
-          <image-previewer :file-list="images"></image-previewer>
-        </div>
-        <div class="_tip-txt">
-          <div class="_slot" @click.stop>
-            <slot>
-              <p>{{tip}}</p>
-              <p>支持JPG/PNG格式</p>
-            </slot>
-          </div>
-          <a class="_slt">选择文件</a>
-        </div>
-      </div>
+      <i class="el-icon-plus"></i>
     </el-upload>
 
     <!-- 预览图片 -->
@@ -45,24 +31,13 @@ export default {
         return []
       }
     },
-    samplePic: {
-      type: Array,
-      default() {
-        return []
-      }
-    },
     limit: {
       type: Number,
-      default: 50
-    },
-    tip: {
-      type: String,
-      default: '示例图'
+      default: 12
     }
   },
   data() {
     return {
-      formData: {},
       waiting: 0,
       fileNum: 0    // 已选择文件数
     }
@@ -143,37 +118,21 @@ export default {
     uploadExceed() {
       this.$message.error('最多上传' + this.limit + '张照片')
     }
-  },
-  mounted() {
-    this.formData.timestamp = Date.now()
-    this.formData.sign = this.$api.md5(this.$utils.sign(this.formData))
   }
 }
 </script>
 <style lang="less">
-.l-uploader{ display: inline-block; vertical-align: top; line-height: 1.6; }
 .l-upload-card{
-  .el-upload-list__item{
-    width: 80px; height: 80px; border-radius: 0; transition: none; vertical-align: top;
+  .el-upload-list--picture-card .el-upload-list__item,
+  .el-upload--picture-card{
+    width: 80px; height: 80px;
+  }
+  .el-upload--picture-card{
+    line-height: 80px;
   }
   .el-icon-close-tip{font-size: 0;}
   &._limit .el-upload--picture-card{
     visibility: hidden;
-  }
-  .el-upload--picture-card{
-    line-height: 1.6; text-align: left; color: #999;width: auto; height: auto; font-size: 12px;
-    border-color: transparent; background-color: transparent; 
-    ._slt{ display: inline-block; padding: 3px 12px; color: #fff; background-color: #5b7fc1; }
-    ._tip-imgs{
-      display: inline-block; vertical-align: top; filter: grayscale(100);
-      img{
-        width: 80px; height: 80px; margin: 0 8px 8px 0; border:1px solid #c0ccda; vertical-align: top;
-      }
-    }
-    ._slot{cursor: default; height: 55px;}
-    ._tip-txt{
-      display: inline-block; vertical-align: top; margin-left: 10px;
-    }
   }
 }
 </style>

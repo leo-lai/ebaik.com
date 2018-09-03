@@ -1,11 +1,11 @@
 // 字体
 @font-face {
   font-family: 'l-iconfont';  /* project id 752792 */
-  src: url('//at.alicdn.com/t/font_752792_afty8tbl3kq.eot');
-  src: url('//at.alicdn.com/t/font_752792_afty8tbl3kq.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_752792_afty8tbl3kq.woff') format('woff'),
-  url('//at.alicdn.com/t/font_752792_afty8tbl3kq.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_752792_afty8tbl3kq.svg#l-iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_752792_zfvz8cih0da.eot');
+  src: url('//at.alicdn.com/t/font_752792_zfvz8cih0da.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_752792_zfvz8cih0da.woff') format('woff'),
+  url('//at.alicdn.com/t/font_752792_zfvz8cih0da.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_752792_zfvz8cih0da.svg#l-iconfont') format('svg');
 }
 
 [class^='l-icon']{
@@ -24,6 +24,8 @@
 .l-icon-04::after{content: '\e609';}
 .l-icon-05::after{content: '\e60f';}
 .l-icon-06::after{content: '\e886';}
+.l-icon-07::after{content: '\e608';}
+.l-icon-08::after{content: '\e6b6';}
 
 // 布局样式
 #app{height:  100%; position: relative; max-width: 100%;}
@@ -109,12 +111,12 @@
   li._active2{
     font-weight: 700; padding-bottom: 7px;
     &::after{
-      content: ''; display: block; margin: 0 -5px; border-bottom: 2px solid #e9b023; position: relative; bottom: -19px;
+      content: ''; display: block; margin: 0 -5px; border-bottom: 2px solid #e9b023; position: relative; bottom: -18px;
     }
   }
 }
 
-.l-filter-top{ display: flex; flex-wrap: wrap; justify-content: space-between; }
+.l-filter-top{ display: flex; flex-wrap: wrap; justify-content: space-between; border-bottom: 1px solid #eee; }
 .l-filter-form{
   margin: 10px 10px 10px 20px;
   .el-form-item{margin-bottom: 0;}
@@ -138,23 +140,6 @@
 
 .l-form-1{
   .el-form-item__content{min-width: 220px;}
-}
-
-.l-contract-pre{
-  background-color: #f9f8f8; position: relative; padding: 40px 15px 30px; 
-  ._inner{ 
-    width: 175px; height: 217px; background: #fff url('../images/20180816001.jpg') no-repeat 50% 50%; border: 1px solid #dbdbdb; position: relative; 
-    a{background-color: rgba(0, 0, 0, 0.6); color: #fff; text-decoration: underline; position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 0; text-align: center; font-size: 12px;}
-  }
-  ._tag, ._tag0, ._tag5, ._tag10, ._tag-10{  
-    background-color: #409eff; color: #fff; position: absolute; top:0; left: 0; width: 60px; height: 60px; clip-path: polygon(0 0, 0 100%, 100% 0);
-    &::before{ content: attr(title); display: block; transform: rotate(-45deg) scale(0.8); font-size: 11px; margin: 10px 0 0 -20px; text-align: center; width: 80px; }
-  }
-  ._tag10{ background-color: #39b94d; }
-  ._tag-10{ background-color: #ff2828; }
-  ._loading{
-    position: absolute; top:0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.6); color: #fff;
-  }
 }
 
 .l-image-preview{
@@ -220,7 +205,9 @@
 .el-step.is-vertical .el-step__line{background-color: #f1deb4; top: 5px; bottom: -20px;}
 .el-step__icon.is-text{border:none; background-color: transparent;}
 
-
+.el-tree-node{margin: 5px 0;}
+.el-tree-node__children{overflow: hidden; max-width: 450px;}
+.el-tree-node__children .el-tree-node{float: left; min-width: 150px; margin: 2px 0;}
 // 全屏样式
 .l-fullscreen{
 	.l-header{ 

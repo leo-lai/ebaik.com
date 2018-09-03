@@ -3,49 +3,41 @@
     <el-header class="l-padding-0 l-bg-white" height="auto">
       <div class="l-filter-top">
         <el-form class="l-filter-form" inline ref="listFilter" :model="list.filter" @submit.native.prevent @keyup.enter.native="search">
-          <el-form-item label="客户名称">
+          <el-form-item label="提交人">
             <el-select v-model="list.filter.keyword1" placeholder="请选择">
-              <el-option label="客户名称1" value="1"></el-option>
-              <el-option label="客户名称2" value="2"></el-option>
-              <el-option label="客户名称3" value="3"></el-option>
+              <el-option label="提交人1" value="1"></el-option>
+              <el-option label="提交人2" value="2"></el-option>
+              <el-option label="提交人3" value="3"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="订单日期">
-            <el-date-picker v-model="list.filter.date" type="date" placeholder="选择日期" value-format="yyyy-MM-dd"></el-date-picker>
-          </el-form-item>
-          <el-form-item label="合同编号">
-            <el-input placeholder="" v-model="list.filter.keyword2"></el-input>
+          <el-form-item label="客户">
+            <el-select v-model="list.filter.keyword2" placeholder="请选择">
+              <el-option label="客户1" value="1"></el-option>
+              <el-option label="客户2" value="2"></el-option>
+              <el-option label="客户3" value="3"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item class="l-margin-l">
             <el-button type="primary" @click.native="getList()">查询</el-button>
-          </el-form-item>
-          <el-form-item class="l-margin-l">
-            <el-button type="warning" @click.native="dialogInfo.visible = true">新增订单</el-button>
           </el-form-item>
         </el-form>
       </div>
     </el-header>
     <el-main>
       <el-table border stripe element-loading-spinner="el-icon-loading" element-loading-text="拼命加载中" :data="list.data" v-loading="list.loading">
-        <el-table-column align="center" prop="prop1" label="业务员" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop2" label="生成日期" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop3" label="订单日期" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop4" label="交货日期" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop5" label="来源" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop6" label="客户名称" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop7" label="合同编号" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop8" label="订单性质" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop9" label="销售类型" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop10" label="返单性质" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop11" label="订单内容" width="200"></el-table-column>
-        <el-table-column align="center" prop="prop12" label="合同总金额" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop13" label="付款方式" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop14" label="服务费" width="120"></el-table-column>
-        <el-table-column align="center" prop="prop15" label="其他重要条款" width="200"></el-table-column>
-        <el-table-column align="center" prop="prop16" label="订单备注" width="120"></el-table-column>
+        <el-table-column align="center" prop="prop1" label="提交日期" width="120"></el-table-column>
+        <el-table-column align="center" prop="prop2" label="来源" width="120"></el-table-column>
+        <el-table-column align="center" prop="prop3" label="客户名称" width="120"></el-table-column>
+        <el-table-column align="center" prop="prop4" label="合同编号" width="120"></el-table-column>
+        <el-table-column align="center" prop="prop5" label="订单性质" width="120"></el-table-column>
+        <el-table-column align="center" prop="prop6" label="销售类型" width="120"></el-table-column>
+        <el-table-column align="center" prop="prop7" label="返单性质" width="120"></el-table-column>
+        <el-table-column align="center" prop="prop8" label="订单内容" width="200"></el-table-column>
+        <el-table-column align="center" prop="prop9" label="订单备注" width="120"></el-table-column>
         <el-table-column align="center" label="操作" width="120">
           <template slot-scope="scope">
-            <el-button white size="mini" @click.native="dialogInfo.visible = true">查看</el-button>
+            <!-- <el-button white size="mini" @click.native="dialogInfo.visible = true">查看</el-button> -->
+            <el-button type="danger" size="mini" @click.native="dialogInfo.visible = true">查看</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -109,7 +101,6 @@
           </el-form-item>
           <br>
           <el-form-item label="合同原件" prop="">
-            <uploader :file-list.sync="dialogInfo.uploadList"></uploader>
           </el-form-item>
           <el-form-item label="其他重要条款" prop="">
             <el-input style="width: 540px;" type="textarea" :rows="2" placeholder="" v-model="dialogInfo.data.field15"> </el-input>
@@ -162,10 +153,8 @@
   </el-container>
 </template>
 <script>
-import uploader from '@/components/uploader'
 export default {
-  name: 'order-list',
-  components: { uploader },
+  name: 'audit-list',
   data() {
     return {
       list: {
@@ -184,8 +173,7 @@ export default {
         visible: false,
         innerVisible1: false,
         innerVisible2: false,
-        loading: false,
-        uploadList: [],   // 合同
+				loading: false,
 				rules: {
           
         },
@@ -213,22 +201,15 @@ export default {
       
       this.list.data = [
         {
-          prop1: '邓晓宇',
-          prop2: '2018/03/03',
-          prop3: '2018/03/03',
-          prop4: '2018/03/03',
-          prop5: '阿里巴巴',
-          prop6: '陈伟',
-          prop7: '20180808',
-          prop8: '标准',
-          prop9: '售卖',
-          prop10: '返单',
-          prop11: 'WM10台；WM05台',
-          prop12: '200000',
-          prop13: '首付30%，余款提货前付清',
-          prop14: '30元/月/台',
-          prop15: '支付清分手续费按0.5%计算',
-          prop16: '完成'
+          prop1: '2018/03/03',
+          prop2: '阿里巴巴',
+          prop3: '陈伟',
+          prop4: '20180808',
+          prop5: '标准',
+          prop6: '售卖',
+          prop7: '返单',
+          prop8: 'WM10台；WM05台',
+          prop9: '完成'
         },
         {},{},{},{},{},{},{},{},{},{},{},{},{},{},
       ]

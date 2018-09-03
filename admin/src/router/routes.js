@@ -20,36 +20,37 @@ export const menus = {
           component: resolve => require(['../views/order-list'], resolve)
         },
         {
-          path: '/shop/list',
-          meta: { menu: 'shop', title: '确认审核', icon: 'l-icon-02' },
-          component: resolve => require(['../views/shop-list'], resolve)
+          path: '/audit/list',
+          meta: { menu: 'audit', title: '确认审核', icon: 'l-icon-03' },
+          component: resolve => require(['../views/audit-list'], resolve)
         },
         {
-          path: '/user/list',
-          meta: { menu: 'user', title: '客户档案', icon: 'l-icon-04', },
-          component: resolve => require(['../views/user-list'], resolve)
+          path: '/customer/list',
+          meta: { menu: 'customer', title: '客户档案', icon: 'l-icon-04', },
+          component: resolve => require(['../views/customer-list'], resolve)
         },
         {
-          path: '/finance',
-          meta: { menu: 'finance', title: '公司监管', icon: 'l-icon-06',},
-          component: resolve => require(['../views/pay-list'], resolve)
+          path: '/company/order',
+          meta: { menu: 'company', title: '公司监管', icon: 'l-icon-07',},
+          component: resolve => require(['../views/company-order'], resolve)
         },
         {
-          path: '/finance1',
-          meta: { menu: 'finance', title: '账号管理', icon: 'l-icon-06',},
-          component: resolve => require(['../views/pay-list'], resolve)
+          path: '/company/customer',
+          hidden: true,  // 不显示在左边菜单
+          meta: { menu: 'company', title: '客户档案'},
+          component: resolve => require(['../views/company-customer'], resolve)
         },
-      ]
-    },
-    {
-      path: '/',
-      component: defaultLayout,
-      children: [
         {
-          path: '/me',
-          meta: { title: '个人中心' },
-          component: resolve => require(['../views/me'], resolve)
-        }
+          path: '/company/user',
+          hidden: true,  // 不显示在左边菜单
+          meta: { menu: 'company', title: '账号配置'},
+          component: resolve => require(['../views/company-user'], resolve)
+        },
+        {
+          path: '/user/pwd',
+          meta: { menu: 'user', title: '账号管理', icon: 'l-icon-08',},
+          component: resolve => require(['../views/user-pwd'], resolve)
+        },
       ]
     },
   ],

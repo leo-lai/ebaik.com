@@ -13,7 +13,6 @@ const store = new Vuex.Store({
   },
   getters: {
     userInfo: state => state.user.info,
-    shopAuth: state => state.user.shopAuth,
     fullscreen: state => state.app.fullscreen,
     collapse: state => state.app.collapse
   }

@@ -30,7 +30,7 @@
           </el-form-item>
           <el-form-item>
             <el-button @click="closeMap()">取消</el-button>
-            <el-button style="width: 120px;" type="primary" @click="selected()">确定</el-button>
+            <el-button style="width: 120px;" type="primary" @click="selected()">确认</el-button>
           </el-form-item>
         </el-form>
       </div>

@@ -7,7 +7,7 @@
         </div>
         <div class="l-txt-right">
           <el-dropdown class="l-margin-r" trigger="click">
-            <span> leilai<i class="el-icon-caret-bottom" /></span>
+            <span>用户名xxx&emsp;<i class="el-icon-caret-bottom" /></span>
             <el-dropdown-menu slot="dropdown">
               <!-- <el-dropdown-item @click.native="$router.push('/me')">
                 <i class="l-icon l-margin-r-m">&#xe6b6;</i>个人中心
@@ -109,10 +109,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.l-header{
-  border-bottom: 2px solid #eab024;
-  ._logo{ margin-left:  -60px; }
-}
+
 </style>
 
 

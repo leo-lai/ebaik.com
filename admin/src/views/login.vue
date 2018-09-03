@@ -14,7 +14,7 @@
           <template slot="prepend">
             <span class="_label"><i class="l-icon l-margin-r-m">&#xe646;</i></span>
           </template>
-          <template slot="append"><router-link class="l-txt-link l-fs-s" :to="'/forgot?phone=' + loginForm.data.account">忘记密码？</router-link></template>
+          <!-- <template slot="append"><router-link class="l-txt-link l-fs-s" :to="'/forgot?phone=' + loginForm.data.account">忘记密码？</router-link></template> -->
         </el-input>
       </el-form-item>
       <div class="l-txt-right">
@@ -22,8 +22,6 @@
       </div>
       <el-form-item>
         <el-button type="primary" style="width: 100%; margin-top: 1rem;" @click.native.prevent="submit" :loading="loginForm.loading">登录</el-button>
-        <br>
-        <el-button v-if="$router.platform === 'shop'" plain style="width: 100%; margin-top: 1rem;" @click.native="$router.push('/register')">还没账号？立即注册</el-button>
       </el-form-item>
     </el-form>
   </div>
