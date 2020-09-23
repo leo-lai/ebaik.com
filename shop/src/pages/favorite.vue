@@ -65,7 +65,7 @@ export default {
     this.getList()
   },
   beforeDestroy() {
-    this.$api.abort()
+    this.$fetch.abort()
   }
 }
 </script>

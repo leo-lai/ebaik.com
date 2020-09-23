@@ -1,8 +1,9 @@
-import { storage, utils, getGrantUrl, toptip } from '../assets/utils'
+import { storage } from '../assets/utils'
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store'
 import routes from './routes'
+import { getGrantUrl } from '@/api'
 
 Vue.use(Router)
 const router = new Router({ 

@@ -5,7 +5,7 @@
         <span>{{$route.meta.title}}</span>
       </x-header>
     </header>
-    <swipeout class="l-margin-b">
+    <swipeout>
       <swipeout-item transition-mode="follow" v-for="item in list.data" :key="item.id">
         <div slot="right-menu">
           <swipeout-button @click.native="delGoods(item)" background-color="#ed722f">
@@ -32,6 +32,7 @@
         </div>
       </swipeout-item>
     </swipeout>
+    <divider style="width: 50%; margin: auto;">我是底线</divider>
     <div class="l-shopcar-bottom" :class="{'l-shopcar-bottom-0': !$route.meta.tabbar}">
       <div class="_inner">
         <!-- <div class="_tip">
@@ -101,7 +102,7 @@ export default {
     this.getList()
   },
   beforeDestroy() {
-    this.$api.abort()
+    this.$fetch.abort()
   }
 };
 </script>

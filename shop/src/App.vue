@@ -1,5 +1,5 @@
 <template>
-  <div id="app-content">
+  <div id="app">
     <div id="app-body" :class="{'no-tabbar': !$route.meta.tabbar}">
       <transition :name="viewTransition" :css="!!direction || direction === 'fade'">
         <header id="app-header" v-show="$route.meta.topinfo">
@@ -31,13 +31,13 @@
             <i slot="icon" class="l-icon">&#xe63b;</i>
             <span slot="label">售货机</span>
           </tabbar-item>
-          <tabbar-item :link="{path: '/shop', replace: true}" :selected="$route.path === '/shop'">
-            <i slot="icon" class="l-icon">&#xe60b;</i>
-            <span slot="label">电商</span>
-          </tabbar-item>
-          <tabbar-item badge="99" :link="{path: '/shopcar', replace: true}" :selected="$route.path === '/shopcar'">
+          <tabbar-item badge="99" :link="{path: '/tabbar/shopcar', replace: true}" :selected="$route.path === '/tabbar/shopcar'">
             <i slot="icon" class="l-icon">&#xe63f;</i>
             <span slot="label">购物车</span>
+          </tabbar-item>
+          <tabbar-item :link="{path: '/tabbar/me', replace: true}" :selected="$route.path === '/tabbar/me'">
+            <i slot="icon" class="l-icon">&#xe60b;</i>
+            <span slot="label">我的</span>
           </tabbar-item>
         </tabbar>
       </transition>
@@ -80,87 +80,132 @@ export default {
   },
   data() {
     return {
+      // 是否阻止ios页面上下滚动反弹，如果页面有no-prevent-bounce元素，则不阻止
+      isPreventBounce: true,
+      scrollTarget: {
+        scrollLeft: 0,
+        scrollTop: 0,
+        scrollWidth: 0,
+        scrollHeight: 0,
+        clientWidth: window.innerWidth,
+        clientHeight: window.innerHeight,
+      },
       leftOptions: {
         showBack: true,
         backText: '',
         preventGoBack: false
       },
-      scrollElem: {
-        scrollTop: 0,
-        scrollHeight: 0,
-        clientHeight: window.innerHeight
-      },
       userInfo: {}
     }
   },
-  watch: {
-    '$route.path': {
-      immediate: true,
-      deep: true,
-      handler() {
-        this.onScroll()
-      }
-    }
-  },
   methods: {
-    scrollHandler(event) {
-      this.$router.savedScroll[this.$route.fullPath] = event.target.scrollTop
-    },
-    onScroll() {
-      this.noPreventBounce = !!document.querySelector('[no-prevent-bounce]')
-      this.$nextTick(_ => {
-        let viewBoxs = document.querySelectorAll('#vux_view_box_body')
-        let scrollElem = viewBoxs[1] || viewBoxs[0]
-        if (scrollElem) {
-          setTimeout(_ => scrollElem.scrollTop = this.scrollTop)
-          scrollElem.addEventListener('scroll', throttle(this.scrollHandler, 500), false)
-          this.scrollElem = scrollElem
-        }
+    pageInit() {
+      this.$nextTick(() => {
+        clearTimeout(this.pageInitTimeId)
+        this.pageInitTimeId = setTimeout(() => {
+          this.$bug.fixWx674()
+          this.isPreventBounce = !document.querySelector('[no-prevent-bounce]')
+          this.pageScroll = document.querySelector('.l-page-scroll')
+        }, 1000)
       })
     },
+    getScrollElement(elem) {
+      if(elem && elem.classList) {
+        let style = getComputedStyle(elem)
+        // if(elem.classList.contains('el-table__body-wrapper') || elem.classList.contains('l-page-scroll') || elem.classList.contains('van-popup')) {
+        if(style['overflow-y'] === 'auto' || style['overflow-y'] === 'scroll' || style['overflow-x'] === 'auto' || style['overflow-x'] === 'scroll') {
+          return elem
+        }else{
+          return this.getScrollElement(elem.parentElement)
+        }
+      }else {
+        return null
+      }
+    },
     preventBounce() { // 禁止ios 无滚动时页面反弹效果
-      let scrollData = { posY: 0, maxScroll: 0 }
-      let appBody = document.querySelector('#app-body')
+      let scrollData = { posX: 0, posY: 0, maxScrollX: 0, maxScrollY: 0 }
+      let appBody = document.querySelector('#app')
+      let emitTop = this.$utils.debounce(this.emitTop, 500)
+      let emitBottom = this.$utils.debounce(this.emitBottom, 500)
       appBody.addEventListener('touchstart', event => {
         let e = event.touches[0] || event
-        // 垂直位置标记
+        // 触摸开始位置标记
+        scrollData.posX = e.pageX
         scrollData.posY = e.pageY
-        // 是否可以滚动
-        if(this.scrollElem) {
-          scrollData.maxScroll = this.scrollElem.scrollHeight - this.scrollElem.clientHeight
+        
+        this.scrollTarget = this.getScrollElement(e.target)
+        if(this.scrollTarget) {
+          scrollData.maxScrollX = this.scrollTarget.scrollWidth - this.scrollTarget.clientWidth
+          scrollData.maxScrollY = this.scrollTarget.scrollHeight - this.scrollTarget.clientHeight
+        }else{
+          scrollData.maxScrollX = 0
+          scrollData.maxScrollY = 0
         }
       }, false)
 
       appBody.addEventListener('touchmove', event => {
-        if(this.noPreventBounce) return
-
         let e = event.touches[0] || event
-        // 如果不足于滚动，则禁止触发整个窗体元素的滚动
-        if (scrollData.maxScroll <= 0) {
-          // 禁止滚动
-          return event.preventDefault()
-        }
-
-        // 当前移动的垂直位置，用来判断是往上移动还是往下
+        // 当前移动的水平方向，用来判断是往左移动还是往右
+        let distanceX = e.pageX - scrollData.posX
+        // 当前移动的垂直方向，用来判断是往上移动还是往下
         let distanceY = e.pageY - scrollData.posY
-        // 上下边缘检测
-        if (distanceY > 0 && this.scrollElem.scrollTop == 0) {
-          // 往上滑，并且到头
-          // 禁止滚动的默认行为
-          return event.preventDefault()
+
+        let isToTop, isToBottom, isToLeft, isToRight
+        if(this.scrollTarget) {
+          isToTop = this.scrollTarget.scrollTop == 0
+          isToBottom = this.scrollTarget.scrollTop + 1 >= scrollData.maxScrollY
+          isToLeft = this.scrollTarget.scrollLeft == 0
+          isToRight = this.scrollTarget.scrollLeft + 1 >= scrollData.maxScrollX
+        }
+        
+        // 阻止ios页面上下滚动反弹，如果页面有no-prevent-bounce元素，则不阻止
+        if(this.isPreventBounce) {
+          // 禁止滚动情况
+          // 1. 如果不足于滚动，则禁止触发整个窗体元素的滚动
+          if (scrollData.maxScrollX <= 0 && scrollData.maxScrollY <= 0) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          // 2. 如果页面往上滚动distanceY > 0（即手指往下滑），并且页面已经到顶
+          // 3. 如果页面往下滚动distanceY < 0（即手指往上滑），并且页面已经到底
+          else if((distanceY > 0 && isToTop) || (distanceY < 0 && isToBottom)) {
+            // 如果左右不可滑动或已经滑到最左最右侧了
+            if(scrollData.maxScrollX <= 0 || Math.abs(distanceX) < 5) { 
+              event.preventDefault()
+              event.stopPropagation()
+            }
+          }
         }
 
-        // 下边缘检测
-        if (distanceY < 0 && this.scrollElem.scrollTop + 1 >= scrollData.maxScroll) {
-          // 往下滑，并且到头
-          // 禁止滚动的默认行为
-          return event.preventDefault()
+        if(distanceY > 0 && isToTop) {
+          // 往上滑，并且到顶
+          emitTop(distanceY)
+        }else if(distanceY < 0 && isToBottom) {
+          // 往下滑，并且到底
+          emitBottom(distanceY)
         }
+
+        this.$eventHub.$emit('scroll', { 
+          ...scrollData, 
+          target: this.scrollTarget,
+          distanceX, distanceY
+        })
       }, false)
       
-      appBody.addEventListener('touchend', event => {
-        scrollData.maxScroll = 0
+      appBody.addEventListener('touchend', () => {
+        // 记录当前页面最后的滚动位置，返回该页面可以恢复之前的滚动位置
+        if(this.pageScroll) { 
+          this.$router.savedScroll[this.$route.fullPath] = this.pageScroll.scrollTop
+        }
       }, false)
+    },
+    emitTop(distanceY) { // 到达顶部事件
+      console.log('top', distanceY)
+      this.$eventHub.$emit('scroll:top', distanceY)
+    },
+    emitBottom(distanceY) { // 到达底部事件
+      console.log('bottom', distanceY)
+      this.$eventHub.$emit('scroll:bottom', distanceY)
     },
     gotoUserInfo() {
       if(this.userInfo) {
@@ -170,8 +215,14 @@ export default {
       }
     }
   },
+  updated() {
+    this.pageInit()
+  },
   mounted() {
     this.preventBounce()
+    this.pageInit()
+    this.$eventHub.$on('pageInit', this.pageInit)
+
     let hours = new Date().getHours()
     if(hours < 8 || hours > 23){
       this.$vux.alert.show({
@@ -184,10 +235,12 @@ export default {
 </script>
 
 <style lang="less">
-@import "~vux/src/styles/reset.less";
-@import "~vux/src/styles/1px.less";
-@import "./assets/base.less";
+@import '~vux/src/styles/reset.less';
+@import '~vux/src/styles/1px.less';
+@import './assets/base.less';
 @theme-color: #af1459;
+.vux-x-dialog-absolute .weui-dialog{ position: fixed; }
+.vux-divider{ color: #d4d4d4 !important; }
 .l-rmb::before{ content: '￥'; font-size: 0.6em;}
 .weui-dialog__bd{text-align: left; text-align: justify;}
 .vux-x-icon{ fill: currentColor; }

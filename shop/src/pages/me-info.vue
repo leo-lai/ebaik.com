@@ -44,7 +44,9 @@ export default {
         title: '系统提示',
         content: '是否确定退出登录',
         onConfirm: _ => {
-          this.$api.user.logout()
+          this.$api.auth.logout().then(() => {
+            this.$router.push('/login')
+          })
         }
       })
     }

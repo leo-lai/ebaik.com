@@ -1,7 +1,7 @@
 <template>
   <view-box class="l-scroll-bg">
     <header id="page-view-header" class="l-bg-none">
-      <x-header :left-options="{backText: ''}">
+      <x-header :left-options="{backText: '', showBack: !$route.meta.tabbar}">
         <span>{{$route.meta.title}}</span>
         <router-link to="/me/info" slot="right"><i class="l-icon l-fs-x2">&#xe668;</i></router-link>
       </x-header>

@@ -1,5 +1,5 @@
 <template>
-  <view-box class="l-bg-white">
+  <view-box>
     <div class="l-search-placeholder">
       <div class="_fixed">
         <div class="_tip" @click="$router.push('/goods/search')">
@@ -8,53 +8,57 @@
         </div>
       </div>
     </div>
-    <div class="l-goods-class">
-      <div class="_item" v-for="item in goodsClass" :key="item.name" @click="$router.push('/class/goods')">
-        <img class="_icon" :src="item.icon" alt="">
-        <p class="_txt">{{item.name}}</p>
+    <div class="l-bg-white">
+      <div class="l-goods-class">
+        <div class="_item" v-for="item in goodsClass" :key="item.name" @click="$router.push('/class/goods')">
+          <img class="_icon" :src="item.icon" alt="">
+          <p class="_txt">{{item.name}}</p>
+        </div>
       </div>
-    </div>
-    <div class="l-margin-btn">
-      <swiper class="l-home-swiper" auto :list="bannerSwiper.list" dots-position="center" :show-desc-mask="false"></swiper>
-    </div>
-    
-    <div class="l-flex-hc l-row-title l-margin-t">
-      <h4>店长推荐</h4>
-      <div class="l-rest"></div>
-      <div class="l-txt-gray l-baseline" @click="$router.push('/class/goods')">
-        <span>更多</span>
-        <x-icon type="ios-arrow-right" size="20"></x-icon>
+      <div class="l-margin-btn">
+        <swiper class="l-home-swiper" auto :list="bannerSwiper.list" dots-position="center" :show-desc-mask="false"></swiper>
       </div>
-    </div>
-    <div class="l-goods-hot">
-      <div class="_item" v-for="item in 4" :key="item" @click="$router.push('/goods/info?id=')">
-        <div class="_thumb" :style="{backgroundImage: 'url(' + require('../assets/images/temp-001.jpg') +')' }"></div>
-        <div class="_txt l-fs-s l-txt-wrap1">韩国打的口袋空空</div>
-        <div class="_price">
-          <i class="_add" @click.stop="showGoodsInfo(item)"></i>
-          <span class="l-rmb">8.00</span>
+      
+      <div class="l-flex-hc l-row-title l-margin-t">
+        <h4>店长推荐</h4>
+        <div class="l-rest"></div>
+        <div class="l-txt-gray l-baseline" @click="$router.push('/class/goods')">
+          <span>更多</span>
+          <x-icon type="ios-arrow-right" size="20"></x-icon>
+        </div>
+      </div>
+      <div class="l-goods-hot">
+        <div class="_item" v-for="item in 4" :key="item" @click="$router.push('/goods/info?id=')">
+          <div class="_thumb" :style="{backgroundImage: 'url(' + require('../assets/images/temp-001.jpg') +')' }"></div>
+          <div class="_txt l-fs-s l-txt-wrap1">韩国打的口袋空空</div>
+          <div class="_price">
+            <i class="_add" @click.stop="showGoodsInfo(item)"></i>
+            <span class="l-rmb">8.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="l-flex-hc l-row-title l-margin-t">
+        <h4>每天一瓶，有助消化</h4>
+        <div class="l-rest"></div>
+        <div class="l-txt-gray l-baseline" @click="$router.push('/class/goods')">
+          <span>更多</span>
+          <x-icon type="ios-arrow-right" size="20"></x-icon>
+        </div>
+      </div>
+      <div class="l-goods-hot">
+        <div class="_item" v-for="item in 4" :key="item" @click="$router.push('/goods/info?id=')">
+          <div class="_thumb" :style="{backgroundImage: 'url(' + require('../assets/images/temp-001.jpg') +')' }"></div>
+          <div class="_txt l-fs-s l-txt-wrap1">韩国打的口袋空空</div>
+          <div class="_price">
+            <i class="_add" @click.stop="showGoodsInfo(item)"></i>
+            <span class="l-rmb">8.00</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="l-flex-hc l-row-title l-margin-t">
-      <h4>每天一瓶，有助消化</h4>
-      <div class="l-rest"></div>
-      <div class="l-txt-gray l-baseline" @click="$router.push('/class/goods')">
-        <span>更多</span>
-        <x-icon type="ios-arrow-right" size="20"></x-icon>
-      </div>
-    </div>
-    <div class="l-goods-hot">
-      <div class="_item" v-for="item in 4" :key="item" @click="$router.push('/goods/info?id=')">
-        <div class="_thumb" :style="{backgroundImage: 'url(' + require('../assets/images/temp-001.jpg') +')' }"></div>
-        <div class="_txt l-fs-s l-txt-wrap1">韩国打的口袋空空</div>
-        <div class="_price">
-          <i class="_add" @click.stop="showGoodsInfo(item)"></i>
-          <span class="l-rmb">8.00</span>
-        </div>
-      </div>
-    </div>
+    <divider style="width: 50%; margin: auto;">我是底线</divider>
 
     <!-- 红包 -->
     <div v-transfer-dom>
@@ -210,7 +214,7 @@ export default {
     
   },
   beforeDestroy() {
-    // this.$api.abort()
+    // this.$fetch.abort()
   }
 }
 </script>

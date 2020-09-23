@@ -61,8 +61,8 @@ const routes = [
     }
   },
   {
-    path: '/shopcar',
-    name: 'shopcar',
+    path: '/tabbar/shopcar',
+    name: 'tabbar-shopcar',
     component: shopcar,
     meta: {
       title: '购物车',
@@ -111,11 +111,20 @@ const routes = [
     }
   },
   {
+    path: '/tabbar/me',
+    name: 'tabbar-me',
+    component: me,
+    meta: {
+      title: '',
+      tabbar: true
+    }
+  },
+  {
     path: '/me',
     name: 'me',
     component: me,
     meta: {
-      title: ''
+      title: '',
     }
   },
   {
