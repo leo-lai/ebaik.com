@@ -35,9 +35,9 @@ export default {
   },
   methods: {
     submit() {
-      this.$vux.loading.show()
+      this.$api.loading.show()
       this.$api.chooseWXPay2({ orderId: this.orderId }).then(_ => {
-        this.$vux.loading.hide()
+        this.$api.loading.hide()
         this.$vux.toast.show({
           text: '支付成功',
           onHide: _ => {
@@ -45,7 +45,7 @@ export default {
           }
         })
       }).catch(_ => {
-        this.$vux.loading.hide()
+        this.$api.loading.hide()
         this.$vux.toast.show({
           type: 'warn',
           text: '支付失败'

@@ -9,21 +9,21 @@
       <cell title="头像">
         <div class="l-user-avatar l-bg-co" :style="{'background-image':'url('+ $config.avatar +')'}"></div>
       </cell>
-      <cell title="昵称" :value="userInfo.userName"></cell>
-      <cell title="手机号码" :value="userInfo.phoneNumber"></cell>
+      <cell title="昵称" :value="userInfo.nname"></cell>
+      <cell title="手机号码" :value="userInfo.tel || '未绑定'" is-link></cell>
     </group>
-    <group>
+    <!-- <group>
       <cell title="修改密码" is-link></cell>
-    </group>
+    </group> -->
 
-    <div class="l-fixed-bottom">
+    <!-- <div class="l-fixed-bottom">
       <div class="_placeholder"></div>
       <div class="_inner">
         <div class="l-margin">
           <x-button @click.native="logout" class="l-btn-radius" type="primary">退出登录</x-button>
         </div>
       </div>
-    </div>
+    </div> -->
   </view-box>
 </template>
 
@@ -32,10 +32,7 @@ export default {
   name: 'me-info',
   data () {
     return {
-      userInfo: {
-        userName: '赖小帅',
-        phoneNumber: '18602029524'
-      }
+      userInfo: {}
     }
   },
   methods: {
@@ -49,12 +46,15 @@ export default {
           })
         }
       })
-    }
+    },
+    getUserInfo() {
+      this.$store.dispatch('getUserInfo').then(userInfo => {
+        this.userInfo = userInfo || {}
+      })
+    },
   },
   mounted() {
-    // this.$api.user.getInfo().then(data => {
-    //   this.userInfo = data
-    // })
+    this.getUserInfo()
   }
 }
 </script>

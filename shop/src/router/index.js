@@ -1,14 +1,19 @@
-import { storage } from '../assets/utils'
+import { utils, storage } from '../assets/utils'
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store'
 import routes from './routes'
-import { getGrantUrl } from '@/api'
+import { fetch } from '@/api'
+
+
+if (location.href.indexOf('?') === -1) {
+  window.location.replace(utils.url.getFullPath('.') + '?')
+}
 
 Vue.use(Router)
 const router = new Router({ 
   base: '/',
-  mode: 'history', 
+  mode: 'hash', 
   routes 
 })
 
@@ -61,36 +66,39 @@ window.addEventListener('pageshow', _ => {
   router.loading && router.hideLoading()
 })
 
+let args = utils.url.getArgs()
+let hashArgs = utils.url.getArgs(args._hash)
+
+let organId = args.organId || hashArgs.organId || storage.session.get('organId')
+let openId = args.openId || hashArgs.openId || storage.session.get('openId')
+
+storage.session.set('organId', organId)
+storage.session.set('openId', openId)
+
 router.beforeEach((to, from, next) => {
-  // 微信页面授权
-  if(to.meta.scope && !to.query.code) {
-    location.assign(getGrantUrl(to.fullPath, null, to.meta.scope))
-    router.eventName = ''
+  if (to.path.indexOf('404') === -1) {
+    if (!organId) {
+      return next('/404')
+    }
 
-    // 如果网络过慢，跳转授权链接，显示loading
-    router.showLoading()
-    return next(false)
-  }
+    if (!openId) { // 微信页面授权
+      let redirectUrl = encodeURIComponent(utils.url.getFullPath('.') + `?#${to.path}`)
+      let href = fetch.baseURL + `/sys-machinepurchase/recharge/getOpenid?organId=${organId}&redirectUrl=${redirectUrl}`
+      location.replace(href)
 
-  // http直接跳转
-  if (/^\/?http/.test(to.fullPath)) {
-    let url = to.fullPath.replace(/^\/?(http)/, '$1')
-    router.eventName === 'replace' ? location.replace(url) : location.assign(url)
-    router.eventName = ''
-
-    // 如果网络过慢，跳转第三方链接，显示loading
-    router.showLoading()
-    return next(false)
+      router.eventName = ''
+      // 如果网络过慢，跳转授权链接，显示loading
+      router.showLoading()
+      return next(false)
+    }
   }
 
   // 验证登录
-  if (to.meta.auth && !storage.local.get('token')) {
-    storage.local.remove('token')
-    storage.local.remove('userinfo')
-    router.eventName = 'push'
-    store.commit('updateDirection', { direction: 'in' })
-    return next(`/login?to=${to.fullPath || ''}`)
-  }
+  // if (to.meta.auth && !storage.local.get('token')) {
+  //   router.eventName = 'push'
+  //   store.commit('updateDirection', { direction: 'in' })
+  //   return next(`/login?to=${to.fullPath || ''}`)
+  // }
 
   let direction = ''
   // 页面返回

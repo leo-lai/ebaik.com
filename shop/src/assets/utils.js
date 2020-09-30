@@ -481,63 +481,67 @@ export let class2type = (function () {
 })()
 
 export let utils = {
-  platform: '',
+  platform: "",
   isSupportSticky,
   throttle,
   debounce,
   guid,
   str2date,
   device,
-  noop() { },
+  noop() {},
   extend(target, ...objs) {
-    if (!utils.isPlainObject(target)) return null
+    if (!utils.isPlainObject(target)) return null;
     objs.forEach((obj) => {
       if (utils.isPlainObject(obj)) {
-        Object.keys(obj).forEach(key => {
+        Object.keys(obj).forEach((key) => {
           if (obj[key] !== undefined) {
-            target[key] = obj[key]
+            target[key] = obj[key];
           }
-        })
+        });
       }
-    })
-    return target
+    });
+    return target;
   },
   /* 
     target存在的属性才会赋值
     copyObj({name: 123}, {name: 456}, {sex: 1}) => {name: 456}
   */
   copyObj(target, ...objs) {
-    if (!utils.isPlainObject(target)) return null
+    if (!utils.isPlainObject(target)) return null;
     let typeValue = {
-      'object': {},
-      'array': [],
-      'number': 0,
-      'string': '',
-      'null': null,
-      'undefined': undefined
-    }
-    objs.forEach(obj => {
-      if (obj == null) { // 重置初始值        
-        Object.keys(target).forEach(key => {
-          target[key] = typeValue[utils.type(target[key])]
-        })
+      object: {},
+      array: [],
+      number: 0,
+      string: "",
+      null: null,
+      undefined: undefined,
+    };
+    objs.forEach((obj) => {
+      if (obj == null) {
+        // 重置初始值
+        Object.keys(target).forEach((key) => {
+          target[key] = typeValue[utils.type(target[key])];
+        });
       } else if (utils.isPlainObject(obj)) {
-        Object.keys(target).forEach(key => {
+        Object.keys(target).forEach((key) => {
           if (key in target && obj[key] !== undefined) {
-            if (utils.isPlainObject(target[key]) && utils.isPlainObject(obj[key])) {
-              utils.copyObj(target[key], obj[key])
+            if (
+              utils.isPlainObject(target[key]) &&
+              utils.isPlainObject(obj[key])
+            ) {
+              utils.copyObj(target[key], obj[key]);
             } else {
-              target[key] = obj[key]
+              target[key] = obj[key];
             }
           }
-        })
+        });
       } else {
-        Object.keys(target).forEach(key => {
-          target[key] = obj
-        })
+        Object.keys(target).forEach((key) => {
+          target[key] = obj;
+        });
       }
-    })
-    return target
+    });
+    return target;
   },
   /* 
     深合并对象(仅合并对象，其他数据类型覆盖，如函数、数组等)
@@ -556,324 +560,398 @@ export let utils = {
   mergeObj(target, ...objs) {
     let _merge = function (_target, _source) {
       if (utils.isPlainObject(_target) && utils.isPlainObject(_source)) {
-        Object.keys(_source).forEach(key => {
-          if (utils.isPlainObject(_target[key]) && utils.isPlainObject(_source[key])) {
-            _merge(_target[key], _source[key])
+        Object.keys(_source).forEach((key) => {
+          if (
+            utils.isPlainObject(_target[key]) &&
+            utils.isPlainObject(_source[key])
+          ) {
+            _merge(_target[key], _source[key]);
           } else {
-            _target[key] = _source[key]
+            _target[key] = _source[key];
           }
-        })
+        });
       }
-      return _target
-    }
+      return _target;
+    };
 
     objs.forEach((obj) => {
       if (utils.isPlainObject(obj)) {
-        _merge(target, obj)
+        _merge(target, obj);
       }
-    })
-    return target
+    });
+    return target;
   },
   type(value) {
     //如果是null或者undefined，直接转成String返回
-    if (value == null) return String(value)
+    if (value == null) return String(value);
     //RegExp，Array等都属于Object
     //为了精准判断类型，借由Object.prototype.toString跟class2type表
     //这里为什么要用core_toString而不用obj.toString的原因在刚刚试验中说明了
-    return typeof value === 'object' || typeof value === 'function' ?
-      class2type[class2type.toString.call(value)] || 'object' : typeof value
+    return typeof value === "object" || typeof value === "function"
+      ? class2type[class2type.toString.call(value)] || "object"
+      : typeof value;
   },
   isPlainObject(obj) {
     // Must be an Object.
     // Because of IE, we also have to check the presence of the constructor property.
     // Make sure that DOM nodes and window objects don't pass through, as well
-    if (!obj || utils.type(obj) !== 'object' || obj.nodeType || utils.isWindow(obj)) {
-      return false
+    if (
+      !obj ||
+      utils.type(obj) !== "object" ||
+      obj.nodeType ||
+      utils.isWindow(obj)
+    ) {
+      return false;
     }
     try {
       // Not own constructor property must be Object
-      if (obj.constructor &&
-        !class2type.hasOwnProperty.call(obj, 'constructor') &&
-        !class2type.hasOwnProperty.call(obj.constructor.prototype, 'isPrototypeOf')) {
-        return false
+      if (
+        obj.constructor &&
+        !class2type.hasOwnProperty.call(obj, "constructor") &&
+        !class2type.hasOwnProperty.call(
+          obj.constructor.prototype,
+          "isPrototypeOf"
+        )
+      ) {
+        return false;
       }
     } catch (e) {
       // IE8,9 Will throw exceptions on certain host objects #9897
-      return false
+      return false;
     }
     // Own properties are enumerated firstly, so to speed up,
     // if last one is own, then all properties are own.
-    let key = undefined
-    for (key in obj) { /* console.log(key) */ }
-    return key === undefined || class2type.hasOwnProperty.call(obj, key)
+    let key = undefined;
+    for (key in obj) {
+      /* console.log(key) */
+    }
+    return key === undefined || class2type.hasOwnProperty.call(obj, key);
   },
   isEmptyObject(obj) {
     for (let key in obj) {
-      return false
+      return false;
     }
-    return true
+    return true;
   },
   isFunction(obj) {
-    return utils.type(obj) === 'function'
+    return utils.type(obj) === "function";
   },
-  isArray: Array.isArray || function (obj) {
-    return utils.type(obj) === 'array'
-  },
+  isArray:
+    Array.isArray ||
+    function (obj) {
+      return utils.type(obj) === "array";
+    },
   isWindow(obj) {
-    return obj != null && obj == obj.window
+    return obj != null && obj == obj.window;
   },
   isString(value) {
-    return typeof value === 'string'
+    return typeof value === "string";
   },
   isNumber(value) {
-    return !isNaN(parseFloat(value)) && isFinite(value)
+    return !isNaN(parseFloat(value)) && isFinite(value);
   },
   setTitle(title) {
-    document.title = title || '微信浏览器'
+    document.title = title || "微信浏览器";
     // 判断是否为ios设备的微信浏览器，加载iframe来刷新title
     if (device.isWechat && device.isIphone) {
-      let iframe = document.createElement('iframe')
+      let iframe = document.createElement("iframe");
 
-      iframe.setAttribute('style', 'position:absolute;visibility:hidden;height:0;width:0;')
-      iframe.addEventListener('load', function load() {
-        iframe.removeEventListener('load', load)
-        document.body.removeChild(iframe)
-      })
+      iframe.setAttribute(
+        "style",
+        "position:absolute;visibility:hidden;height:0;width:0;"
+      );
+      iframe.addEventListener("load", function load() {
+        iframe.removeEventListener("load", load);
+        document.body.removeChild(iframe);
+      });
 
       setTimeout(() => {
-        iframe.setAttribute('src', '//m.baidu.com/favicon.ico')
-        document.body.appendChild(iframe)
-      }, 650)
+        iframe.setAttribute("src", "//m.baidu.com/favicon.ico");
+        document.body.appendChild(iframe);
+      }, 650);
     }
   },
   history: {
     push(url, title, data) {
-      this.assign(url, title, data)
+      this.assign(url, title, data);
     },
     replace(url, title, data) {
-      this.assign(url, title, data, 'replace')
+      this.assign(url, title, data, "replace");
     },
-    assign(url = '', title = '', data = {}, action = 'push') {
-      window.history[action + 'State'](data, title, url)
-    }
+    assign(url = "", title = "", data = {}, action = "push") {
+      window.history[action + "State"](data, title, url);
+    },
   },
   url: {
+    getFullPath(path = "", baseURl = location.href) {
+      if (!window.URL) {
+        let url = new window.URL(path, baseURl);
+        return url.href;
+      } else {
+        let a = document.createElement("a");
+        a.href = baseURl;
+
+        let currentPath =
+          a.origin + a.pathname.substr(0, a.pathname.lastIndexOf("/"));
+        switch (path) {
+          case ".": // 返回当前目录
+            return currentPath + "/";
+          case "..": // 返回上一级目录
+            return this.getFullPath(".", currentPath);
+          default:
+            if (baseURl === location.href) {
+              a.href = path;
+            } else if (path.indexOf("#") === 0) {
+              a.hash = path;
+            } else if (path.indexOf("/") === 0) {
+              a.pathname = path;
+            } else {
+              a.href = currentPath + "/" + path;
+            }
+            return a.href;
+        }
+      }
+    },
     parse(url) {
-      if (typeof url !== 'string') url = window.location.href
-      let a = document.createElement('a')
-      a.href = url
+      if (typeof url !== "string") url = window.location.href;
+      let a = document.createElement("a");
+      a.href = url;
       return {
         source: url,
-        protocol: a.protocol.replace(':', ''),
+        protocol: a.protocol.replace(":", ""),
         host: a.hostname,
         port: a.port,
         query: a.search,
         params: (function () {
-          let ret = {}
-          let seg = a.search.replace(/^\?/, '').split('&')
-          let len = seg.length
+          let ret = {};
+          let seg = a.search.replace(/^\?/, "").split("&");
+          let len = seg.length;
           let i = 0,
-            s = null
+            s = null;
           for (; i < len; i++) {
             if (!seg[i]) {
-              continue
+              continue;
             }
-            s = seg[i].split('=')
-            ret[s[0]] = s[1]
+            s = seg[i].split("=");
+            ret[s[0]] = s[1];
           }
-          return ret
+          return ret;
         })(),
-        file: (a.pathname.match(/\/([^/?#]+)$/i) || ['', ''])[1],
-        hash: a.hash.replace('#', ''),
-        path: a.pathname.replace(/^([^/])/, '/$1'),
-        relative: (a.href.match(/tps?:\/\/[^/]+(.+)/) || ['', ''])[1],
-        segments: a.pathname.replace(/^\//, '').split('/')
-      }
+        file: (a.pathname.match(/\/([^/?#]+)$/i) || ["", ""])[1],
+        hash: a.hash.replace("#", ""),
+        path: a.pathname.replace(/^([^/])/, "/$1"),
+        relative: (a.href.match(/tps?:\/\/[^/]+(.+)/) || ["", ""])[1],
+        segments: a.pathname.replace(/^\//, "").split("/"),
+      };
     },
     getArgs(url) {
-      if (typeof url !== 'string') url = window.location.href
-      url = decodeURIComponent(url)
-      let pos = url.indexOf('?'),
-        pos2 = url.lastIndexOf('#'),
-        qs = pos > -1 ? url.substring(pos + 1, pos2 <= pos ? url.length : pos2) : '',
-        items = qs.split('&')
+      if (typeof url !== "string") url = window.location.href;
+      url = decodeURIComponent(url);
+      let pos = url.indexOf("?"),
+        pos2 = url.lastIndexOf("#"),
+        qs =
+          pos > -1
+            ? url.substring(pos + 1, pos2 <= pos ? url.length : pos2)
+            : "",
+        items = qs.split("&");
       let args = {},
         name = null,
-        value = null
+        value = null;
       for (let i = 0, splitPos = 0, item = null; i < items.length; i++) {
-        item = items[i]
-        splitPos = item.indexOf('=')
-        name = item.substring(0, splitPos)
-        value = item.substring(splitPos + 1)
-        name && (args[name] = value)
+        item = items[i];
+        splitPos = item.indexOf("=");
+        name = item.substring(0, splitPos);
+        value = item.substring(splitPos + 1);
+        name && (args[name] = value);
       }
 
       if (pos2 !== -1) {
-        args['_hash'] = url.substring(pos2 + 1, url.length)
+        args["_hash"] = url.substring(pos2 + 1, url.length);
       }
 
-      return args
+      return args;
     },
     setArgs(url, name, value) {
-      if (typeof url !== 'string') return ''
-      if (name === undefined) return url
+      if (typeof url !== "string") return "";
+      if (name === undefined) return url;
 
       let urlArgs = utils.url.getArgs(url),
-        params = []
+        params = [];
 
       if (utils.isPlainObject(name)) {
-        Object.assign(urlArgs, name)
+        Object.assign(urlArgs, name);
       } else if (utils.isString(name)) {
-        urlArgs[name] = value
+        urlArgs[name] = value;
       }
 
-      let hash = ''
+      let hash = "";
       for (let key of Object.keys(urlArgs)) {
-        let val = urlArgs[key]
+        let val = urlArgs[key];
         if (val != undefined) {
-          if (key === '_hash') {
-            hash = val
+          if (key === "_hash") {
+            hash = val;
           } else {
-            params.push(encodeURIComponent(key) + '=' + encodeURIComponent(val))
+            params.push(
+              encodeURIComponent(key) + "=" + encodeURIComponent(val)
+            );
           }
         }
       }
 
-      params.length > 0 && (url = url.split('?')[0] + '?' + params.join('&'))
-      hash && (url += '#' + hash)
+      params.length > 0 && (url = url.split("?")[0] + "?" + params.join("&"));
+      hash && (url += "#" + hash);
 
-      return url
+      return url;
     },
-    reload() {
-      window.location.replace(this.setArgs(window.location.href, 't', Date.now()))
+    setHashArgs(url = location.hash, name, value) {
+      if (url.indexOf("#") !== 0) return url;
+      url = url.substring(1);
+
+      return "#" + utils.url.setArgs(url, name, value);
+    },
+    reload(url = window.location.href) {
+      window.location.replace(this.setArgs(url, "t", Date.now()));
     },
     /* 
       url.join('/url1', '//url2', 'url3/url4', 'url5//url6/url7//url8/', 'url9/', 'url10', null)
       => url1/url2/url3/url4/url5/url6/url7/url8/url9/url10 
     */
     join(...paths) {
-      let passPath = []
-      paths.filter(url => utils.isString(url)).map(url => {
-        url = url.replace(/(https:\/|http:\/)?\/+/g, '$1/').replace(/^\/+|\/+$/g, '')
-        if (url) {
-          passPath.push(url)
-        }
-      })
-      return passPath.join('/')
-    }
+      let passPath = [];
+      paths
+        .filter((url) => utils.isString(url))
+        .map((url) => {
+          url = url
+            .replace(/(https:\/|http:\/)?\/+/g, "$1/")
+            .replace(/^\/+|\/+$/g, "");
+          if (url) {
+            passPath.push(url);
+          }
+        });
+      return passPath.join("/");
+    },
   },
-  imgThumb(src = '', width, height) {
-    width = width || 320
+  imgThumb(src = "", width, height) {
+    width = width || 320;
     if (!src) {
-      // return `https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txtclr=999&txt=image&w=${width}&h=${width}` 
-      return ''
+      // return `https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txtclr=999&txt=image&w=${width}&h=${width}`
+      return "";
     }
-    if (src.indexOf('qiniu') === -1) {
-      return src
+    if (src.indexOf("qiniu") === -1) {
+      return src;
     }
     // return src += '?imageMogr2/gravity/Center/crop/'+width+'x'+height;
-    src += `?imageMogr2/format/jpg/interlace/1/quality/60/gravity/Center/thumbnail/${width}x`
+    src += `?imageMogr2/format/jpg/interlace/1/quality/60/gravity/Center/thumbnail/${width}x`;
     if (height) {
-      src += `/crop/x${height}`
+      src += `/crop/x${height}`;
     }
-    return src
+    return src;
   },
-  videoThumb(src = '', width = 320, height = 320) {
+  videoThumb(src = "", width = 320, height = 320) {
     if (!src) {
-      // return `https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txtclr=999&txt=image&w=${width}&h=${width}` 
-      return ''
+      // return `https://placeholdit.imgix.net/~text?txtsize=20&bg=ffffff&txtclr=999&txt=image&w=${width}&h=${width}`
+      return "";
     }
-    if (src.indexOf('qiniu') === -1) {
-      return src
+    if (src.indexOf("qiniu") === -1) {
+      return src;
     }
     // return src += '?imageMogr2/gravity/Center/crop/'+width+'x'+height;
-    src += `?vframe/jpg/offset/1/w/${width}/h/${height}`
-    return src
+    src += `?vframe/jpg/offset/1/w/${width}/h/${height}`;
+    return src;
   },
   wxHead(src, size = 132) {
     if (!src) {
-      return `https://placeholdit.imgix.net/~text?txtsize=16&bg=999&txtclr=fff&txt=%E5%9B%BE%E7%89%87%E7%BC%BA%E5%A4%B1&w=${size}&h=${size}`
+      return `https://placeholdit.imgix.net/~text?txtsize=16&bg=999&txtclr=fff&txt=%E5%9B%BE%E7%89%87%E7%BC%BA%E5%A4%B1&w=${size}&h=${size}`;
     }
-    if (src.indexOf('wx.qlogo.cn') === -1) {
-      return src
+    if (src.indexOf("wx.qlogo.cn") === -1) {
+      return src;
     }
     // 有0、46、64、96、132数值可选，0代表640*640正方形头像
-    return src.replace(/\/0$/, '/' + size)
+    return src.replace(/\/0$/, "/" + size);
   },
-  imgCompress(src = '', maxWidth = 320, maxHeight = 320, outputFormat = 'image/jpeg') { // 图片压缩裁剪
-    if (!src) return Promise.reject('图片路径不存在')
-    let that = this
+  imgCompress(
+    src = "",
+    maxWidth = 320,
+    maxHeight = 320,
+    outputFormat = "image/jpeg"
+  ) {
+    // 图片压缩裁剪
+    if (!src) return Promise.reject("图片路径不存在");
+    let that = this;
     // let typeMatch = src.match(/^data\:(.+)\;base64\,/)
     // if(typeMatch && typeMatch[1]) {
     //   outputFormat = typeMatch[1]
     // }
     return new Promise((resolve) => {
       // 缩放图片需要的canvas
-      let canvas = document.createElement('canvas')
-      let context = canvas.getContext('2d')
+      let canvas = document.createElement("canvas");
+      let context = canvas.getContext("2d");
       // base64地址图片加载完毕后
-      let img = new Image()
+      let img = new Image();
       img.onload = function () {
         // 图片原始尺寸
-        let originWidth = this.width
-        let originHeight = this.height
+        let originWidth = this.width;
+        let originHeight = this.height;
         // 目标尺寸
-        let targetWidth = originWidth
-        let targetHeight = originHeight
+        let targetWidth = originWidth;
+        let targetHeight = originHeight;
         // 图片尺寸超过400x400的限制
         if (originWidth > maxWidth || originHeight > maxHeight) {
           if (originWidth / originHeight > maxWidth / maxHeight) {
             // 更宽，按照宽度限定尺寸
-            targetWidth = maxWidth
-            targetHeight = Math.round(maxWidth * (originHeight / originWidth))
+            targetWidth = maxWidth;
+            targetHeight = Math.round(maxWidth * (originHeight / originWidth));
           } else {
-            targetHeight = maxHeight
-            targetWidth = Math.round(maxHeight * (originWidth / originHeight))
+            targetHeight = maxHeight;
+            targetWidth = Math.round(maxHeight * (originWidth / originHeight));
           }
         }
         // canvas对图片进行缩放
-        canvas.width = targetWidth
-        canvas.height = targetHeight
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
         // 清除画布
-        context.clearRect(0, 0, targetWidth, targetHeight)
+        context.clearRect(0, 0, targetWidth, targetHeight);
         // 图片压缩
-        context.drawImage(img, 0, 0, targetWidth, targetHeight)
+        context.drawImage(img, 0, 0, targetWidth, targetHeight);
         // canvas转为blob并上传
-        let imgBlob = that.base64ToBlob(canvas.toDataURL(outputFormat, 0.8), outputFormat)
-        resolve(imgBlob)
+        let imgBlob = that.base64ToBlob(
+          canvas.toDataURL(outputFormat, 0.8),
+          outputFormat
+        );
+        resolve(imgBlob);
         // canvas.toBlob(resolve,  outputFormat)
-      }
-      img.src = src
-    })
+      };
+      img.src = src;
+    });
   },
-  imgToBase64(src = '', outputFormat = 'image/jpeg') {
-    if (!src) return Promise.reject('图片路径不存在')
+  imgToBase64(src = "", outputFormat = "image/jpeg") {
+    if (!src) return Promise.reject("图片路径不存在");
     return new Promise((resolve) => {
-      var canvas = document.createElement('canvas'),
-        ctx = canvas.getContext('2d'),
-        img = new Image
-      img.crossOrigin = ''
+      var canvas = document.createElement("canvas"),
+        ctx = canvas.getContext("2d"),
+        img = new Image();
+      img.crossOrigin = "";
       img.onload = function () {
-        canvas.height = img.height
-        canvas.width = img.width
-        ctx.drawImage(img, 0, 0)
-        resolve(canvas.toDataURL(outputFormat))
-      }
-      img.src = src
-    })
+        canvas.height = img.height;
+        canvas.width = img.width;
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL(outputFormat));
+      };
+      img.src = src;
+    });
   },
-  base64ToBlob(base64Data, type = 'image/png') {
-    //去掉url的头，并转换为byte  
-    var bytes = atob(base64Data.split(',')[1])
-    //处理异常,将ascii码小于0的转换为大于0  
-    var ab = new ArrayBuffer(bytes.length)
-    var ia = new Uint8Array(ab)
+  base64ToBlob(base64Data, type = "image/png") {
+    //去掉url的头，并转换为byte
+    var bytes = atob(base64Data.split(",")[1]);
+    //处理异常,将ascii码小于0的转换为大于0
+    var ab = new ArrayBuffer(bytes.length);
+    var ia = new Uint8Array(ab);
     for (var i = 0; i < bytes.length; i++) {
-      ia[i] = bytes.charCodeAt(i)
+      ia[i] = bytes.charCodeAt(i);
     }
     return new Blob([ab], {
-      type
-    })
+      type,
+    });
   },
   // 对象属性名排序
   ksort(inputArr, sortFlags) {
@@ -907,97 +985,99 @@ export let utils = {
     //   example 2: $result = data
     //   returns 2: {1: 'Kevin', 2: 'van', 3: 'Zonneveld'}
 
-    let tmpArr = {}
-    let keys = []
-    let sorter
-    let i
-    let k
-    let that = this
-    let strictForIn = false
-    let populateArr = {}
+    let tmpArr = {};
+    let keys = [];
+    let sorter;
+    let i;
+    let k;
+    let that = this;
+    let strictForIn = false;
+    let populateArr = {};
 
     switch (sortFlags) {
-      case 'SORT_STRING':
+      case "SORT_STRING":
         // compare items as strings
         sorter = function (a, b) {
-          return that.strnatcmp(a, b)
-        }
-        break
-      case 'SORT_LOCALE_STRING':
+          return that.strnatcmp(a, b);
+        };
+        break;
+      case "SORT_LOCALE_STRING":
         // compare items as strings, original by the current locale (set with  i18n_loc_set_default() as of PHP6)
-        var loc = this.i18n_loc_get_default()
-        sorter = this.php_js.i18nLocales[loc].sorting
-        break
-      case 'SORT_NUMERIC':
+        var loc = this.i18n_loc_get_default();
+        sorter = this.php_js.i18nLocales[loc].sorting;
+        break;
+      case "SORT_NUMERIC":
         // compare items numerically
         sorter = function (a, b) {
-          return ((a + 0) - (b + 0))
-        }
-        break
+          return a + 0 - (b + 0);
+        };
+        break;
       // case 'SORT_REGULAR': // compare items normally (don't change types)
       default:
         sorter = function (a, b) {
-          let aFloat = parseFloat(a)
-          let bFloat = parseFloat(b)
-          let aNumeric = aFloat + '' === a
-          let bNumeric = bFloat + '' === b
+          let aFloat = parseFloat(a);
+          let bFloat = parseFloat(b);
+          let aNumeric = aFloat + "" === a;
+          let bNumeric = bFloat + "" === b;
           if (aNumeric && bNumeric) {
-            return aFloat > bFloat ? 1 : aFloat < bFloat ? -1 : 0
+            return aFloat > bFloat ? 1 : aFloat < bFloat ? -1 : 0;
           } else if (aNumeric && !bNumeric) {
-            return 1
+            return 1;
           } else if (!aNumeric && bNumeric) {
-            return -1
+            return -1;
           }
-          return a > b ? 1 : a < b ? -1 : 0
-        }
-        break
+          return a > b ? 1 : a < b ? -1 : 0;
+        };
+        break;
     }
 
     // Make a list of key names
     for (k in inputArr) {
       if (inputArr.hasOwnProperty(k)) {
-        keys.push(k)
+        keys.push(k);
       }
     }
-    keys.sort(sorter)
+    keys.sort(sorter);
 
     // BEGIN REDUNDANT
-    this.php_js = this.php_js || {}
-    this.php_js.ini = this.php_js.ini || {}
+    this.php_js = this.php_js || {};
+    this.php_js.ini = this.php_js.ini || {};
     // END REDUNDANT
-    strictForIn = this.php_js.ini['phpjs.strictForIn'] && this.php_js.ini['phpjs.strictForIn'].local_value && this.php_js
-      .ini['phpjs.strictForIn'].local_value !== 'off'
-    populateArr = strictForIn ? inputArr : populateArr
+    strictForIn =
+      this.php_js.ini["phpjs.strictForIn"] &&
+      this.php_js.ini["phpjs.strictForIn"].local_value &&
+      this.php_js.ini["phpjs.strictForIn"].local_value !== "off";
+    populateArr = strictForIn ? inputArr : populateArr;
 
     // Rebuild array with sorted key names
     for (i = 0; i < keys.length; i++) {
-      k = keys[i]
-      tmpArr[k] = inputArr[k]
+      k = keys[i];
+      tmpArr[k] = inputArr[k];
       if (strictForIn) {
-        delete inputArr[k]
+        delete inputArr[k];
       }
     }
     for (i in tmpArr) {
       if (tmpArr.hasOwnProperty(i)) {
-        populateArr[i] = tmpArr[i]
+        populateArr[i] = tmpArr[i];
       }
     }
 
-    return strictForIn || populateArr
+    return strictForIn || populateArr;
   },
   // 接口签名
   sign(obj = {}) {
-    let localKey = 'DFHGKZLSE2NFDEHGFHHR4XTGBKHY67EJZ8IK9'
-    let newObj = this.ksort(obj)
-    let ret = []
-    Object.keys(newObj).forEach(name => {
+    let localKey = "DFHGKZLSE2NFDEHGFHHR4XTGBKHY67EJZ8IK9";
+    let newObj = this.ksort(obj);
+    let ret = [];
+    Object.keys(newObj).forEach((name) => {
       if (newObj[name] != null && newObj[name] !== undefined) {
-        ret.push(name + '=' + newObj[name])
+        ret.push(name + "=" + newObj[name]);
       }
-    })
-    return ret.join('&') + localKey
-  }
-}
+    });
+    return ret.join("&") + localKey;
+  },
+};
 
 // 当前系统平台：默认后台端(admin) 经纪人(agent) 无登录端(nologin)
 let urlArgs = utils.url.getArgs()

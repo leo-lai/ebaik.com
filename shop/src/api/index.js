@@ -5,12 +5,12 @@ import { storage, utils, device } from '@/assets/utils'
 import config from '@/config'
 
 let platform = utils.platform
-
+let baseURL = 'http://www.yingliyun.com/v999'
 // 创建axios实例
 const service = axios.create({
-  baseURL: '/api',
-  timeout: 60000
-})
+  baseURL,
+  timeout: 60000,
+});
 // request拦截器
 service.interceptors.request.use(config => {
   // Do something before request is sent
@@ -19,8 +19,7 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(response => {
   const data = response.data
-  if (data.resultCode === 200) {
-    data.code = data.resultCode
+  if (data.code === 0) {
     return data
   } else {
     let error = new Error(data.message || '服务器接口出错')
@@ -87,7 +86,7 @@ export let getGrantUrl = (url = '', params = {}, scope = 'snsapi_base') => {
   return `http://h5.xfnqc.com/getCode.html?appid=${config.appid}&redirect_uri=${url}&response_type=code&scope=${scope}&state=STATE#wechat_redirect`
 }
 
-const showToast = (text = '', type = 'warn') => {
+const showToast = (text = '', type = 'success') => {
   return new Promise((resolve, reject) => {
     if (type) {
       Vue.$vux.toast.show({
@@ -112,6 +111,7 @@ const showLoading = text => Vue.$vux.loading.show({ text })
 const hideLoading = _ => Vue.$vux.loading.hide()
 
 export const fetch = {
+  baseURL,
   source: {},
   abort(url = '') { // 取消接口请求
     if (url) {
@@ -208,6 +208,7 @@ const commonAPI = {
     hide: hideLoading
   },
   toast: showToast,
+  alert: showMessage,
   // 发送手机验证码
   sendMobiCode(phone, btn, promise) {
     if (!promise && !/^1\d{10}$/.test(phone)) {

@@ -53,7 +53,7 @@ export default {
         return
       }
 
-      this.$vux.loading.show()
+      this.$api.loading.show()
       this.$api.user.forgotPwd(this.formData).then(({data}) => {
         this.$vux.toast.show({
           text: '修改成功',
@@ -62,7 +62,7 @@ export default {
           }
         })
       }).finally(_ => {
-        this.$vux.loading.hide()
+        this.$api.loading.hide()
       })
     }
   },

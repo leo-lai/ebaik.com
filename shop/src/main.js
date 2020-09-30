@@ -1,11 +1,18 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 // require('es6-promise').polyfill()
+const isProd = process.env.NODE_ENV === 'production'
+
 import Vue from 'vue'
 Vue.config.productionTip = false
 
 // const FastClick = require('fastclick')
 // FastClick.attach(document.body)
+
+// 移动端调试
+// import VConsole from 'vconsole'
+// !isProd && new VConsole()
+
 
 import { sync } from 'vuex-router-sync'
 import { fetch, api } from '@/api'
@@ -90,7 +97,7 @@ Vue.use({
     Vue.prototype.$api = api
     Vue.prototype.$config = config
     Vue.prototype.$href = href
-    Vue.prototype.$fetch = fetch
+    Vue.prototype.$ajax = fetch;
   }
 })
 

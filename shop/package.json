@@ -19,6 +19,7 @@
     "postcss-px-to-viewport": "^0.0.3",
     "postcss-viewport-units": "^0.1.4",
     "postcss-write-svg": "^3.0.1",
+    "vconsole": "^3.3.4",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

@@ -2,25 +2,25 @@
   <view-box class="l-scroll-bg">
     <header id="page-view-header" class="l-bg-none">
       <x-header :left-options="{backText: '', showBack: !$route.meta.tabbar}">
-        <span>{{$route.meta.title}}</span>
-        <router-link to="/me/info" slot="right"><i class="l-icon l-fs-x2">&#xe668;</i></router-link>
+        <!-- <span>{{$route.meta.title}}</span> -->
+        <!-- <router-link to="/me/info" slot="right"><i class="l-icon l-fs-x2">&#xe668;</i></router-link> -->
       </x-header>
     </header>
     <div class="l-app-bg">
-      <div class="l-user-card" @click="$router.push('/me/info')">
+      <div class="l-user-card">
         <div class="_avatar" :style="{'background-image': 'url(' + $config.avatar +')'}"></div>
         <div class="_nametel l-flex-hc">
           <div class="_name">
             <i class="l-icon">&#xe67a;</i>
-            <span>赖小帅</span>
+            <span>{{userInfo.nname || '未设置'}}</span>
           </div>
           <div class="_tel">
             <i class="l-icon">&#xe613;</i>
-            <span>18602029524</span>
+            <span>{{userInfo.tel || '未绑定'}}</span>
           </div>
         </div>
       </div>
-      <div class="l-user-other l-flex-hc">
+      <!-- <div class="l-user-other l-flex-hc">
         <div class="_grade" @click="$router.push('/grade')">
           <p class="l-fs-xs">还需850个积分升级</p>
           <h3 class="l-margin-t-s">普通会员</h3>
@@ -45,10 +45,32 @@
           <b>0个</b>
           <p>红包</p>
         </div>
+      </div> -->
+
+      <div class="l-user-other l-flex-hc">
+        <div class="l-rest l-txt-center _redpack">
+          <b>{{userInfo.balance}}</b>
+          <p>储值金额</p>
+        </div>
+        <div class="l-rest l-txt-center _redpack">
+          <b>{{userInfo.giveIntegral}}</b>
+          <p>礼券</p>
+        </div>
+        <div class="l-rest l-txt-center _redpack">
+          <b>{{userInfo.discount}}%</b>
+          <p>折扣</p>
+        </div>
       </div>
       <div class="l-bg-white l-margin-t">
         <group gutter="0">
-          <cell title="我的钱包" link="/wallet">
+          <cell title="充值" link="/wallet/recharge2">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
+          </cell>
+          <cell title="消费记录" is-link>
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-021.png">
+          </cell>
+
+          <!-- <cell title="我的钱包" link="/wallet">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
           </cell>
           <cell title="我的订单" link="/order/list">
@@ -69,10 +91,17 @@
           <cell title="意见反馈" link="/feedback">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
           </cell>
-          <!-- <cell title="系统设置" link="/setting">
+          <cell title="系统设置" link="/setting">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-027.png">
           </cell> -->
         </group>
+      </div>
+    </div>
+
+    <div v-if="!organId" class="l-app-disabled l-flex-vhc">
+      <div class="l-txt-center" style="color: #eee;">
+        <h4 class="l-fs-xl">页面不可用</h4>
+        <p>获取不到organID</p>
       </div>
     </div>
   </view-box>
@@ -86,18 +115,29 @@ export default {
   },
   data () {
     return {
-      userInfo: null
+      organId: null,
+      openId: null,
+      userInfo: {}
     }
   },
   methods: {
   },
   mounted() {
-    
+    this.organId = this.$storage.session.get('organId')
+    this.$store.dispatch('getUserInfo').then(userInfo => {
+      this.userInfo = userInfo || {}
+    })
   }
 }
 </script>
 
 <style lang="less">
+.l-app-disabled{ 
+  position: fixed; top:0; left:0; z-index: 1000; 
+  width: 100%; height: 100%; 
+  background-color: rgba(0, 0, 0, 0.8); 
+}
+
 .l-user-card{
   background-color: @theme-color; color: #fff; text-align: center; padding-bottom: 50px;
   ._avatar{
@@ -111,8 +151,8 @@ export default {
 
 .l-user-other{
   background-color: #fff; border-radius: 5px; margin: -35px 15px 0; padding: 15px;text-align: center; 
+  border: 1px solid #af1459;
   ._line{ width: 1px; height: 20px; margin: auto;}
-  ._grade{ }
   ._qrcode{
     width: 60px; height: 60px; 
     img{width: 100%; height: 100%}

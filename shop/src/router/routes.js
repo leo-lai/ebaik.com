@@ -22,17 +22,20 @@ const wallet = () => import('../pages/wallet').then(m => m.default)
 const walletBill = () => import('../pages/wallet-bill').then(m => m.default)
 const walletCash = () => import('../pages/wallet-cash').then(m => m.default)
 const walletRecharge = () => import('../pages/wallet-recharge').then(m => m.default)
+const walletRecharge2 = () => import('../pages/wallet-recharge2').then(m => m.default)
 const favorite = () => import('../pages/favorite').then(m => m.default)
 const feedback = () => import('../pages/feedback').then(m => m.default)
 const address = () => import('../pages/address').then(m => m.default)
 const addressAdd = () => import('../pages/address-add').then(m => m.default)
 const addressSlter = () => import('../pages/address-slter').then(m => m.default)
 const setting = () => import('../pages/setting').then(m => m.default)
+const page404 = () => import('../pages/404').then(m => m.default)
 
 
 const routes = [
   {
     path: '/',
+    redirect: '/me',
     name: 'home',
     component: home,
     meta: {
@@ -115,7 +118,7 @@ const routes = [
     name: 'tabbar-me',
     component: me,
     meta: {
-      title: '',
+      title: '个人中心',
       tabbar: true
     }
   },
@@ -124,7 +127,7 @@ const routes = [
     name: 'me',
     component: me,
     meta: {
-      title: '',
+      title: '个人中心',
     }
   },
   {
@@ -256,6 +259,14 @@ const routes = [
     }
   },
   {
+    path: '/wallet/recharge2',
+    name: 'wallet-recharge2',
+    component: walletRecharge2,
+    meta: {
+      title: '充值'
+    }
+  },
+  {
     path: '/feedback',
     name: 'feedback',
     component: feedback,
@@ -294,6 +305,14 @@ const routes = [
     component: register2,
     meta: {
       title: '快速注册'
+    }
+  },
+  {
+    path: '*',
+    name: '404',
+    component: page404,
+    meta: {
+      title: '404'
     }
   }
 ]
