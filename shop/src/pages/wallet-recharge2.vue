@@ -50,7 +50,32 @@
 </template>
 
 <script>
+// 微信或支付宝JSBridge
+function onBridgeReady(callback) {
+  callback = typeof callback === 'function' ? callback : noop;
 
+  var ua = navigator.userAgent.toLowerCase();
+  if(ua.match(/MicroMessenger/i) == 'micromessenger') {
+    if (typeof WeixinJSBridge == 'undefined') {
+      if (document.addEventListener) {
+        document.addEventListener('WeixinJSBridgeReady', callback, false);
+      } else if (document.attachEvent) {
+        document.attachEvent('WeixinJSBridgeReady', callback);
+        document.attachEvent('onWeixinJSBridgeReady', callback);
+      }
+    } else {
+      callback();
+    }
+  }else if(ua.match(/Alipay/i) == 'alipay') {
+    // 如果jsbridge已经注入则直接调用
+    if (window.AlipayJSBridge) {
+      callback();
+    } else {
+      // 如果没有注入则监听注入的事件
+      document.addEventListener('AlipayJSBridgeReady', callback, false);
+    }
+  }
+}
 export default {
   name: 'wallet-recharge2',
   components: {

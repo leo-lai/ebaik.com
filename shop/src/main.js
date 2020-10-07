@@ -10,8 +10,8 @@ Vue.config.productionTip = false
 // FastClick.attach(document.body)
 
 // 移动端调试
-// import VConsole from 'vconsole'
-// !isProd && new VConsole()
+import VConsole from 'vconsole'
+!isProd && new VConsole()
 
 
 import { sync } from 'vuex-router-sync'
