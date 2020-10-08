@@ -48,7 +48,7 @@ router.backHistory = (index = -2) => {
 
 // 判断是否是router触发的路由事件，否则就是系统事件(左滑返回)
 let touchEndTime = Date.now()
-document.addEventListener('touchend', _ => touchEndTime = Date.now())
+document.addEventListener('touchend', () => touchEndTime = Date.now())
 
 let routerEventName = ['push', 'replace', 'go', 'forward', 'back']
 routerEventName.forEach(key => {
@@ -101,25 +101,31 @@ router.beforeEach((to, from, next) => {
   // }
 
   let direction = ''
+  let lastIndex = router.pageHistory.length - 1
   // 页面返回
   if (router.pageHistory[router.pageHistory.length - 2] === to.path) {
     direction = 'out'
     router.pageHistory.pop()
   // tabbar页面切换
   }else if (from.meta.tabbar && to.meta.tabbar) {
-    router.pageHistory[router.pageHistory.length - 1] = to.path
     direction = 'fade'
+    router.pageHistory[lastIndex] = to.path
   // 第一个页面进入
   } else if (from.path === '/' && !from.name) {
-    if (router.pageHistory[router.pageHistory.length - 1] !== to.path) {
-      router.pageHistory.push(to.path)
-    }
     direction = 'fade'
+    // 首页或tabbar仅保留当前页，保证进入内页动画效果正确
+    if (to.meta.home || to.meta.tabbar) {
+      router.pageHistory = [to.path]
+    }else{
+      if (router.pageHistory[lastIndex] !== to.path) {
+        router.pageHistory.push(to.path)
+      }
+    }
   // 正常页面进入
   }else {
     direction = 'in'
     if (router.eventName === 'replace') {
-      router.pageHistory[router.pageHistory.length - 1] = to.path
+      router.pageHistory[lastIndex] = to.path
     }else{
       router.pageHistory.push(to.path)
     }

@@ -29,13 +29,15 @@ const address = () => import('../pages/address').then(m => m.default)
 const addressAdd = () => import('../pages/address-add').then(m => m.default)
 const addressSlter = () => import('../pages/address-slter').then(m => m.default)
 const setting = () => import('../pages/setting').then(m => m.default)
+const pay = () => import('../pages/pay').then(m => m.default)
+const payResult = () => import('../pages/pay-result').then(m => m.default)
 const page404 = () => import('../pages/404').then(m => m.default)
 
 
 const routes = [
   {
     path: '/',
-    redirect: '/me',
+    // redirect: '/me',
     name: 'home',
     component: home,
     meta: {
@@ -114,6 +116,22 @@ const routes = [
     }
   },
   {
+    path: '/pay',
+    name: 'pay',
+    component: pay,
+    meta: {
+      title: '支付'
+    }
+  },
+  {
+    path: '/pay/result',
+    name: 'pay-result',
+    component: payResult,
+    meta: {
+      title: '支付结果'
+    }
+  },
+  {
     path: '/tabbar/me',
     name: 'tabbar-me',
     component: me,
@@ -128,6 +146,7 @@ const routes = [
     component: me,
     meta: {
       title: '个人中心',
+      home: true
     }
   },
   {

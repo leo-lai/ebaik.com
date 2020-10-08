@@ -239,6 +239,10 @@ export default {
 @import '~vux/src/styles/1px.less';
 @import './assets/base.less';
 @theme-color: #af1459;
+.l-no-border .weui-cells{
+  &::before{ visibility: hidden; }
+  &::after{ visibility: hidden; }
+}
 .vux-x-dialog-absolute .weui-dialog{ position: fixed; }
 .vux-divider{ color: #d4d4d4 !important; }
 .l-rmb::before{ content: '￥'; font-size: 0.6em;}

@@ -50,32 +50,6 @@
 </template>
 
 <script>
-// 微信或支付宝JSBridge
-function onBridgeReady(callback) {
-  callback = typeof callback === 'function' ? callback : noop;
-
-  var ua = navigator.userAgent.toLowerCase();
-  if(ua.match(/MicroMessenger/i) == 'micromessenger') {
-    if (typeof WeixinJSBridge == 'undefined') {
-      if (document.addEventListener) {
-        document.addEventListener('WeixinJSBridgeReady', callback, false);
-      } else if (document.attachEvent) {
-        document.attachEvent('WeixinJSBridgeReady', callback);
-        document.attachEvent('onWeixinJSBridgeReady', callback);
-      }
-    } else {
-      callback();
-    }
-  }else if(ua.match(/Alipay/i) == 'alipay') {
-    // 如果jsbridge已经注入则直接调用
-    if (window.AlipayJSBridge) {
-      callback();
-    } else {
-      // 如果没有注入则监听注入的事件
-      document.addEventListener('AlipayJSBridgeReady', callback, false);
-    }
-  }
-}
 export default {
   name: 'wallet-recharge2',
   components: {
@@ -142,7 +116,7 @@ export default {
                 this.$vux.confirm.hide()
                 this.submitRecharge(this.rechargeItem)
               }else{
-                this.$toptip(data.resMsg)
+                this.$api.alert(data.resMsg)
               }
             }).finally(() => {
               this.$api.loading.hide()
@@ -170,7 +144,7 @@ export default {
             'signType': data.signType,  // 微信签名方式：
             'paySign': data.paySign     // 微信签名,paySign 采用统一的微信支付 Sign 签名生成方法，注意这里 appId 也要参与签名，appId 与 config 中传入的 appId 一致，即最后参与签名的参数有appId, timeStamp, nonceStr, package, signType。
           };
-          onBridgeReady(function() {
+          this.$onBridgeReady(function() {
             WeixinJSBridge.invoke('getBrandWCPayRequest', payConfig, function (res) {
               // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
               if (res.err_msg.indexOf('get_brand_wcpay_request:ok') > -1) { 

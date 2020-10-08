@@ -86,6 +86,32 @@ Vue.use({
         router[action] && router[action](url)
       }
     }
+
+    // 微信或支付宝JSBridge
+    const onBridgeReady = function (callback) {
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+        if (typeof WeixinJSBridge == 'undefined') {
+          if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', callback, false);
+          } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', callback);
+            document.attachEvent('onWeixinJSBridgeReady', callback);
+          }
+        } else {
+          callback();
+        }
+      } else if (ua.match(/Alipay/i) == 'alipay') {
+        // 如果jsbridge已经注入则直接调用
+        if (window.AlipayJSBridge) {
+          callback();
+        } else {
+          // 如果没有注入则监听注入的事件
+          document.addEventListener('AlipayJSBridgeReady', callback, false);
+        }
+      }
+    }
+
     // 添加实例方法
     Vue.prototype.$config = config      // 设备检测
     Vue.prototype.$device = device      // 设备检测
@@ -97,7 +123,9 @@ Vue.use({
     Vue.prototype.$api = api
     Vue.prototype.$config = config
     Vue.prototype.$href = href
-    Vue.prototype.$ajax = fetch;
+    Vue.prototype.$ajax = fetch
+    Vue.prototype.$onBridgeReady = onBridgeReady
+
   }
 })
 

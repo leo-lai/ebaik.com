@@ -30,12 +30,12 @@
     </div>
 
     <div class="l-margin l-radius l-bg-white">
-      <div class="l-order-item" v-for="item in 1">
+      <div class="l-order-item" v-for="item in 1" :key="item">
         <div class="_hd l-flex-hc">
           <span>商品信息</span>
         </div>
         <div class="_bd">
-          <div class="_goods l-flex-hc" v-for="item in 2">
+          <div class="_goods l-flex-hc" v-for="item in 2" :key="item">
             <div class="_thumb" :style="{backgroundImage: 'url(' + require('../assets/images/temp-001.jpg') +')' }"></div>
             <div class="l-rest">
               <p class="l-txt-wrap2">商品名称迪斯科浪费的时刻是犯法的事商品名称迪斯科浪费的时刻是犯法的事商品名称迪斯科浪费的时刻是犯法的事商品名称迪斯科浪费的时刻是犯法的事</p>

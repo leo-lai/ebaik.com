@@ -76,6 +76,11 @@ const store = new Vuex.Store({
         let openId = storage.session.get('openId')
         let getInfo = function() {
           return fetch.json('/sys-authcenter/user/findCustomerInfo', { organId, openId }).then(({data}) => {
+            if (data.customer) {
+              data.customer.balance = Number((data.customer.balance / 100).toFixed(2))
+              data.customer.giveIntegral = Number((data.customer.giveIntegral / 100).toFixed(2))
+              data.customer.total = (data.customer.balance + data.customer.giveIntegral)
+            }
             commit('setState', { name: 'userInfo', value: data.customer })
             return data.customer
           })
