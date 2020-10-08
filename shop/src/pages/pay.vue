@@ -158,9 +158,9 @@ export default {
         })
       }else if(this.payWays.value === 'wallet'){
         this.$api.loading.show()
-        this.$ajax.post('/sys-machinepurchase/order/integralShipment', {
+        this.$ajax.json('/sys-machinepurchase/order/integralShipment', {
           orderId: this.orderInfo.orderId,
-          openid: this.openId,
+          openId: this.openId,
           id: this.userInfo.id
         }).then(({data}) => {
           if(data.resCode == 0) {
