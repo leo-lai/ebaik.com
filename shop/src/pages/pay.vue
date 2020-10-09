@@ -130,7 +130,7 @@ export default {
           orderId: this.orderInfo.orderId,
           openid: this.openId
         }).then(({ data }) => {
-          if(data.appId) {
+          if(data.code === 0 && data.appId) {
             let that = this
             let payConfig = {
               'appId': data.appId,          // 公众号名称，由商户传入
@@ -151,7 +151,7 @@ export default {
               })
             })
           }else{
-            this.$api.alert('支付失败')
+            this.$api.alert(data.msg || '支付失败')
           }
         }).finally(() => {
           this.$api.loading.hide()

@@ -82,7 +82,7 @@ router.beforeEach((to, from, next) => {
     }
 
     if (!openId) { // 微信页面授权
-      let redirectUrl = encodeURIComponent(utils.url.getFullPath('.') + `?#${to.path}`)
+      let redirectUrl = encodeURIComponent(utils.url.getFullPath('.') + `?#${to.fullPath}`)
       let href = fetch.baseURL + `/sys-machinepurchase/recharge/getOpenid?organId=${organId}&redirectUrl=${redirectUrl}`
       location.replace(href)
 
