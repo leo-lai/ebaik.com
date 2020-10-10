@@ -223,13 +223,13 @@ export default {
     this.pageInit()
     this.$eventHub.$on('pageInit', this.pageInit)
 
-    let hours = new Date().getHours()
-    if(hours < 8 || hours > 23){
-      this.$vux.alert.show({
-        title: '打样提醒',
-        content: '不好意思，本店送货时间为：08:00 -24:00。现在不能为您提供送货服务，请选择自动售货或电商服务。或者看看宜百客其它店铺。'
-      })  
-    }
+    // let hours = new Date().getHours()
+    // if(hours < 8 || hours > 23){
+    //   this.$vux.alert.show({
+    //     title: '打样提醒',
+    //     content: '不好意思，本店送货时间为：08:00 -24:00。现在不能为您提供送货服务，请选择自动售货或电商服务。或者看看宜百客其它店铺。'
+    //   })  
+    // }
   }
 }
 </script>

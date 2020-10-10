@@ -144,7 +144,7 @@ export default {
               WeixinJSBridge.invoke('getBrandWCPayRequest', payConfig, function (res) {
                 // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
                 if (res.err_msg.indexOf('get_brand_wcpay_request:ok') > -1) { 
-                  this.$router.replace('/pay/result')
+                  that.$router.replace('/pay/result')
                 } else if(res.err_msg.indexOf('cancel') === -1){
                   that.$api.alert(res.err_msg)
                 }
