@@ -651,7 +651,7 @@ export let utils = {
     return !isNaN(parseFloat(value)) && isFinite(value);
   },
   setTitle(title) {
-    document.title = title || "微信浏览器";
+    document.title = title || "盈利云";
     // 判断是否为ios设备的微信浏览器，加载iframe来刷新title
     if (device.isWechat && device.isIphone) {
       let iframe = document.createElement("iframe");

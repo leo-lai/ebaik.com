@@ -254,7 +254,7 @@ export default {
 .weui-btn_plain-default{border-color: rgba(0, 0, 0, 0.1) !important;}
 ._l-btn_mini{line-height: 2 ; padding: 0 15px; font-size: 12px;}
 .weui-btn_mini{ ._l-btn_mini() !important;}
-
+.weui-btn{ overflow: unset !important; }
 .weui-btn[round]{border-radius: 99px !important;}
 .weui-btn_plain-primary{
   color:  @theme-color !important;

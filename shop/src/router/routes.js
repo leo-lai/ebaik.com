@@ -37,7 +37,7 @@ const page404 = () => import('../pages/404').then(m => m.default)
 const routes = [
   {
     path: '/',
-    // redirect: '/me',
+    redirect: '/me',
     name: 'home',
     component: home,
     meta: {

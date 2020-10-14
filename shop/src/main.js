@@ -112,6 +112,18 @@ Vue.use({
       }
     }
 
+    const closeWindow = function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+        WeixinJSBridge.call('closeWindow')
+      } else if (ua.indexOf('alipay') != -1) {
+        AlipayJSBridge.call('closeWebview')
+      } else {
+        history.back()
+      }
+      return false
+    }
+
     // 添加实例方法
     Vue.prototype.$config = config      // 设备检测
     Vue.prototype.$device = device      // 设备检测
@@ -125,6 +137,7 @@ Vue.use({
     Vue.prototype.$href = href
     Vue.prototype.$ajax = fetch
     Vue.prototype.$onBridgeReady = onBridgeReady
+    Vue.prototype.$closeWindow = closeWindow
 
   }
 })

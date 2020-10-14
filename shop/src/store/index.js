@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { storage } from '@/assets/utils'
+import { utils, storage } from '@/assets/utils'
 import { fetch } from '@/api'
 
 Vue.use(Vuex)
@@ -77,18 +77,21 @@ const store = new Vuex.Store({
         let getInfo = function() {
           return fetch.json('/sys-authcenter/user/findCustomerInfo', { organId, openId }).then(({data}) => {
             if (data.customer) {
+              data.customer.total = Number(data.customer.balance) + Number(data.customer.giveIntegral)
               data.customer.balance = Number((data.customer.balance / 100).toFixed(2))
               data.customer.giveIntegral = Number((data.customer.giveIntegral / 100).toFixed(2))
-              data.customer.total = (data.customer.balance + data.customer.giveIntegral)
+              if (data.customer.organName) {
+                utils.setTitle(data.customer.organName)
+              }
             }
             commit('setState', { name: 'userInfo', value: data.customer })
             return data.customer
           })
         }
         getInfo().then(userInfo => {
-          if (userInfo) { // 如果没有查询到会员信息
+          if (userInfo) {
             resolve(userInfo)
-          }else{ // 那就新增会员
+          } else { // 如果没有查询到会员信息，那就新增会员
             fetch.json('/sys-authcenter/user/addStoredCustomer', { 
               organId, 
               wxopenId: openId 

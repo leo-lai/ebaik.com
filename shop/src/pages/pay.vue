@@ -1,7 +1,7 @@
 <template>
   <view-box>
     <header id="page-view-header">
-      <x-header :left-options="{backText: ''}">
+      <x-header :left-options="{backText: '', showBack: showBack}">
         <span>{{$route.meta.title}}</span>
       </x-header>
     </header>
@@ -57,7 +57,7 @@
       <div class="_inner">
         <div class="l-flex-hc">
           <div class="_price">
-            应付金额：
+            应付金额:
             <span class="l-rmb l-fs-l l-txt-theme">{{orderInfo.orderAmountTotalStr}}</span>  
           </div>
           <div class="l-rest"></div>
@@ -77,6 +77,7 @@ export default {
   components: { Radio },
   data () {
     return {
+      showBack: true,
       payWays: {
         disabled: false,
         value: 'wallet',
@@ -164,7 +165,7 @@ export default {
           id: this.userInfo.id
         }).then(({data}) => {
           if(data.resCode == 0) {
-            this.$router.replace('/pay/result')
+            this.$router.replace('/pay/result?from=' + this.from)
           }else{
             this.$api.alert(data.resMsg)
           }
@@ -175,9 +176,15 @@ export default {
     }
   },
   mounted() {
+    let args = this.$utils.url.getArgs()
     this.organId = this.$storage.session.get('organId')
     this.openId = this.$storage.session.get('openId')
-    this.orderId = this.$route.query.orderId || this.$utils.url.getArgs().orderId
+    this.orderId = this.$route.query.orderId || args.orderId
+    this.from = this.$route.query.from || args.from
+
+    if(this.from === 'machine') {
+      this.showBack = false
+    }
     this.$store.dispatch('getUserInfo').then(userInfo => {
       this.userInfo = userInfo || {}
       this.getOrderInfo()
