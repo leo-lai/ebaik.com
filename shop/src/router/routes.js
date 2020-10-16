@@ -258,7 +258,7 @@ const routes = [
     name: 'wallet-bill',
     component: walletBill,
     meta: {
-      title: '钱包明细'
+      title: '消费记录'
     }
   },
   {

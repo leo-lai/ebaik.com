@@ -154,6 +154,11 @@ Vue.filter('Wan', function (value) {
   if (!value) return ''
   return (value / 10000).toFixed(2)
 })
+// 元
+Vue.filter('Yuan', function (value) {
+  if (!value) return ''
+  return Number((value / 100).toFixed(2))
+})
 
 /* eslint-disable no-new */
 import App from './App'

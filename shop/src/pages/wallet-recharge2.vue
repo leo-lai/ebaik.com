@@ -21,11 +21,11 @@
       </div>
       <div class="l-user-other l-flex-hc">
         <div class="l-rest l-txt-center _redpack">
-          <b>{{userInfo.balance}}</b>
+          <b class="l-rmb">{{userInfo.balance | Yuan}}</b>
           <p>储值金额</p>
         </div>
         <div class="l-rest l-txt-center _redpack">
-          <b>{{userInfo.giveIntegral}}</b>
+          <b class="l-rmb">{{userInfo.giveIntegral | Yuan}}</b>
           <p>礼券</p>
         </div>
         <div class="l-rest l-txt-center _redpack">

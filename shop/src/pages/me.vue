@@ -49,11 +49,11 @@
 
       <div class="l-user-other l-flex-hc">
         <div class="l-rest l-txt-center _redpack">
-          <b>{{userInfo.balance}}</b>
+          <b class="l-rmb">{{userInfo.balance | Yuan}}</b>
           <p>储值金额</p>
         </div>
         <div class="l-rest l-txt-center _redpack">
-          <b>{{userInfo.giveIntegral}}</b>
+          <b class="l-rmb">{{userInfo.giveIntegral | Yuan}}</b>
           <p>礼券</p>
         </div>
         <div class="l-rest l-txt-center _redpack">
@@ -66,7 +66,7 @@
           <cell title="充值" link="/wallet/recharge2">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
           </cell>
-          <cell title="消费记录" is-link>
+          <cell title="消费记录" link="/wallet/bill">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-021.png">
           </cell>
 

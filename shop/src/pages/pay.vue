@@ -21,7 +21,13 @@
               </p> -->
               <p class="l-margin-t-s">
                 <span class="l-fr l-txt-gray">x{{item.number}}</span>
-                <span class="l-txt-theme l-rmb">{{item.priceStr}}</span>
+                <template v-if="payWays.value === 'wallet' && userInfo.discount < 100">
+                  <span class="l-margin-r-s l-txt-theme l-rmb">{{item.discountPrice | Yuan}}</span>
+                  <span class="l-txt-gray l-txt-line">原价 <i class="l-rmb">{{item.price | Yuan}}</i></span>
+                </template>
+                <template v-else>
+                  <span class="l-margin-r-s l-txt-theme l-rmb">{{item.price | Yuan}}</span>
+                </template>
               </p>
             </div>
           </div>
@@ -35,21 +41,26 @@
           <img :src="props.icon" class="vux-radio-icon">
           <span class="vux-radio-label">{{props.label}}</span>
           <span class="l-txt-gray l-fs-s" v-if="payWays.list[props.index].key === 'wallet'">
-            &ensp;余额: ￥{{userInfo.balance}}
-            &ensp;礼券: ￥{{userInfo.giveIntegral}}
+            &ensp;余额: <i class="l-rmb">{{userInfo.balance | Yuan}}</i>
+            &ensp;礼券: <i class="l-rmb">{{userInfo.giveIntegral | Yuan}}</i>
           </span>
+          <!-- <div class="l-txt-gray l-fs-s l-wallet-info" v-if="payWays.list[props.index].key === 'wallet'">
+            &ensp;余额: <i class="l-rmb">{{userInfo.balance | Yuan}}</i>
+            &ensp;礼券: <i class="l-rmb">{{userInfo.giveIntegral | Yuan}}</i>
+            &ensp;折扣: {{userInfo.discount}} %
+          </div> -->
         </template>
       </radio>
     </group>
 
     <div class="l-margin l-radius l-bg-white">
       <div class="l-padding">
-        <h4><span class="l-fr l-rmb">{{orderInfo.amountStr}}</span>商品金额</h4>
-        <!-- <div class="l-txt-gray l-fs-s">
-          <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>买一送一</p>
-          <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>新注册用户</p>
-          <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>使用红包</p>
-        </div> -->
+        <h4><span class="l-fr l-rmb">{{orderInfo.orderAmountTotal | Yuan}}</span>商品金额</h4>
+        <div v-if="payWays.value === 'wallet'" class="l-txt-gray l-fs-s">
+          <p v-if="orderInfo.discountDiff > 0"><span class="l-fr">- <i class="l-rmb">{{orderInfo.discountDiff | Yuan}}</i></span>会员折扣优惠</p>
+          <!-- <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>新注册用户</p> -->
+          <!-- <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>使用红包</p> -->
+        </div>
       </div>
     </div>
 
@@ -58,7 +69,8 @@
         <div class="l-flex-hc">
           <div class="_price">
             应付金额:
-            <span class="l-rmb l-fs-l l-txt-theme">{{orderInfo.orderAmountTotalStr}}</span>  
+            <span v-if="payWays.value === 'wallet' && userInfo.discount < 100" class="l-rmb l-fs-l l-txt-theme">{{(orderInfo.orderAmountTotal - orderInfo.discountDiff) | Yuan}}</span>  
+            <span v-else class="l-rmb l-fs-l l-txt-theme">{{orderInfo.orderAmountTotal | Yuan}}</span>  
           </div>
           <div class="l-rest"></div>
           <x-button class="_btn" type="primary" @click.native="submitPay">立即支付</x-button>
@@ -108,18 +120,21 @@ export default {
     getOrderInfo() {
       this.$api.loading.show()
       this.$ajax.get('/sys-machineorder/order/get/' + this.orderId).then(({data}) => {
-        data.order.orderAmountTotalStr = (data.order.orderAmountTotal / 100).toFixed(2)
-        data.order.amountStr = (data.order.amount / 100).toFixed(2)
-        this.orderInfo = data.order
+        let discountAmount = 0
+        let discountPercent = this.userInfo.discount / 100
         this.goodsList = data.orderDetail.map(item => {
-          item.priceStr = (item.price / 100).toFixed(2)
           item.goodsImg = item.goodsImg || goodsImg
+          item.discountPrice = item.price * discountPercent
+          discountAmount += item.discountPrice
           return item
         })
         if(data.order.orderAmountTotal > this.userInfo.total){
           this.payWays.disabled = true
           this.payWays.value = 'wxpay'
         }
+
+        data.order.discountDiff = data.order.orderAmountTotal - discountAmount
+        this.orderInfo = data.order
       }).finally(() => {
         this.$api.loading.hide()
       })
@@ -186,7 +201,9 @@ export default {
       this.showBack = false
     }
     this.$store.dispatch('getUserInfo').then(userInfo => {
-      this.userInfo = userInfo || {}
+      if(userInfo) {
+        this.userInfo = userInfo
+      }
       this.getOrderInfo()
     })
   }
@@ -194,6 +211,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.l-wallet-info{ margin-left: 26.5px; }
+.l-txt-line{ text-decoration: line-through; }
 .l-order-bottom{
   ._tip{background-color: #fff; padding: 5px 15px; font-size: 12px;}
   ._inner{position: fixed; bottom: 0; left: 0; right: 0;  background-color: #eee;}

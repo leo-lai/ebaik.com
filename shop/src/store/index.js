@@ -78,8 +78,6 @@ const store = new Vuex.Store({
           return fetch.json('/sys-authcenter/user/findCustomerInfo', { organId, openId }).then(({data}) => {
             if (data.customer) {
               data.customer.total = Number(data.customer.balance) + Number(data.customer.giveIntegral)
-              data.customer.balance = Number((data.customer.balance / 100).toFixed(2))
-              data.customer.giveIntegral = Number((data.customer.giveIntegral / 100).toFixed(2))
               if (data.customer.organName) {
                 utils.setTitle(data.customer.organName)
               }
