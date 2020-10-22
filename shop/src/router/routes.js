@@ -33,6 +33,11 @@ const pay = () => import('../pages/pay').then(m => m.default)
 const payResult = () => import('../pages/pay-result').then(m => m.default)
 const page404 = () => import('../pages/404').then(m => m.default)
 
+const qcsyRecharge1 = () => import('../pages/qcsy/recharge-1').then(m => m.default)
+const qcsyRecharge2 = () => import('../pages/qcsy/recharge-2').then(m => m.default)
+const qcsyRechargeRule = () => import('../pages/qcsy/recharge-rule').then(m => m.default)
+const qcsyMe = () => import('../pages/qcsy/me').then(m => m.default)
+
 
 const routes = [
   {
@@ -144,6 +149,15 @@ const routes = [
     path: '/me',
     name: 'me',
     component: me,
+    meta: {
+      title: '个人中心',
+      home: true
+    }
+  },
+  {
+    path: '/qcsy/me',
+    name: 'qcsy-me',
+    component: qcsyMe,
     meta: {
       title: '个人中心',
       home: true
@@ -281,6 +295,30 @@ const routes = [
     path: '/wallet/recharge2',
     name: 'wallet-recharge2',
     component: walletRecharge2,
+    meta: {
+      title: '充值'
+    }
+  },
+  {
+    path: '/qcsy/recharge1',
+    name: 'qcsy-recharge1',
+    component: qcsyRecharge1,
+    meta: {
+      title: '充值有礼'
+    }
+  },
+  {
+    path: '/qcsy/recharge/rule',
+    name: 'qcsy-recharge-rule',
+    component: qcsyRechargeRule,
+    meta: {
+      title: '活动规则'
+    }
+  },
+  {
+    path: '/qcsy/recharge2',
+    name: 'qcsy-recharge2',
+    component: qcsyRecharge2,
     meta: {
       title: '充值'
     }
