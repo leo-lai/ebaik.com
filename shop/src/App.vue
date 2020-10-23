@@ -239,6 +239,12 @@ export default {
 @import '~vux/src/styles/1px.less';
 @import './assets/base.less';
 @theme-color: #af1459;
+.weui-grid__label{ font-size: 13px !important; }
+.weui-grid__icon{
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 auto 10px !important;
+}
 .l-no-border .weui-cells{
   &::before{ visibility: hidden; }
   &::after{ visibility: hidden; }

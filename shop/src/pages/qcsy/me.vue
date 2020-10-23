@@ -14,32 +14,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="l-user-other l-flex-hc">
-        <div class="_grade" @click="$router.push('/grade')">
-          <p class="l-fs-xs">还需850个积分升级</p>
-          <h3 class="l-margin-t-s">普通会员</h3>
-        </div>
-        <div class="l-rest">
-          <div class="_line vux-1px-l"></div>  
-        </div>
-        <div class="_qrcode">
-          <img src="../assets/images/temp-002.jpg" alt="">
-        </div>
-        <div class="l-rest">
-          <div class="_line vux-1px-l"></div>  
-        </div>
-        <div class="_score" @click="$router.push('/grade')">
-          <b>0分</b>
-          <p>积分</p>
-        </div>
-        <div class="l-rest">
-          <div class="_line vux-1px-l"></div>  
-        </div>
-        <div class="_redpack" @click="$router.push('/redpack')">
-          <b>0个</b>
-          <p>红包</p>
-        </div>
-      </div> -->
 
       <div class="l-user-other l-flex-hc">
         <div class="l-rest l-txt-center _redpack">
@@ -63,34 +37,56 @@
           <cell title="消费记录" link="/wallet/bill">
             <img class="weui-cell__icon" slot="icon" src="../../assets/qcsy/2.png">
           </cell>
-
-          <!-- <cell title="我的钱包" link="/wallet">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
-          </cell>
-          <cell title="我的订单" link="/order/list">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-021.png">
-          </cell>
-          <cell title="地址管理" link="/address">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-022.png">
-          </cell>
-          <cell title="我的收藏" link="/favorite">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-023.png">
-          </cell>
-          <cell title="积分商城" is-link>
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-024.png">
-          </cell>
-          <cell title="我要加盟" link="/join">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-025.png">
-          </cell>
-          <cell title="意见反馈" link="/feedback">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
-          </cell>
-          <cell title="系统设置" link="/setting">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-027.png">
-          </cell> -->
         </group>
       </div>
+
+      <div class="l-box-1">
+        <div class="_hd l-flex-hc">
+          <b>我的订单</b>
+          <span class="l-rest"></span>
+          <span class="l-fs-xs l-txt-gray l-fr">查看全部订单</span>
+          <x-icon type="ios-arrow-right" class="l-txt-gray" size="16"></x-icon>
+        </div>
+        <div style="margin-bottom: -1px;">
+          <grid :show-lr-borders="false" :show-vertical-dividers="false" :cols="4">
+            <grid-item link="" label="待发货" @on-item-click="onItemClick">
+              <img slot="icon" src="../../assets/qcsy/3.png">
+            </grid-item>
+            <grid-item link="" label="待收货" @on-item-click="onItemClick">
+              <img slot="icon" src="../../assets/qcsy/4.png">
+            </grid-item>
+            <grid-item link="" label="待评价" @on-item-click="onItemClick">
+              <img slot="icon" src="../../assets/qcsy/5.png">
+            </grid-item>
+          </grid>
+        </div>
+      </div>
+
+      <div class="l-box-1">
+        <div class="_hd l-flex-hc">
+          <b>我的服务</b>
+          <span class="l-rest"></span>
+        </div>
+        <div style="margin-bottom: -1px;">
+          <grid :show-lr-borders="false" :show-vertical-dividers="false">
+            <grid-item link="" label="优惠券" @on-item-click="onItemClick">
+              <img slot="icon" src="../../assets/qcsy/7.png">
+            </grid-item>
+            <grid-item link="" label="推荐有礼" @on-item-click="onItemClick">
+              <img slot="icon" src="../../assets/qcsy/8.png">
+            </grid-item>
+            <grid-item link="" label="优惠活动" @on-item-click="onItemClick">
+              <img slot="icon" src="../../assets/qcsy/9.png">
+            </grid-item>
+            <grid-item link="" label="客服二维码" @on-item-click="onItemClick">
+              <img slot="icon" src="../../assets/qcsy/10.png">
+            </grid-item>
+          </grid>
+        </div>
+      </div>
     </div>
+
+    
 
     <div v-if="!organId" class="l-app-disabled l-flex-vhc">
       <div class="l-txt-center" style="color: #eee;">
@@ -102,10 +98,13 @@
 </template>
 
 <script>
+import { Grid, GridItem } from 'vux'
 
 export default {
   name: 'me',
   components: {
+    Grid,
+    GridItem
   },
   data () {
     return {
@@ -115,6 +114,9 @@ export default {
     }
   },
   methods: {
+    onItemClick() {
+      this.$api.toast('开发中...')
+    }
   },
   mounted() {
     this.organId = this.$storage.session.get('organId')
@@ -128,6 +130,13 @@ export default {
 </script>
 
 <style lang="less">
+.l-box-1{
+  background-color: #fff; margin: 15px; border-radius: 5px; overflow: hidden;
+  ._hd{  
+    background: url('../../assets/qcsy/6.png') no-repeat 5px 0px;
+    background-size: 30px; padding: 10px 10px;
+  }
+}
 .l-app-disabled{ 
   position: fixed; top:0; left:0; z-index: 1000; 
   width: 100%; height: 100%; 

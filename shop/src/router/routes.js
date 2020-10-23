@@ -42,7 +42,7 @@ const qcsyMe = () => import('../pages/qcsy/me').then(m => m.default)
 const routes = [
   {
     path: '/',
-    redirect: '/me',
+    redirect: '/qcsy/me',
     name: 'home',
     component: home,
     meta: {
