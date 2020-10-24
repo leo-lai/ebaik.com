@@ -37,6 +37,7 @@ const qcsyRecharge1 = () => import('../pages/qcsy/recharge-1').then(m => m.defau
 const qcsyRecharge2 = () => import('../pages/qcsy/recharge-2').then(m => m.default)
 const qcsyRechargeRule = () => import('../pages/qcsy/recharge-rule').then(m => m.default)
 const qcsyMe = () => import('../pages/qcsy/me').then(m => m.default)
+const qcsyHome = () => import('../pages/qcsy/home').then(m => m.default)
 
 
 const routes = [
@@ -160,6 +161,15 @@ const routes = [
     component: qcsyMe,
     meta: {
       title: '个人中心',
+      home: true
+    }
+  },
+  {
+    path: '/qcsy/home',
+    name: 'qcsy-home',
+    component: qcsyHome,
+    meta: {
+      title: '商城',
       home: true
     }
   },

@@ -44,7 +44,7 @@
         <div class="_hd l-flex-hc">
           <b>我的订单</b>
           <span class="l-rest"></span>
-          <span class="l-fs-xs l-txt-gray l-fr">查看全部订单</span>
+          <span class="l-fs-xs l-txt-gray" @click="onItemClick">查看全部订单</span>
           <x-icon type="ios-arrow-right" class="l-txt-gray" size="16"></x-icon>
         </div>
         <div style="margin-bottom: -1px;">
@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     onItemClick() {
-      this.$api.toast('开发中...')
+      this.$api.toast('功能开发中', 'text')
     }
   },
   mounted() {

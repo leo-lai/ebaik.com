@@ -94,6 +94,7 @@ const showToast = (text = '', type = 'success') => {
         text,
         time: 3000,
         isShowMask: true,
+        position: 'middle',
         onHide: resolve
       })
     } else {
