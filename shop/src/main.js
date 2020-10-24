@@ -156,7 +156,7 @@ Vue.filter('Wan', function (value) {
 })
 // 元
 Vue.filter('Yuan', function (value) {
-  if (!value) return ''
+  if (!value) return 0
   return Number((value / 100).toFixed(2))
 })
 
