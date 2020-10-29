@@ -4,13 +4,13 @@
       <span class="l-rule-btn" @click="$router.push('/qcsy/recharge/rule')">活动规则</span>
     </p>
     <div class="l-block-img l-margin-b">
-      <img src="../../assets/qcsy/img-05.png" alt="立即充值" @click="$router.push('/qcsy/recharge2')">
+      <img src="../../assets/qcsy/img-22.png" alt="立即充值" @click="$router.push('/qcsy/recharge2')">
     </div>
 
     <div class="l-margin">
       <div class="l-recharge-item" v-for="item in list.data" :key="item.sid" @click="submitRecharge(item)">
-        <img src="../../assets/qcsy/img-03.png" alt="">
-        <p>充值<b>{{item.rechargeAmount}}</b>元抵用<b>{{item.total}}</b>元</p>
+        <img :src="item.schemeImg" alt="">
+        <!-- <p>充值<b>{{item.rechargeAmount}}</b>元抵用<b>{{item.total}}</b>元</p> -->
       </div>
     </div>
 
@@ -152,7 +152,7 @@ export default {
 
 <style lang="less" scoped>
 .l-page-bg{
-  background: #1388c5 url(../../assets/qcsy/img-01.png) no-repeat top;
+  background: #ff6060 url(../../assets/qcsy/img-21.jpg) no-repeat top;
   background-size: 100%;
 }
 
@@ -164,7 +164,7 @@ export default {
   display: inline-block;
   border-radius: 30px 0 0 30px;
   padding: 7px 20px;
-  background-color: rgba(19, 136, 197, 0.8);
+  background-color: rgba(255, 255, 255, 0.3);
   color: #fff;
   vertical-align: top;
 }

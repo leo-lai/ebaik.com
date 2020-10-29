@@ -21,7 +21,7 @@
               </p> -->
               <p class="l-margin-t-s">
                 <span class="l-fr l-txt-gray">x{{item.number}}</span>
-                <template v-if="payWays.value === 'wxpay' && userInfo.discount < 100">
+                <template v-if="payWays.value === 'wallet' && userInfo.discount < 100">
                   <span class="l-margin-r-s l-txt-theme l-rmb">{{item.discountPrice | Yuan}}</span>
                   <span class="l-txt-gray l-txt-line">原价 <i class="l-rmb">{{item.price | Yuan}}</i></span>
                 </template>
@@ -56,7 +56,7 @@
     <div class="l-margin l-radius l-bg-white">
       <div class="l-padding">
         <h4><span class="l-fr l-rmb">{{orderInfo.orderAmountTotal | Yuan}}</span>商品金额</h4>
-        <div v-if="payWays.value === 'wxpay'" class="l-txt-gray l-fs-s">
+        <div v-if="payWays.value === 'wallet'" class="l-txt-gray l-fs-s">
           <p v-if="orderInfo.discountDiff > 0"><span class="l-fr">- <i class="l-rmb">{{orderInfo.discountDiff | Yuan}}</i></span>会员折扣优惠</p>
           <!-- <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>新注册用户</p> -->
           <!-- <p><span class="l-fr">- <i class="l-rmb">10.00</i></span>使用红包</p> -->
@@ -69,7 +69,7 @@
         <div class="l-flex-hc">
           <div class="_price">
             应付金额:
-            <span v-if="payWays.value === 'wxpay' && userInfo.discount < 100" class="l-rmb l-fs-l l-txt-theme">{{(orderInfo.orderAmountTotal - orderInfo.discountDiff) | Yuan}}</span>  
+            <span v-if="payWays.value === 'wallet' && userInfo.discount < 100" class="l-rmb l-fs-l l-txt-theme">{{(orderInfo.orderAmountTotal - orderInfo.discountDiff) | Yuan}}</span>  
             <span v-else class="l-rmb l-fs-l l-txt-theme">{{orderInfo.orderAmountTotal | Yuan}}</span>  
           </div>
           <div class="l-rest"></div>
@@ -119,7 +119,7 @@ export default {
   methods: {
     getOrderInfo() {
       this.$api.loading.show()
-      this.$ajax.get('/sys-machineorder/order/get/' + this.orderId).then(({data}) => {
+      this.$ajax.get('/sys-machinepurchase/order/get/' + this.orderId).then(({data}) => {
         let discountAmount = 0
         let discountPercent = this.userInfo.discount / 100
         this.goodsList = data.orderDetail.map(item => {
@@ -227,7 +227,7 @@ export default {
   ._hd{ padding: 10px 15px;}
   ._goods{
     margin: 10px 15px; font-size: 12px;
-    ._thumb{width: 80px; height: 80px; background:#fff 50% 50% no-repeat; background-size: 80%; margin-right: 10px;}
+    ._thumb{width: 60px; height: 60px; background:#fff 50% 50% no-repeat; background-size: 80%; margin-right: 10px;}
   }
   ._goods::last-child{margin-bottom: 0;}
   ._total{padding: 10px 15px;}

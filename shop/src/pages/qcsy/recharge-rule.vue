@@ -1,7 +1,7 @@
 <template>
   <view-box class="no-header" style="background-color: #ffeed4;">
     <div class="l-block-img l-margin-b">
-      <img src="../../assets/qcsy/img-06.jpg" alt="新人超级礼包">
+      <img src="../../assets/qcsy/img-23.jpg" alt="新人超级礼包">
     </div>
 
     <div class="l-block-img l-margin-b">
@@ -10,11 +10,12 @@
 
     <br><br>
     <div class="l-block-img l-margin-b">
-      <img style="width: 50%;" src="../../assets/qcsy/img-08.png" alt="活动规则">
+      <img style="width: 45%;" src="../../assets/qcsy/img-08.png" alt="活动规则">
     </div>
     <div style="width: 90%; margin: auto;">
-      <p class="l-p">活动时间：2020年9月1日00:00-2020年10月31日23:59</p>
-      <p class="l-p">活动期间，新用户支付5元后，可获得超值福袋。福袋包括5元通用代金券*5张；满100减55元东北香米满减券*1张；100元饮水机系列产品代金券*1张。</p>
+      <p class="l-p">活动期间，关注“谦诚水站”公众号完成注册，即可参与充值活动</p>
+      <p class="l-p">充值所获抵用券可直接在谦诚水站自助售卖机及公众号商城上抵扣使用，购买任意商品时，系统自动抵扣</p>
+      <p class="l-p">充值所获抵用券与充值金额等同，使用任意充值活动所得抵用券消费后，该笔充值金额不予退款</p>
       <br><br>
     </div>
   </view-box>
@@ -167,7 +168,7 @@ export default {
 .l-p{ 
   font-size: 13px;
   padding-left: 11px;
-  position: relative; margin-bottom: 5px;
+  position: relative; margin-bottom: 10px;
   &::before{ content: '*'; position: absolute; left: 0; }
 }
 

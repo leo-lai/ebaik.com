@@ -267,7 +267,7 @@ export default {
   border: 1px solid @theme-color !important;
 }
 .weui-cells{ font-size: 16px !important; }
-.weui-cell__icon{display: block; width: 25px; height: 25px; margin-right: 10px;}
+.weui-cell__icon{display: block; width: 20px; height: 20px; margin-right: 10px;}
 .vux-swipeout-button{vertical-align: top;}
 .l-baseline{
   span{display: inline-block; vertical-align: middle;}

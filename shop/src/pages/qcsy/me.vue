@@ -24,18 +24,18 @@
           <b class="l-rmb">{{userInfo.giveIntegral | Yuan}}</b>
           <p>礼券</p>
         </div>
-        <div class="l-rest l-txt-center _redpack">
+        <!-- <div class="l-rest l-txt-center _redpack">
           <b>{{userInfo.discount}}%</b>
           <p>折扣</p>
-        </div>
+        </div> -->
       </div>
       <div class="l-bg-white l-margin-t">
         <group gutter="0">
           <cell title="充值" link="/qcsy/recharge2">
-            <img class="weui-cell__icon" slot="icon" src="../../assets/qcsy/1.png">
+            <img class="weui-cell__icon" slot="icon" src="../../assets/qcsy/18.png">
           </cell>
           <cell title="消费记录" link="/wallet/bill">
-            <img class="weui-cell__icon" slot="icon" src="../../assets/qcsy/2.png">
+            <img class="weui-cell__icon" slot="icon" src="../../assets/qcsy/19.png">
           </cell>
         </group>
       </div>
@@ -50,13 +50,13 @@
         <div style="margin-bottom: -1px;">
           <grid :show-lr-borders="false" :show-vertical-dividers="false" :cols="4">
             <grid-item link="" label="待发货" @on-item-click="onItemClick">
-              <img slot="icon" src="../../assets/qcsy/3.png">
+              <img slot="icon" src="../../assets/qcsy/21.png">
             </grid-item>
             <grid-item link="" label="待收货" @on-item-click="onItemClick">
-              <img slot="icon" src="../../assets/qcsy/4.png">
+              <img slot="icon" src="../../assets/qcsy/22.png">
             </grid-item>
             <grid-item link="" label="待评价" @on-item-click="onItemClick">
-              <img slot="icon" src="../../assets/qcsy/5.png">
+              <img slot="icon" src="../../assets/qcsy/23.png">
             </grid-item>
           </grid>
         </div>
@@ -133,8 +133,9 @@ export default {
 .l-box-1{
   background-color: #fff; margin: 15px; border-radius: 5px; overflow: hidden;
   ._hd{  
-    background: url('../../assets/qcsy/6.png') no-repeat 5px 0px;
+    background: url('../../assets/qcsy/20.png') no-repeat 5px 0px;
     background-size: 30px; padding: 10px 10px;
+    b{ color: #000; }
   }
 }
 .l-app-disabled{ 
@@ -144,11 +145,11 @@ export default {
 }
 
 .l-user-card{
-  background-image: linear-gradient(180deg, #0071bc, #18bdd8);
+  background: url('../../assets/qcsy/img-24.jpg') no-repeat; background-size: 100%;
   color: #fff; text-align: center; padding-bottom: 50px; padding-top: 46px;
   ._avatar{
-    position: relative; top: -35px; left: 50%; margin-left: -25px;
-    width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fec96b; 
+    position: relative; top: -35px; left: 15px;
+    width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ffffff; 
     background: no-repeat 50% 50%; background-size: cover;
   }
   ._nametel{margin: -20px 15px 0; text-align: center;}
@@ -167,7 +168,7 @@ export default {
     b{font-weight: 400; color: #1AAD19;}
   }
   ._redpack{
-    b{font-weight: 400; color: #ff6600; font-size: 17px;}
+    b{font-weight: 400; color: #ff4141; font-size: 17px;}
   }
 }
 </style>
