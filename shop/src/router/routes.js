@@ -140,7 +140,7 @@ const routes = [
   {
     path: '/tabbar/me',
     name: 'tabbar-me',
-    component: me,
+    component: qcsyMe,
     meta: {
       title: '个人中心',
       tabbar: true
@@ -149,7 +149,7 @@ const routes = [
   {
     path: '/me',
     name: 'me',
-    component: me,
+    component: qcsyMe,
     meta: {
       title: '个人中心',
       home: true

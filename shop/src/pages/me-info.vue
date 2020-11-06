@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .l-user-avatar{ width: 50px; height: 50px; background-color: #fff; border-radius: 50%; }
 </style>
 

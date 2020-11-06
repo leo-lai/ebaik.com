@@ -129,7 +129,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .l-box-1{
   background-color: #fff; margin: 15px; border-radius: 5px; overflow: hidden;
   ._hd{  

@@ -131,7 +131,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .l-app-disabled{ 
   position: fixed; top:0; left:0; z-index: 1000; 
   width: 100%; height: 100%; 
