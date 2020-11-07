@@ -65,9 +65,14 @@ export default {
         return this.$toptip('请填写收卡地址')
       }
 
+      let region = ''
       try {
-        formData.region = value2name(formData.region, ChinaAddressV4Data).replaceAll(' ', '')
+        region = value2name(formData.region, ChinaAddressV4Data)
+        region = region.replace(/\s/g, '')
       } catch (error) {
+        console.log(formData.region)
+        console.log(region)
+        console.log(error)
       }
 
       this.$api.loading.show()
