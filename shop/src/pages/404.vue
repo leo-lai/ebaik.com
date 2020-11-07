@@ -6,8 +6,9 @@
       </x-header>
     </header>
 
-    <div class="l-app-bg l-bg-white">
-      <h1 class="l-txt-center" style="padding: 60px 0; color: #ddd;">Page Not Found！</h1>
+    <div class="l-app-bg l-bg-white l-txt-center" style="color: #ddd;">
+      <h1 style="padding: 60px 0 20px;">Page Not Found！</h1>
+      <p>{{$route.query.err}}</p>
     </div>
   </view-box>
 </template>

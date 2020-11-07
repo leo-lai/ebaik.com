@@ -6,10 +6,10 @@ import routes from './routes'
 import { fetch } from '@/api'
 
 
+let fileIndex = location.pathname.lastIndexOf('/') + 1
+let filename = location.pathname.substr(fileIndex === -1 ? 0 : fileIndex)
 if (location.href.indexOf('?') === -1) {
-  let fileIndex = location.pathname.lastIndexOf('/') + 1
-  let filename = location.pathname.substr(fileIndex === -1 ? 0 : fileIndex)
-  window.location.replace(utils.url.getFullPath('.') + filename + '?')
+  window.location.replace(utils.url.getFullPath(filename) + '?')
 }
 
 Vue.use(Router)
@@ -79,12 +79,13 @@ storage.session.set('openId', openId)
 
 router.beforeEach((to, from, next) => {
   if (to.path.indexOf('404') === -1) {
-    // if (!organId) {
-    //   return next('/404')
-    // }
+    if (!organId) {
+      return next('/404?err=没有获取到organId')
+    }
 
     if (!openId) { // 微信页面授权
-      let redirectUrl = encodeURIComponent(utils.url.getFullPath('.') + `?#${to.fullPath}`)
+      
+      let redirectUrl = encodeURIComponent(utils.url.getFullPath(filename) + `?#${to.fullPath}`)
       let href = fetch.baseURL + `/sys-machinepurchase/recharge/getOpenid?organId=${organId}&redirectUrl=${redirectUrl}`
       location.replace(href)
 
