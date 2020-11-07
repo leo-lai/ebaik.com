@@ -19,7 +19,7 @@
       </group>
       <group title="收卡地址" label-width="80">
         <x-address class="l-txt-left" title="地区" placeholder="请选择地区" v-model="formData.region" :list="addressData"></x-address>
-        <x-textarea title="详细地址" placeholder="请填写详细地址" v-model="formData.address" :autosize="true">
+        <x-textarea title="详细地址" value-text-align="left" placeholder="请填写详细地址" :raw-value="true" v-model="formData.address" :autosize="true">
         </x-textarea>
       </group>
       <div class="l-margin">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { XAddress, ChinaAddressV4Data } from 'vux'
+import { XAddress, ChinaAddressV4Data, Value2nameFilter as value2name } from 'vux'
 export default {
   name: 'vip-apply',
   components: { XAddress },
@@ -65,14 +65,13 @@ export default {
         return this.$toptip('请填写收卡地址')
       }
 
-
       this.$api.loading.show()
       this.$ajax.json('/sys-mallcenter/mall/addCart', {
         organId: this.organId,
         openId: this.openId,
         phone: formData.phone,
         mname: formData.mname,
-        shippingAddress: formData.region + formData.address,
+        shippingAddress: value2name(formData.region, ChinaAddressV4Data).replaceAll(' ', '') + formData.address,
       }).then(({data}) => {
         if(data.resCode == 0) {
           this.$api.toast('申领成功')
