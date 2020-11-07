@@ -26,7 +26,7 @@ sync(store, router)
 import { 
   TransferDom, ConfigPlugin, BusPlugin, CellBox,
   DatetimePlugin, LoadingPlugin, ToastPlugin, AlertPlugin, ConfirmPlugin,
-  Icon, ViewBox, Group, GroupTitle, Cell, Sticky, XHeader, XInput, XButton, Divider
+  Icon, ViewBox, Group, GroupTitle, Cell, Sticky, XHeader, XInput, XTextarea, XButton, Divider
 } from 'vux'
 
 // plugins
@@ -50,6 +50,7 @@ Vue.component('sticky', Sticky)
 Vue.component('x-header', XHeader)
 Vue.component('x-button', XButton)
 Vue.component('x-input', XInput)
+Vue.component('x-textarea', XTextarea)
 Vue.component('divider', Divider)
 
 import { device, toptip, utils, storage } from './assets/utils'

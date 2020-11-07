@@ -239,6 +239,9 @@ export default {
 @import '~vux/src/styles/1px.less';
 @import './assets/base.less';
 @theme-color: #af1459;
+.vux-popup-picker-placeholder{ color: #757575 !important; }
+.vux-cell-value{ color: #555555 !important; }
+.l-txt-left .vux-popup-picker-select{ text-align: left !important; }
 .weui-grid__label{ font-size: 13px !important; }
 .weui-grid__icon{
   width: 20px !important;

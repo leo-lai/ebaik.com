@@ -69,6 +69,15 @@
           <cell title="消费记录" link="/wallet/bill">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-021.png">
           </cell>
+          <!-- <cell title="我要加盟" link="/join">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-025.png">
+          </cell>
+          <cell title="意见反馈" link="/feedback">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
+          </cell> -->
+          <cell title="申领会员卡" link="/vip/apply">
+            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-031.png">
+          </cell>
 
           <!-- <cell title="我的钱包" link="/wallet">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-020.png">
@@ -84,12 +93,6 @@
           </cell>
           <cell title="积分商城" is-link>
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-024.png">
-          </cell>
-          <cell title="我要加盟" link="/join">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-025.png">
-          </cell>
-          <cell title="意见反馈" link="/feedback">
-            <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-026.png">
           </cell>
           <cell title="系统设置" link="/setting">
             <img class="weui-cell__icon" slot="icon" src="../assets/images/icon-027.png">
