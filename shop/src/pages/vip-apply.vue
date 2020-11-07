@@ -65,16 +65,23 @@ export default {
         return this.$toptip('请填写收卡地址')
       }
 
+      try {
+        formData.region = value2name(formData.region, ChinaAddressV4Data).replaceAll(' ', '')
+      } catch (error) {
+      }
+
       this.$api.loading.show()
       this.$ajax.json('/sys-mallcenter/mall/addCart', {
         organId: this.organId,
         openId: this.openId,
         phone: formData.phone,
         mname: formData.mname,
-        shippingAddress: value2name(formData.region, ChinaAddressV4Data).replaceAll(' ', '') + formData.address,
+        shippingAddress: formData.region + formData.address,
       }).then(({data}) => {
         if(data.resCode == 0) {
-          this.$api.toast('申领成功')
+          this.$api.toast('申领成功').then(() => {
+            this.$router.back()
+          })
         }else{
           this.$api.alert(data.resMsg)
         }
