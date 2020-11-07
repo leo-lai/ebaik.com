@@ -20,9 +20,9 @@ for (let i in ifaces) {
 
 module.exports = {
   dev: {
-
+    index: 'dxxs.html',
     // Paths
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'static/dxxs',
     assetsPublicPath: '/shop/',
     proxyTable: {},
     // Various Dev Server settings
@@ -63,11 +63,11 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../dist/dxxs.html'),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'static/dxxs',
     assetsPublicPath: './',
 
     /**

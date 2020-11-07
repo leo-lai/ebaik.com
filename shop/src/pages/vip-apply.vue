@@ -71,7 +71,7 @@ export default {
         organId: this.organId,
         openId: this.openId,
         phone: formData.phone,
-        mname: formData.phone,
+        mname: formData.mname,
         shippingAddress: formData.region + formData.address,
       }).then(({data}) => {
         if(data.resCode == 0) {

@@ -44,7 +44,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: config.dev.index,
       template: 'index.html',
       inject: true
     }),
@@ -65,7 +65,7 @@ module.exports = new Promise((resolve, reject) => {
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [`Your application is running here: http://${config.dev.host}:${port}${config.dev.assetsPublicPath}`],
+          messages: [`Your application is running here: http://${config.dev.host}:${port}${config.dev.assetsPublicPath}${config.dev.index}`],
         },
         onErrors: config.dev.notifyOnErrors
         ? utils.createNotifierCallback()
